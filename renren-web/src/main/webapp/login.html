@@ -25,7 +25,6 @@
   <div class="login-logo">
     <b>人人权限系统</b>
   </div>
-  <!-- /.login-logo -->
   <div class="login-box-body">
       <p class="login-box-msg">管理员登录</p>
       <div v-if="error" class="alert alert-danger alert-dismissible">
@@ -47,23 +46,14 @@
         <img alt="如果看不清楚，请单击图片刷新！" class="pointer" :src="src" @click="refreshCode">
         &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" @click="refreshCode">点击刷新</a>
       </div>
-      
-      
       <div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-          </div>
-        </div>
-        <!-- /.col -->
-        <div class="col-xs-4">
+       <div class="col-sm-8">
+       </div>
+        <div class="col-sm-4">
           <button type="button" class="btn btn-primary btn-block btn-flat" @click="login">登录</button>
         </div>
-        <!-- /.col -->
       </div>
-    <!-- /.social-auth-links -->
-
   </div>
-  <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
 <script src="statics/libs/jquery.min.js"></script>
@@ -105,7 +95,6 @@ var vm = new Vue({
 					}else{
 						vm.error = true;
 						vm.errorMsg = result.msg;
-						
 						vm.refreshCode();
 					}
 				}
