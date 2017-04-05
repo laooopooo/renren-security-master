@@ -72,11 +72,11 @@ public class SysLoginController {
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 			subject.login(token);
 		}catch (UnknownAccountException e) {
-			return R.error(e.getMessage());
+			return R.error("找不到该用户");
 		}catch (IncorrectCredentialsException e) {
-			return R.error(e.getMessage());
+			return R.error("用户名或密码错误");
 		}catch (LockedAccountException e) {
-			return R.error(e.getMessage());
+			return R.error("账户被锁定");
 		}catch (AuthenticationException e) {
 			return R.error("账户验证失败");
 		}
