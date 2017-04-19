@@ -1,0 +1,15 @@
+io\renren\annotation\IgnoreAuth.class
+io\renren\api\ApiTestController.class
+io\renren\annotation\LoginUser.class
+io\renren\resolver\LoginUserHandlerMethodArgumentResolver.class
+io\renren\api\ApiRegisterController.class
+io\renren\entity\TokenEntity.class
+io\renren\interceptor\AuthorizationInterceptor.class
+io\renren\service\TokenService.class
+io\renren\dao\TokenDao.class
+io\renren\api\ApiLoginController.class
+io\renren\service\impl\UserServiceImpl.class
+io\renren\dao\UserDao.class
+io\renren\service\UserService.class
+io\renren\service\impl\TokenServiceImpl.class
+io\renren\entity\UserEntity.class

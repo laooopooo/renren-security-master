@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.personel.dao.StudentClassDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.personel.entity.StudentClassEntity" id="studentClassMap">
+        <result property="studentClassId" column="student_class_id"/>
+        <result property="lastUpdate" column="last_update"/>
+        <result property="studentId" column="student_id"/>
+        <result property="classId" column="class_id"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.renren.personel.entity.StudentClassEntity">
+		select * from c_student_class where student_class_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.renren.personel.entity.StudentClassEntity">
+		select * from c_student_class
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by student_class_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from c_student_class 
+	</select>
+	 
+	<insert id="save" parameterType="io.renren.personel.entity.StudentClassEntity" useGeneratedKeys="true" keyProperty="studentClassId">
+		insert into c_student_class
+		(
+			`last_update`, 
+			`student_id`, 
+			`class_id`
+		)
+		values
+		(
+			#{lastUpdate}, 
+			#{studentId}, 
+			#{classId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.renren.personel.entity.StudentClassEntity">
+		update c_student_class 
+		<set>
+			<if test="lastUpdate != null">`last_update` = #{lastUpdate}, </if>
+			<if test="studentId != null">`student_id` = #{studentId}, </if>
+			<if test="classId != null">`class_id` = #{classId}</if>
+		</set>
+		where student_class_id = #{studentClassId}
+	</update>
+	
+	<delete id="delete">
+		delete from c_student_class where student_class_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from c_student_class where student_class_id in 
+		<foreach item="studentClassId" collection="array" open="(" separator="," close=")">
+			#{studentClassId}
+		</foreach>
+	</delete>
+
+</mapper>

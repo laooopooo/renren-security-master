@@ -14,7 +14,7 @@
 
 	<tx:annotation-driven />
 	<context:property-placeholder location="classpath:db.properties" />
-	
+
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
 		<property name="url">
@@ -39,7 +39,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
 		<property name="slowSqlMillis" value="1000" />
 		<property name="logSlowSql" value="true" />
@@ -55,8 +55,10 @@
 		<property name="multiStatementAllow" value="true" />
 	</bean>
 
-	<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"></bean>
-	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+	<bean id="druid-stat-interceptor"
+		class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"></bean>
+	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut"
+		scope="prototype">
 		<property name="patterns">
 			<list>
 				<value>io.renren.controller.*</value>
@@ -65,7 +67,8 @@
 		</property>
 	</bean>
 	<aop:config>
-		<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut"/>
+		<aop:advisor advice-ref="druid-stat-interceptor"
+			pointcut-ref="druid-stat-pointcut" />
 	</aop:config>
 
 	<bean id="transactionManager"
@@ -81,6 +84,7 @@
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="io.renren.dao;io.renren.system.dao;" />
+		<property name="basePackage"
+			value="io.renren.dao;io.renren.system.dao;io.renren.personel.dao;" />
 	</bean>
 </beans>

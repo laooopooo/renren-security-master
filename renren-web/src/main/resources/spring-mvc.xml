@@ -13,7 +13,6 @@
 		http://www.springframework.org/schema/mvc 
      	http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
-	<context:component-scan base-package="**.impl" />
 	<context:component-scan base-package="io.renren" />
 	
 	<context:annotation-config />
@@ -100,7 +99,7 @@
 	                <props>
 	                    <prop key="kaptcha.border">no</prop>
 	                    <prop key="kaptcha.textproducer.font.color">black</prop>
-	                    <prop key="kaptcha.textproducer.char.space">5</prop>
+	                    <prop key="kaptcha.textproducer.char.space">1</prop>
 	                </props>
 	            </constructor-arg>
 	        </bean>

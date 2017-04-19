@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.personel.dao.TeacherDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.personel.entity.TeacherEntity" id="teacherMap">
+        <result property="teacherId" column="teacher_id"/>
+        <result property="name" column="name"/>
+        <result property="teachAge" column="teach_age"/>
+        <result property="lastUpdate" column="last_update"/>
+        <result property="born" column="born"/>
+        <result property="sex" column="sex"/>
+        <result property="subjectId" column="subject_id"/>
+        <result property="positionId" column="position_id"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.renren.personel.entity.TeacherEntity">
+		select * from pl_teacher where teacher_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.renren.personel.entity.TeacherEntity">
+		select * from pl_teacher
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by teacher_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from pl_teacher 
+	</select>
+	 
+	<insert id="save" parameterType="io.renren.personel.entity.TeacherEntity" useGeneratedKeys="true" keyProperty="teacherId">
+		insert into pl_teacher
+		(
+			`name`, 
+			`teach_age`, 
+			`last_update`, 
+			`born`, 
+			`sex`, 
+			`subject_id`, 
+			`position_id`
+		)
+		values
+		(
+			#{name}, 
+			#{teachAge}, 
+			#{lastUpdate}, 
+			#{born}, 
+			#{sex}, 
+			#{subjectId}, 
+			#{positionId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.renren.personel.entity.TeacherEntity">
+		update pl_teacher 
+		<set>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="teachAge != null">`teach_age` = #{teachAge}, </if>
+			<if test="lastUpdate != null">`last_update` = #{lastUpdate}, </if>
+			<if test="born != null">`born` = #{born}, </if>
+			<if test="sex != null">`sex` = #{sex}, </if>
+			<if test="subjectId != null">`subject_id` = #{subjectId}, </if>
+			<if test="positionId != null">`position_id` = #{positionId}</if>
+		</set>
+		where teacher_id = #{teacherId}
+	</update>
+	
+	<delete id="delete">
+		delete from pl_teacher where teacher_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from pl_teacher where teacher_id in 
+		<foreach item="teacherId" collection="array" open="(" separator="," close=")">
+			#{teacherId}
+		</foreach>
+	</delete>
+
+</mapper>
