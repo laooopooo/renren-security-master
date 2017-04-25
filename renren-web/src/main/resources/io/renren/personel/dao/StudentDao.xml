@@ -21,6 +21,11 @@
 
 	<select id="queryList" resultType="io.renren.personel.entity.StudentEntity">
 		select * from pl_student
+		<where>
+			<if test="name != null and name.trim() != ''">
+				and `name` like concat('%',#{name},'%') 
+			</if>
+		</where>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -45,7 +50,6 @@
 			`school`, 
 			`parent_tel`, 
 			`address`, 
-			`last_update`, 
 			`born`, 
 			`sex`
 		)
@@ -55,7 +59,6 @@
 			#{school}, 
 			#{parentTel}, 
 			#{address}, 
-			#{lastUpdate}, 
 			#{born}, 
 			#{sex}
 		)

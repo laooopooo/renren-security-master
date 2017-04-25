@@ -23,4 +23,9 @@ public class SysPageController {
 	public String generator(@PathVariable("url") String url){
 		return "generator/" + url + ".html";
 	}
+	
+	@RequestMapping("personel/{url}.html")
+	public String personel(@PathVariable("url") String url){
+		return "personel/" + url + ".html";
+	}
 }
