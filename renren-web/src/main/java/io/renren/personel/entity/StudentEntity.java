@@ -3,6 +3,8 @@ package io.renren.personel.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 
 /**
@@ -28,6 +30,7 @@ public class StudentEntity implements Serializable {
 	//
 	private Date lastUpdate;
 	//
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date born;
 	//性别
 	private String sex;
@@ -101,6 +104,7 @@ public class StudentEntity implements Serializable {
 	/**
 	 * 获取：
 	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public Date getLastUpdate() {
 		return lastUpdate;
 	}

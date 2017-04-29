@@ -56,7 +56,7 @@
 			<div class="form-group">
 			   	<div class="col-sm-2 control-label">出生日期</div>
 			   	<div class="col-sm-10">
-  					<input class="layui-input" v-model="student.born" placeholder="出生日期" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD'})">
+  					<input type="text" class="layui-input" v-model="student.born" placeholder="出生日期" id="lay_born">
 			    </div>
 			</div>
 			<div class="form-group">
@@ -76,6 +76,17 @@
 <script>
 layui.use('laydate', function(){
   var laydate = layui.laydate;
+ 	var born_date = {
+ 	format: 'YYYY-MM-DD',
+    choose: function(datas){
+    	vm.student.born=datas;
+    }
+  };
+
+  document.getElementById('lay_born').onclick = function(){
+    born_date.elem = this;
+    laydate(born_date);
+  }
 });
 </script>
 <script src="${rc.contextPath}/js/personel/student.js?_${date.systemTime}"></script>

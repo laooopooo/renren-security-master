@@ -13,8 +13,7 @@
 		http://www.springframework.org/schema/mvc 
      	http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
-	<context:component-scan base-package="io.renren" />
-	
+	<context:component-scan base-package="io.renren.**" />
 	<context:annotation-config />
 	<mvc:default-servlet-handler />
 	<aop:aspectj-autoproxy proxy-target-class="true" />
@@ -39,6 +38,14 @@
             </bean>
         </mvc:message-converters>
 	</mvc:annotation-driven>
+	
+	<!-- 日期格式化注解，但是还米有起作用 -->
+	<mvc:annotation-driven conversion-service="conversionService"/>
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+		<list></list>
+		</property>
+	</bean>
 	
 	<!-- Velocity视图解析器    默认视图  -->
 	<bean id="velocityViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">

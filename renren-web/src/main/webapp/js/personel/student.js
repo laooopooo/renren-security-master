@@ -108,7 +108,6 @@ var vm = new Vue({
 		getInfo: function(studentId){
 			$.get("../student/info/"+studentId, function(r){
                 vm.student = r.student;
-                debugger;
             });
 		},
 		reload: function (event) {
