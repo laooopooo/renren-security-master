@@ -27,16 +27,33 @@ public class TeacherEntity implements Serializable {
 	private Date born;
 	//性别
 	private String sex;
-	//主教科目
+	//主教科目id
 	private Integer subjectId;
+	
+	private String subjectName;
+	
 	//
 	private Integer positionId;
+	
+	private String positionName;
 
 	/**
 	 * 设置：
 	 */
 	public void setTeacherId(Integer teacherId) {
 		this.teacherId = teacherId;
+	}
+	public String getSubjectName() {
+		return subjectName;
+	}
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+	public String getPositionName() {
+		return positionName;
+	}
+	public void setPositionName(String positionName) {
+		this.positionName = positionName;
 	}
 	/**
 	 * 获取：

@@ -3,14 +3,14 @@ $(function () {
         url: '../teacher/list',
         datatype: "json",
         colModel: [			
-			{ label: 'teacherId', name: 'teacherId', index: 'teacher_id', width: 50, key: true },
+			{ label: '教师Id', name: 'teacherId', index: 'teacher_id', width: 50, key: true },
 			{ label: '姓名', name: 'name', index: 'name', width: 80 }, 			
-			{ label: '教龄', name: 'teachAge', index: 'teach_age', width: 80 }, 			
-			{ label: '', name: 'lastUpdate', index: 'last_update', width: 80 }, 			
-			{ label: '出生日期', name: 'born', index: 'born', width: 80 }, 			
-			{ label: '性别', name: 'sex', index: 'sex', width: 80 }, 			
-			{ label: '主教科目', name: 'subjectId', index: 'subject_id', width: 80 }, 			
-			{ label: '', name: 'positionId', index: 'position_id', width: 80 }			
+			{ label: '教龄', name: 'teachAge', index: 'teach_age', width: 50 }, 			
+			{ label: '最近更新', name: 'lastUpdate', index: 'last_update', width: 100 }, 			
+			{ label: '出生日期', name: 'born', index: 'born', width: 100 }, 			
+			{ label: '性别', name: 'sex', index: 'sex', width: 40 }, 			
+			{ label: '主教科目', name: 'subjectName', index: 'subject_id', width: 80 }, 			
+			{ label: '职位', name: 'positionName', index: 'position_id', width: 80 }			
         ],
 		viewrecords: true,
         height: 385,
@@ -44,7 +44,8 @@ var vm = new Vue({
 	data:{
 		showList: true,
 		title: null,
-		teacher: {}
+		teacher: {},
+		subjects: {}
 	},
 	methods: {
 		query: function () {
@@ -64,6 +65,7 @@ var vm = new Vue({
             vm.title = "修改";
             
             vm.getInfo(teacherId)
+
 		},
 		saveOrUpdate: function (event) {
 			var url = vm.teacher.teacherId == null ? "../teacher/save" : "../teacher/update";
@@ -109,6 +111,7 @@ var vm = new Vue({
 			$.get("../teacher/info/"+teacherId, function(r){
                 vm.teacher = r.teacher;
             });
+            vm.getSubjects();
 		},
 		reload: function (event) {
 			vm.showList = true;
@@ -116,6 +119,12 @@ var vm = new Vue({
 			$("#jqGrid").jqGrid('setGridParam',{ 
                 page:page
             }).trigger("reloadGrid");
+		},
+		getSubjects:function(){
+			$.get("../subject/list?limit=100&page=1&sidx=&order=asc",function(r){
+				vm.subjects = r.page.list;
+			});
 		}
+
 	}
 });

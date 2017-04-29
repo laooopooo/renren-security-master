@@ -16,11 +16,17 @@
     </resultMap>
 
 	<select id="queryObject" resultType="io.renren.personel.entity.TeacherEntity">
-		select * from pl_teacher where teacher_id = #{value}
+		select t.*,
+		(SELECT p.position from pl_position p where p.position_id=t.position_id ) as positionName ,
+		(SELECT s.name from pl_subject s where s.subject_id=t.subject_id ) as subjectName
+ 		from pl_teacher t where  t.teacher_id = #{value}
 	</select>
 
 	<select id="queryList" resultType="io.renren.personel.entity.TeacherEntity">
-		select * from pl_teacher
+		select t.*,
+		(SELECT p.position from pl_position p where p.position_id=t.position_id ) as positionName ,
+		(SELECT s.name from pl_subject s where s.subject_id=t.subject_id ) as subjectName
+ 		from pl_teacher t
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
