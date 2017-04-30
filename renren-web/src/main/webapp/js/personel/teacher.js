@@ -55,6 +55,7 @@ var vm = new Vue({
 			vm.showList = false;
 			vm.title = "新增";
 			vm.teacher = {};
+			vm.getSubjects();
 		},
 		update: function (event) {
 			var teacherId = getSelectedRow();
@@ -125,6 +126,7 @@ var vm = new Vue({
 				vm.subjects = r.page.list;
 			});
 		}
+
 
 	}
 });
