@@ -3,6 +3,10 @@ package io.renren.personel.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
 
 
 /**
@@ -24,6 +28,7 @@ public class TeacherEntity implements Serializable {
 	//
 	private Date lastUpdate;
 	//出生日期
+	@JSONField (format="yyyy-MM-dd")
 	private Date born;
 	//性别
 	private String sex;
