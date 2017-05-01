@@ -74,6 +74,7 @@ var vm = new Vue({
 			    success: function(r){
 			    	if(r.code === 0){
 						alert('操作成功', function(index){
+							vm.student.name="";//清空name查询框，避免返回自动查询
 							vm.reload();
 						});
 					}else{

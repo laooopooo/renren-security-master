@@ -57,7 +57,7 @@
 			   	<div class="col-sm-10">
 				   	<select class="input-md form-control" v-model="teacher.subjectId">
 				   	   <option v-for="subject in subjects" v-bind:value="subject.subjectId">
-				   	   {{subject.name}} 
+				   	   		{{subject.name}} 
 				       </option>
 				   	</select>
 			    </div>
@@ -65,7 +65,12 @@
 			<div class="form-group">
 			   	<div class="col-sm-2 control-label">职位</div>
 			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="teacher.positionName" placeholder="职位"/>
+			   		<select class="input-md form-control" v-model="teacher.positionId">
+				   	   <option v-for="position in positions" v-bind:value="position.positionId">
+				   	   		{{position.position}} 
+				       </option>
+				   	</select>
+			      
 			    </div>
 			</div>
 			<div class="form-group">

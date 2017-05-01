@@ -45,7 +45,8 @@ var vm = new Vue({
 		showList: true,
 		title: null,
 		teacher: {},
-		subjects: {}
+		subjects: {},
+		positions:{}
 	},
 	methods: {
 		query: function () {
@@ -56,6 +57,7 @@ var vm = new Vue({
 			vm.title = "新增";
 			vm.teacher = {};
 			vm.getSubjects();
+			vm.getPositions();
 		},
 		update: function (event) {
 			var teacherId = getSelectedRow();
@@ -109,10 +111,9 @@ var vm = new Vue({
 			});
 		},
 		getInfo: function(teacherId){
-			$.get("../teacher/info/"+teacherId, function(r){
-                vm.teacher = r.teacher;
-            });
-            vm.getSubjects();
+			vm.getSubjects();
+            vm.getPositions();
+            setTimeout("$.get("../teacher/info/"+teacherId, function(r){vm.teacher = r.teacher;})",500);
 		},
 		reload: function (event) {
 			vm.showList = true;
@@ -125,8 +126,11 @@ var vm = new Vue({
 			$.get("../subject/list?limit=100&page=1&sidx=&order=asc",function(r){
 				vm.subjects = r.page.list;
 			});
+		},
+		getPositions:function(){
+			$.get("../position/list?limit=100&page=1&sidx=&order=asc",function(r){
+				vm.positions = r.page.list;
+			});
 		}
-
-
 	}
 });
