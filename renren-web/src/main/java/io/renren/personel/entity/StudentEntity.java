@@ -5,6 +5,8 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 
 
 /**
@@ -30,11 +32,43 @@ public class StudentEntity implements Serializable {
 	//
 	private Date lastUpdate;
 	//
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JSONField (format="yyyy-MM-dd")
 	private Date born;
 	//性别
 	private String sex;
+	
+	private String parentName;
+	
+	private String remarks;
+	
+	private String kinskip;
+	
+	private String studyWay;
 
+	public String getParentName() {
+		return parentName;
+	}
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	public String getKinskip() {
+		return kinskip;
+	}
+	public void setKinskip(String kinskip) {
+		this.kinskip = kinskip;
+	}
+	public String getStudyWay() {
+		return studyWay;
+	}
+	public void setStudyWay(String studyWay) {
+		this.studyWay = studyWay;
+	}
 	/**
 	 * 设置：
 	 */

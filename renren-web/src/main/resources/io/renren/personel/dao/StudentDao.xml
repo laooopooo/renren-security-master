@@ -51,7 +51,11 @@
 			`parent_tel`, 
 			`address`, 
 			`born`, 
-			`sex`
+			`sex`,
+			`parent_name`, 
+			`remarks`, 
+			`kinskip`, 
+			`study_way`
 		)
 		values
 		(
@@ -60,7 +64,11 @@
 			#{parentTel}, 
 			#{address}, 
 			#{born}, 
-			#{sex}
+			#{sex},
+			#{parentName}, 
+			#{remarks}, 
+			#{kinskip}, 
+			#{studyWay}
 		)
 	</insert>
 	 
@@ -73,7 +81,11 @@
 			<if test="address != null">`address` = #{address}, </if>
 			<if test="lastUpdate != null">`last_update` = #{lastUpdate}, </if>
 			<if test="born != null">`born` = #{born}, </if>
-			<if test="sex != null">`sex` = #{sex}</if>
+			<if test="sex != null">`sex` = #{sex}, </if>
+			<if test="parentName != null">`parent_name` = #{parentName}, </if>
+			<if test="remarks != null">`remarks` = #{remarks}, </if>
+			<if test="kinskip != null">`kinskip` = #{kinskip}, </if>
+			<if test="studyWay != null">`study_way` = #{studyWay}</if>
 		</set>
 		where student_id = #{studentId}
 	</update>

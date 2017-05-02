@@ -5,11 +5,14 @@ $(function () {
         colModel: [			
 			{ label: '教师Id', name: 'teacherId', index: 'teacher_id', width: 50, key: true },
 			{ label: '姓名', name: 'name', index: 'name', width: 80 }, 			
-			{ label: '教龄', name: 'teachAge', index: 'teach_age', width: 50 },			
+			{ label: '教龄', name: 'teachAge', index: 'teach_age', width: 50 },	
+			{ label: '电话号码', name: 'phone', index: 'phone', width: 80 }, 		
 			{ label: '出生日期', name: 'born', index: 'born', width: 100 }, 			
 			{ label: '性别', name: 'sex', index: 'sex', width: 40 }, 			
-			{ label: '主教科目', name: 'subjectName', index: 'subject_id', width: 80 }, 			
-			{ label: '职位', name: 'positionName', index: 'position_id', width: 80 }			
+			{ label: '主教科目', name: 'subjectName', index: 'subject_id', width: 80 }, 
+			{ label: '职位', name: 'positionName', index: 'position_id', width: 80 },
+			{ label: '全职', name: 'isFulltime', index: 'is_fulltime', width: 40 },
+			{ label: '备注', name: 'remarks', index: 'remarks', width: 40 }			
         ],
 		viewrecords: true,
         height: 385,
@@ -45,7 +48,10 @@ var vm = new Vue({
 		title: null,
 		teacher: {},
 		subjects: {},
-		positions:{}
+		positions:{},
+		q:{
+			name: null
+		}
 	},
 	methods: {
 		query: function () {
@@ -118,6 +124,7 @@ var vm = new Vue({
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
+				postData:{'name': vm.q.name},
                 page:page
             }).trigger("reloadGrid");
 		},

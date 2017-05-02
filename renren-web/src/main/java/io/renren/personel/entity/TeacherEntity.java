@@ -41,7 +41,40 @@ public class TeacherEntity implements Serializable {
 	private Integer positionId;
 	
 	private String positionName;
-
+	
+	/**
+	 * 电话号码
+	 */
+	private String phone;
+	
+	/**
+	 * 备注
+	 */
+	private String remarks;
+	
+	/**
+	 * 是否是全职
+	 */
+	private String isFulltime;
+	
+	public String getIsFulltime() {
+		return isFulltime;
+	}
+	public void setIsFulltime(String isFulltime) {
+		this.isFulltime = isFulltime;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 	/**
 	 * 设置：
 	 */
