@@ -4,8 +4,7 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: '职位Id', name: 'positionId', index: 'position_id', width: 50, key: true },
-			{ label: '职位名称', name: 'position', index: 'position', width: 80 }, 			
-			{ label: '最近更新', name: 'lastUpdate', index: 'last_update', width: 80 }			
+			{ label: '职位名称', name: 'position', index: 'position', width: 80 }		
         ],
 		viewrecords: true,
         height: 385,

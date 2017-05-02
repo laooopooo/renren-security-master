@@ -4,13 +4,16 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: '学生id', name: 'studentId', index: 'student_id', width: 50, key: true },
-			{ label: '姓名', name: 'name', index: 'name', width: 80 }, 			
-			{ label: '学校', name: 'school', index: 'school', width: 80 }, 			
-			{ label: '家长电话', name: 'parentTel', index: 'parent_tel', width: 80 }, 			
-			{ label: '家庭住址', name: 'address', index: 'address', width: 80 }, 			
-			{ label: '更新日期', name: 'lastUpdate', index: 'last_update', width: 100 }, 			
-			{ label: '出生', name: 'born', index: 'born', width: 100 }, 			
-			{ label: '性别', name: 'sex', index: 'sex', width: 80 }			
+			{ label: '姓名', name: 'name', index: 'name', width: 50 }, 
+			{ label: '性别', name: 'sex', index: 'sex', width: 40 },			
+			{ label: '学校', name: 'school', index: 'school', width: 100 },
+			{ label: '生日', name: 'born', index: 'born', width: 80 }, 
+			{ label: '家长姓名', name: 'parentName', index: 'parent_name', width: 60 },
+			{ label: '亲属关系', name: 'kinskip', index: 'kinskip', width: 50 },
+			{ label: '家长电话', name: 'parentTel', index: 'parent_tel', width: 80 },
+			{ label: '家庭住址', name: 'address', index: 'address', width: 60 },
+			{ label: '补习方式', name: 'studyWay', index: 'studyWay', width: 60 },
+			{ label: '备注', name: 'remarks', index: 'remarks', width: 60 },
         ],
 		viewrecords: true,
         height: 385,
@@ -44,7 +47,10 @@ var vm = new Vue({
 	data:{
 		showList: true,
 		title: null,
-		student: {}
+		student: {},
+		q:{
+			name: null
+		}
 	},
 	methods: {
 		query: function () {
@@ -74,7 +80,6 @@ var vm = new Vue({
 			    success: function(r){
 			    	if(r.code === 0){
 						alert('操作成功', function(index){
-							vm.student.name="";//清空name查询框，避免返回自动查询
 							vm.reload();
 						});
 					}else{
@@ -112,10 +117,11 @@ var vm = new Vue({
             });
 		},
 		reload: function (event) {
+			vm.student.name="";//清空name查询框，避免返回自动查询
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{
-				postData:{'name': vm.student.name},
+				postData:{'name': vm.q.name},
                 page:page
             }).trigger("reloadGrid");
 		}

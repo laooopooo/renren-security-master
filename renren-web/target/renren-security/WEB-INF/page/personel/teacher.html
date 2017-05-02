@@ -8,6 +8,9 @@
 <div id="rrapp" v-cloak>
 	<div v-show="showList">
 		<div class="grid-btn">
+			<div class="form-group col-sm-2">
+				<input type="text" class="form-control" v-model="q.name"  @keyup.enter="query" placeholder="姓名">
+			</div>
 			#if($shiro.hasPermission("teacher:save"))
 			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
 			#end
@@ -38,9 +41,15 @@
 			    </div>
 			</div>
 			<div class="form-group">
+			   	<div class="col-sm-2 control-label">电话号码</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacher.phone" placeholder="电话号码"/>
+			    </div>
+			</div>
+			<div class="form-group">
 			   	<div class="col-sm-2 control-label">出生日期</div>
 			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="teacher.born" placeholder="出生日期"/>
+			      <input type="text" id="lay_born" class="form-control" v-model="teacher.born" placeholder="出生日期"/>
 			    </div>
 			</div>
 			<div class="form-group">
@@ -74,6 +83,21 @@
 			    </div>
 			</div>
 			<div class="form-group">
+			   	<div class="col-sm-2 control-label">全职</div>
+			   	<div class="col-sm-10">
+			   		<select class="input-md form-control" v-model="teacher.isFulltime">
+				        <option>是</option>
+				        <option>否</option>
+				   	</select>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">备注</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacher.remarks" placeholder="备注"/>
+			    </div>
+			</div>
+			<div class="form-group">
 				<div class="col-sm-2 control-label"></div> 
 				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
 				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
@@ -81,7 +105,22 @@
 		</form>
 	</div>
 </div>
+<script>
+layui.use('laydate', function(){
+  var laydate = layui.laydate;
+ 	var born_date = {
+ 	format: 'YYYY-MM-DD',
+    choose: function(datas){
+    	vm.teacher.born=datas;
+    }
+  };
 
+  document.getElementById('lay_born').onclick = function(){
+    born_date.elem = this;
+    laydate(born_date);
+  }
+});
+</script>
 <script src="${rc.contextPath}/js/personel/teacher.js?_${date.systemTime}"></script>
 </body>
 </html>

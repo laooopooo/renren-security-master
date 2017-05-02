@@ -15,6 +15,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,7 +74,13 @@ public class SysUserServiceImpl implements SysUserService {
 	public void save(SysUserEntity user) {
 		user.setCreateTime(new Date());
 		//sha256加密
-		user.setPassword(new Sha256Hash(user.getPassword()).toHex());
+		//user.setPassword(new Sha256Hash(user.getPassword()).toHex());
+		
+		//使用MD5盐值加密3次
+		ByteSource credentialsSalt =ByteSource.Util.bytes(user.getUsername());
+		Object result= new  SimpleHash("MD5", user.getPassword(),credentialsSalt, 3);
+		user.setPassword(result.toString());
+		
 		sysUserDao.save(user);
 		
 		//检查角色是否越权
@@ -88,7 +96,14 @@ public class SysUserServiceImpl implements SysUserService {
 		if(StringUtils.isBlank(user.getPassword())){
 			user.setPassword(null);
 		}else{
-			user.setPassword(new Sha256Hash(user.getPassword()).toHex());
+			//sha256加密
+			//user.setPassword(new Sha256Hash(user.getPassword()).toHex());
+			
+			//使用MD5盐值加密3次
+			ByteSource credentialsSalt =ByteSource.Util.bytes(user.getUsername());
+			Object result= new  SimpleHash("MD5", user.getPassword(),credentialsSalt, 3);
+			user.setPassword(result.toString());
+			
 		}
 		sysUserDao.update(user);
 		
