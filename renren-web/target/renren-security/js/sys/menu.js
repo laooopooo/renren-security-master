@@ -79,6 +79,9 @@ var vm = new Vue({
 		}
 	},
 	methods: {
+		query: function () {
+			vm.reload();
+		},
 		getMenu: function(menuId){
 			//加载菜单树
 			$.get("../sys/menu/select", function(r){
@@ -174,6 +177,7 @@ var vm = new Vue({
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
+				postData:{'key': vm.menu.key},
                 page:page
             }).trigger("reloadGrid");
 		}

@@ -12,11 +12,11 @@
     </resultMap>
 
 	<select id="queryObject" resultType="io.renren.personel.entity.StudentClassEntity">
-		select * from c_student_class where student_class_id = #{value}
+		select * from pl_student_class where student_class_id = #{value}
 	</select>
 
 	<select id="queryList" resultType="io.renren.personel.entity.StudentClassEntity">
-		select * from c_student_class
+		select * from pl_student_class
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -31,11 +31,11 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from c_student_class 
+		select count(*) from pl_student_class 
 	</select>
 	 
 	<insert id="save" parameterType="io.renren.personel.entity.StudentClassEntity" useGeneratedKeys="true" keyProperty="studentClassId">
-		insert into c_student_class
+		insert into pl_student_class
 		(
 			`last_update`, 
 			`student_id`, 
@@ -50,7 +50,7 @@
 	</insert>
 	 
 	<update id="update" parameterType="io.renren.personel.entity.StudentClassEntity">
-		update c_student_class 
+		update pl_student_class 
 		<set>
 			<if test="lastUpdate != null">`last_update` = #{lastUpdate}, </if>
 			<if test="studentId != null">`student_id` = #{studentId}, </if>
@@ -60,11 +60,11 @@
 	</update>
 	
 	<delete id="delete">
-		delete from c_student_class where student_class_id = #{value}
+		delete from pl_student_class where student_class_id = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		delete from c_student_class where student_class_id in 
+		delete from pl_student_class where student_class_id in 
 		<foreach item="studentClassId" collection="array" open="(" separator="," close=")">
 			#{studentClassId}
 		</foreach>

@@ -3,13 +3,13 @@ $(function () {
         url: '../student/list',
         datatype: "json",
         colModel: [			
-			{ label: 'studentId', name: 'studentId', index: 'student_id', width: 50, key: true },
-			{ label: '', name: 'name', index: 'name', width: 80 }, 			
-			{ label: '', name: 'school', index: 'school', width: 80 }, 			
-			{ label: '', name: 'parentTel', index: 'parent_tel', width: 80 }, 			
-			{ label: '', name: 'address', index: 'address', width: 80 }, 			
-			{ label: '', name: 'lastUpdate', index: 'last_update', width: 80 }, 			
-			{ label: '', name: 'born', index: 'born', width: 80 }, 			
+			{ label: '学生id', name: 'studentId', index: 'student_id', width: 50, key: true },
+			{ label: '姓名', name: 'name', index: 'name', width: 80 }, 			
+			{ label: '学校', name: 'school', index: 'school', width: 80 }, 			
+			{ label: '家长电话', name: 'parentTel', index: 'parent_tel', width: 80 }, 			
+			{ label: '家庭住址', name: 'address', index: 'address', width: 80 }, 			
+			{ label: '更新日期', name: 'lastUpdate', index: 'last_update', width: 100 }, 			
+			{ label: '出生', name: 'born', index: 'born', width: 100 }, 			
 			{ label: '性别', name: 'sex', index: 'sex', width: 80 }			
         ],
 		viewrecords: true,
@@ -74,6 +74,7 @@ var vm = new Vue({
 			    success: function(r){
 			    	if(r.code === 0){
 						alert('操作成功', function(index){
+							vm.student.name="";//清空name查询框，避免返回自动查询
 							vm.reload();
 						});
 					}else{
@@ -113,7 +114,8 @@ var vm = new Vue({
 		reload: function (event) {
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
-			$("#jqGrid").jqGrid('setGridParam',{ 
+			$("#jqGrid").jqGrid('setGridParam',{
+				postData:{'name': vm.student.name},
                 page:page
             }).trigger("reloadGrid");
 		}

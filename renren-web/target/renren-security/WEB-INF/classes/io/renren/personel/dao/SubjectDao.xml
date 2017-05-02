@@ -11,11 +11,11 @@
     </resultMap>
 
 	<select id="queryObject" resultType="io.renren.personel.entity.SubjectEntity">
-		select * from c_subject where subject_id = #{value}
+		select * from pl_subject where subject_id = #{value}
 	</select>
 
 	<select id="queryList" resultType="io.renren.personel.entity.SubjectEntity">
-		select * from c_subject
+		select * from pl_subject
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -30,11 +30,11 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from c_subject 
+		select count(*) from pl_subject 
 	</select>
 	 
 	<insert id="save" parameterType="io.renren.personel.entity.SubjectEntity" useGeneratedKeys="true" keyProperty="subjectId">
-		insert into c_subject
+		insert into pl_subject
 		(
 			`name`, 
 			`last_update`
@@ -47,7 +47,7 @@
 	</insert>
 	 
 	<update id="update" parameterType="io.renren.personel.entity.SubjectEntity">
-		update c_subject 
+		update pl_subject 
 		<set>
 			<if test="name != null">`name` = #{name}, </if>
 			<if test="lastUpdate != null">`last_update` = #{lastUpdate}</if>
@@ -56,11 +56,11 @@
 	</update>
 	
 	<delete id="delete">
-		delete from c_subject where subject_id = #{value}
+		delete from pl_subject where subject_id = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		delete from c_subject where subject_id in 
+		delete from pl_subject where subject_id in 
 		<foreach item="subjectId" collection="array" open="(" separator="," close=")">
 			#{subjectId}
 		</foreach>

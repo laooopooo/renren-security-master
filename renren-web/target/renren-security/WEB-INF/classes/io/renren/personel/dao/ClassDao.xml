@@ -14,11 +14,11 @@
     </resultMap>
 
 	<select id="queryObject" resultType="io.renren.personel.entity.ClassEntity">
-		select * from c_class where class_id = #{value}
+		select * from pl_class where class_id = #{value}
 	</select>
 
 	<select id="queryList" resultType="io.renren.personel.entity.ClassEntity">
-		select * from c_class
+		select * from pl_class
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -33,11 +33,11 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from c_class 
+		select count(*) from pl_class 
 	</select>
 	 
 	<insert id="save" parameterType="io.renren.personel.entity.ClassEntity" useGeneratedKeys="true" keyProperty="classId">
-		insert into c_class
+		insert into pl_class
 		(
 			`class_name`, 
 			`remarks`, 
@@ -56,7 +56,7 @@
 	</insert>
 	 
 	<update id="update" parameterType="io.renren.personel.entity.ClassEntity">
-		update c_class 
+		update pl_class 
 		<set>
 			<if test="className != null">`class_name` = #{className}, </if>
 			<if test="remarks != null">`remarks` = #{remarks}, </if>
@@ -68,11 +68,11 @@
 	</update>
 	
 	<delete id="delete">
-		delete from c_class where class_id = #{value}
+		delete from pl_class where class_id = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		delete from c_class where class_id in 
+		delete from pl_class where class_id in 
 		<foreach item="classId" collection="array" open="(" separator="," close=")">
 			#{classId}
 		</foreach>

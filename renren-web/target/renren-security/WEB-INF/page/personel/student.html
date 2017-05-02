@@ -8,6 +8,10 @@
 <div id="rrapp" v-cloak>
 	<div v-show="showList">
 		<div class="grid-btn">
+			<div class="form-group col-sm-2">
+				<input type="text" class="form-control" v-model="student.name"  @keyup.enter="query" placeholder="学生姓名">
+			</div>
+			<a class="btn btn-default" @click="query">查询</a>
 			#if($shiro.hasPermission("student:save"))
 			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
 			#end
@@ -25,49 +29,43 @@
     <div v-show="!showList" class="panel panel-default">
 		<div class="panel-heading">{{title}}</div>
 		<form class="form-horizontal">
-											<div class="form-group">
-			   	<div class="col-sm-2 control-label"></div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">姓名</div>
 			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="student.name" placeholder=""/>
+			    <input type="text" class="form-control" v-model="student.name" placeholder="姓名"/>
 			    </div>
 			</div>
-									<div class="form-group">
-			   	<div class="col-sm-2 control-label"></div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">学校</div>
 			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="student.school" placeholder=""/>
+			      <input type="text" class="form-control" v-model="student.school" placeholder="学校"/>
 			    </div>
 			</div>
-									<div class="form-group">
-			   	<div class="col-sm-2 control-label"></div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">家长电话</div>
 			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="student.parentTel" placeholder=""/>
+			      <input type="text" class="form-control" v-model="student.parentTel" placeholder="家长电话"/>
 			    </div>
 			</div>
-									<div class="form-group">
-			   	<div class="col-sm-2 control-label"></div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">家庭地址</div>
 			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="student.address" placeholder=""/>
+			      <input type="text" class="form-control" v-model="student.address" placeholder="家庭地址"/>
 			    </div>
 			</div>
-									<div class="form-group">
-			   	<div class="col-sm-2 control-label"></div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">出生日期</div>
 			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="student.lastUpdate" placeholder=""/>
+  					<input type="text" class="layui-input" v-model="student.born" placeholder="出生日期" id="lay_born">
 			    </div>
 			</div>
-									<div class="form-group">
-			   	<div class="col-sm-2 control-label"></div>
-			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="student.born" placeholder=""/>
-			    </div>
-			</div>
-									<div class="form-group">
+			<div class="form-group">
 			   	<div class="col-sm-2 control-label">性别</div>
 			   	<div class="col-sm-10">
 			      <input type="text" class="form-control" v-model="student.sex" placeholder="性别"/>
 			    </div>
 			</div>
-							<div class="form-group">
+			<div class="form-group">
 				<div class="col-sm-2 control-label"></div> 
 				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
 				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
@@ -75,7 +73,23 @@
 		</form>
 	</div>
 </div>
+<script>
+layui.use('laydate', function(){
+  var laydate = layui.laydate;
+ 	var born_date = {
+ 	format: 'YYYY-MM-DD',
+    choose: function(datas){
+    	vm.student.born=datas;
+    }
+  };
 
-<script src="${rc.contextPath}/js/generator/student.js?_${date.systemTime}"></script>
+  document.getElementById('lay_born').onclick = function(){
+    born_date.elem = this;
+    laydate(born_date);
+  }
+});
+</script>
+<script src="${rc.contextPath}/js/personel/student.js?_${date.systemTime}"></script>
+
 </body>
 </html>
