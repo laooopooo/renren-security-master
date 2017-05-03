@@ -76,6 +76,9 @@ var vm = new Vue({
 			parentId:0,
 			type:1,
 			orderNum:0
+		},
+		q: {
+			name: null
 		}
 	},
 	methods: {
@@ -177,7 +180,7 @@ var vm = new Vue({
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
-				postData:{'key': vm.menu.key},
+				postData:{'key': vm.q.name},
                 page:page
             }).trigger("reloadGrid");
 		}

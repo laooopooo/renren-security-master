@@ -1,14 +1,17 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '../class/list',
+        url: '../course/list',
         datatype: "json",
         colModel: [			
-			{ label: 'classId', name: 'classId', index: 'class_id', width: 50, key: true },
-			{ label: '班级别名', name: 'className', index: 'class_name', width: 80 }, 			
-			{ label: '备注', name: 'remarks', index: 'remarks', width: 80 }, 			
-			{ label: '班级-类别，小班，晚辅,一对一', name: 'classType', index: 'class_type', width: 80 }, 			
-			{ label: '', name: 'lastUpdate', index: 'last_update', width: 80 }, 			
-			{ label: '', name: 'teacherId', index: 'teacher_id', width: 80 }			
+			{ label: '课程ID', name: 'courseId', index: 'course_id', width: 50, key: true },
+			{ label: '班级名称', name: 'courseName', index: 'course_name', width: 80 }, 
+			{ label: '班级类别', name: 'numberType', index: 'number_type', width: 80 },
+			{ label: '课程状态', name: 'status', index: 'status', width: 80 }, 			
+			{ label: '课次', name: 'courseTime', index: 'course_time', width: 80 },
+			{ label: '老师', name: 'teacherId', index: 'teacher_id', width: 80 }, 
+			{ label: '开课日期', name: 'startDate', index: 'start_date', width: 80 }, 			
+			{ label: '结束日期', name: 'endDate', index: 'end_date', width: 80 },
+			{ label: '备注', name: 'remarks', index: 'remarks', width: 80 }
         ],
 		viewrecords: true,
         height: 385,
@@ -42,7 +45,7 @@ var vm = new Vue({
 	data:{
 		showList: true,
 		title: null,
-		class: {}
+		course: {}
 	},
 	methods: {
 		query: function () {
@@ -51,24 +54,24 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.class = {};
+			vm.course = {};
 		},
 		update: function (event) {
-			var classId = getSelectedRow();
-			if(classId == null){
+			var courseId = getSelectedRow();
+			if(courseId == null){
 				return ;
 			}
 			vm.showList = false;
             vm.title = "修改";
             
-            vm.getInfo(classId)
+            vm.getInfo(courseId)
 		},
 		saveOrUpdate: function (event) {
-			var url = vm.class.classId == null ? "../class/save" : "../class/update";
+			var url = vm.course.courseId == null ? "../course/save" : "../course/update";
 			$.ajax({
 				type: "POST",
 			    url: url,
-			    data: JSON.stringify(vm.class),
+			    data: JSON.stringify(vm.course),
 			    success: function(r){
 			    	if(r.code === 0){
 						alert('操作成功', function(index){
@@ -81,16 +84,16 @@ var vm = new Vue({
 			});
 		},
 		del: function (event) {
-			var classIds = getSelectedRows();
-			if(classIds == null){
+			var courseIds = getSelectedRows();
+			if(courseIds == null){
 				return ;
 			}
 			
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
-				    url: "../class/delete",
-				    data: JSON.stringify(classIds),
+				    url: "../course/delete",
+				    data: JSON.stringify(courseIds),
 				    success: function(r){
 						if(r.code == 0){
 							alert('操作成功', function(index){
@@ -103,9 +106,9 @@ var vm = new Vue({
 				});
 			});
 		},
-		getInfo: function(classId){
-			$.get("../class/info/"+classId, function(r){
-                vm.class = r.class;
+		getInfo: function(courseId){
+			$.get("../course/info/"+courseId, function(r){
+                vm.course = r.course;
             });
 		},
 		reload: function (event) {

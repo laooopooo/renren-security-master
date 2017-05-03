@@ -1,4 +1,4 @@
-package io.renren.personel.entity;
+package io.renren.course.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,31 +10,31 @@ import java.util.Date;
  * 
  * @author chenyuliao
  * @email 949395746@qq.com
- * @date 2017-04-11 09:27:29
+ * @date 2017-05-03 14:22:27
  */
-public class StudentClassEntity implements Serializable {
+public class CourseSelectEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//
-	private Integer studentClassId;
+	private Integer courseSelectId;
 	//
 	private Date lastUpdate;
 	//
 	private Integer studentId;
 	//
-	private Integer classId;
+	private Integer courseId;
 
 	/**
 	 * 设置：
 	 */
-	public void setStudentClassId(Integer studentClassId) {
-		this.studentClassId = studentClassId;
+	public void setCourseSelectId(Integer courseSelectId) {
+		this.courseSelectId = courseSelectId;
 	}
 	/**
 	 * 获取：
 	 */
-	public Integer getStudentClassId() {
-		return studentClassId;
+	public Integer getCourseSelectId() {
+		return courseSelectId;
 	}
 	/**
 	 * 设置：
@@ -63,13 +63,13 @@ public class StudentClassEntity implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setClassId(Integer classId) {
-		this.classId = classId;
+	public void setCourseId(Integer courseId) {
+		this.courseId = courseId;
 	}
 	/**
 	 * 获取：
 	 */
-	public Integer getClassId() {
-		return classId;
+	public Integer getCourseId() {
+		return courseId;
 	}
 }

@@ -1,12 +1,12 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '../studentclass/list',
+        url: '../courseselect/list',
         datatype: "json",
         colModel: [			
-			{ label: 'studentClassId', name: 'studentClassId', index: 'student_class_id', width: 50, key: true },
+			{ label: 'courseSelectId', name: 'courseSelectId', index: 'course_select_id', width: 50, key: true },
 			{ label: '', name: 'lastUpdate', index: 'last_update', width: 80 }, 			
 			{ label: '', name: 'studentId', index: 'student_id', width: 80 }, 			
-			{ label: '', name: 'classId', index: 'class_id', width: 80 }			
+			{ label: '', name: 'courseId', index: 'course_id', width: 80 }			
         ],
 		viewrecords: true,
         height: 385,
@@ -40,7 +40,7 @@ var vm = new Vue({
 	data:{
 		showList: true,
 		title: null,
-		studentClass: {}
+		courseSelect: {}
 	},
 	methods: {
 		query: function () {
@@ -49,24 +49,24 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.studentClass = {};
+			vm.courseSelect = {};
 		},
 		update: function (event) {
-			var studentClassId = getSelectedRow();
-			if(studentClassId == null){
+			var courseSelectId = getSelectedRow();
+			if(courseSelectId == null){
 				return ;
 			}
 			vm.showList = false;
             vm.title = "修改";
             
-            vm.getInfo(studentClassId)
+            vm.getInfo(courseSelectId)
 		},
 		saveOrUpdate: function (event) {
-			var url = vm.studentClass.studentClassId == null ? "../studentclass/save" : "../studentclass/update";
+			var url = vm.courseSelect.courseSelectId == null ? "../courseselect/save" : "../courseselect/update";
 			$.ajax({
 				type: "POST",
 			    url: url,
-			    data: JSON.stringify(vm.studentClass),
+			    data: JSON.stringify(vm.courseSelect),
 			    success: function(r){
 			    	if(r.code === 0){
 						alert('操作成功', function(index){
@@ -79,16 +79,16 @@ var vm = new Vue({
 			});
 		},
 		del: function (event) {
-			var studentClassIds = getSelectedRows();
-			if(studentClassIds == null){
+			var courseSelectIds = getSelectedRows();
+			if(courseSelectIds == null){
 				return ;
 			}
 			
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
-				    url: "../studentclass/delete",
-				    data: JSON.stringify(studentClassIds),
+				    url: "../courseselect/delete",
+				    data: JSON.stringify(courseSelectIds),
 				    success: function(r){
 						if(r.code == 0){
 							alert('操作成功', function(index){
@@ -101,9 +101,9 @@ var vm = new Vue({
 				});
 			});
 		},
-		getInfo: function(studentClassId){
-			$.get("../studentclass/info/"+studentClassId, function(r){
-                vm.studentClass = r.studentClass;
+		getInfo: function(courseSelectId){
+			$.get("../courseselect/info/"+courseSelectId, function(r){
+                vm.courseSelect = r.courseSelect;
             });
 		},
 		reload: function (event) {

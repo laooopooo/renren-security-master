@@ -117,7 +117,6 @@ var vm = new Vue({
             });
 		},
 		reload: function (event) {
-			vm.student.name="";//清空name查询框，避免返回自动查询
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{

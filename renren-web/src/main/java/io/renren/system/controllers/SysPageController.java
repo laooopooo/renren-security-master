@@ -28,4 +28,9 @@ public class SysPageController {
 	public String personel(@PathVariable("url") String url){
 		return "personel/" + url + ".html";
 	}
+	
+	@RequestMapping("course/{url}.html")
+	public String course(@PathVariable("url") String url){
+		return "course/" + url + ".html";
+	}
 }
