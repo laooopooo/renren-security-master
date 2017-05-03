@@ -3,7 +3,7 @@ package io.renren.course.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-
+import com.alibaba.fastjson.annotation.JSONField;
 
 /**
  * 
@@ -27,15 +27,45 @@ public class CourseEntity implements Serializable {
 	private Date lastUpdate;
 	//
 	private Integer teacherId;
+	
+	private String teacherName;
+	
 	//课程状态
-	private String status;
+	private Integer status;
+	
+	private String statusName;
 	//课次
 	private Integer courseTime;
 	//开课日期
+	@JSONField (format="yyyy-MM-dd")
 	private Date startDate;
 	//结束日期
+	@JSONField (format="yyyy-MM-dd")
 	private Date endDate;
 
+	private Float originalPrice;
+	
+	private Float actualPrice;
+	
+	
+	public Float getOriginalPrice() {
+		return originalPrice;
+	}
+	public void setOriginalPrice(Float originalPrice) {
+		this.originalPrice = originalPrice;
+	}
+	public Float getActualPrice() {
+		return actualPrice;
+	}
+	public void setActualPrice(Float actualPrice) {
+		this.actualPrice = actualPrice;
+	}
+	public String getStatusName() {
+		return statusName;
+	}
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
+	}
 	/**
 	 * 设置：
 	 */
@@ -48,6 +78,14 @@ public class CourseEntity implements Serializable {
 	public Integer getCourseId() {
 		return courseId;
 	}
+	
+	public String getTeacherName() {
+		return teacherName;
+	}
+	public void setTeacherName(String teacherName) {
+		this.teacherName = teacherName;
+	}
+	
 	/**
 	 * 设置：班级名称
 	 */
@@ -111,13 +149,13 @@ public class CourseEntity implements Serializable {
 	/**
 	 * 设置：课程状态
 	 */
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 	/**
 	 * 获取：课程状态
 	 */
-	public String getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 	/**

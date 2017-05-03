@@ -9,7 +9,6 @@ $(function () {
 			{ label: '学校', name: 'school', index: 'school', width: 100 },
 			{ label: '生日', name: 'born', index: 'born', width: 80 }, 
 			{ label: '家长姓名', name: 'parentName', index: 'parent_name', width: 60 },
-			{ label: '亲属关系', name: 'kinskip', index: 'kinskip', width: 50 },
 			{ label: '家长电话', name: 'parentTel', index: 'parent_tel', width: 80 },
 			{ label: '家庭住址', name: 'address', index: 'address', width: 60 },
 			{ label: '补习方式', name: 'studyWay', index: 'studyWay', width: 60 },
@@ -117,7 +116,6 @@ var vm = new Vue({
             });
 		},
 		reload: function (event) {
-			vm.student.name="";//清空name查询框，避免返回自动查询
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{

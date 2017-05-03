@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.course.dao.CourseSelectDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.course.entity.CourseSelectEntity" id="courseSelectMap">
+        <result property="courseSelectId" column="course_select_id"/>
+        <result property="lastUpdate" column="last_update"/>
+        <result property="studentId" column="student_id"/>
+        <result property="courseId" column="course_id"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.renren.course.entity.CourseSelectEntity">
+		select * from c_course_select where course_select_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.renren.course.entity.CourseSelectEntity">
+		select * from c_course_select
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by course_select_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from c_course_select 
+	</select>
+	 
+	<insert id="save" parameterType="io.renren.course.entity.CourseSelectEntity" useGeneratedKeys="true" keyProperty="courseSelectId">
+		insert into c_course_select
+		(
+			`last_update`, 
+			`student_id`, 
+			`course_id`
+		)
+		values
+		(
+			#{lastUpdate}, 
+			#{studentId}, 
+			#{courseId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.renren.course.entity.CourseSelectEntity">
+		update c_course_select 
+		<set>
+			<if test="lastUpdate != null">`last_update` = #{lastUpdate}, </if>
+			<if test="studentId != null">`student_id` = #{studentId}, </if>
+			<if test="courseId != null">`course_id` = #{courseId}</if>
+		</set>
+		where course_select_id = #{courseSelectId}
+	</update>
+	
+	<delete id="delete">
+		delete from c_course_select where course_select_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from c_course_select where course_select_id in 
+		<foreach item="courseSelectId" collection="array" open="(" separator="," close=")">
+			#{courseSelectId}
+		</foreach>
+	</delete>
+
+</mapper>
