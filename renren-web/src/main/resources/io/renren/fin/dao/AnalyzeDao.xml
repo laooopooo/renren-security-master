@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.fin.dao.AnalyzeDao">
+	<!--财务分析借口-->
+	<select id="analyzeList" resultType="io.renren.fin.entity.AnalyzeEntity">
+		SELECT f.fin_type as typeName,SUM(f.fin_amount) as typeAmount 
+		from fin_finance  f
+		<where>
+			<if test="payOrIncome = 0">
+				and f.pay_or_income=0
+			</if>
+			<if test="payOrIncome != 0">
+				and f.pay_or_income=1
+			</if>
+		</where>
+		GROUP BY f.fin_type;
+	</select>
+
+</mapper>
