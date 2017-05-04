@@ -56,7 +56,6 @@ public class CourseController {
 	@RequiresPermissions("course:info")
 	public R info(@PathVariable("courseId") Integer courseId){
 		CourseEntity course = courseService.queryObject(courseId);
-		
 		return R.ok().put("course", course);
 	}
 	
@@ -66,8 +65,10 @@ public class CourseController {
 	@RequestMapping("/save")
 	@RequiresPermissions("course:save")
 	public R save(@RequestBody CourseEntity course){
+		if (course.getActualPrice()>course.getOriginalPrice()) {
+			return R.error("现价不能比原价高！");
+		}
 		courseService.save(course);
-		
 		return R.ok();
 	}
 	
@@ -77,8 +78,10 @@ public class CourseController {
 	@RequestMapping("/update")
 	@RequiresPermissions("course:update")
 	public R update(@RequestBody CourseEntity course){
+		if (course.getActualPrice()>course.getOriginalPrice()) {
+			return R.error("现价不能比原价高！");
+		}
 		courseService.update(course);
-		
 		return R.ok();
 	}
 	

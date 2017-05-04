@@ -85,6 +85,7 @@
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage"
-			value="io.renren.dao;io.renren.system.dao;io.renren.personel.dao;io.renren.course.dao;" />
+			value="io.renren.dao;io.renren.system.dao;io.renren.fin.dao;
+			io.renren.personel.dao;io.renren.course.dao;" />
 	</bean>
 </beans>

@@ -6,6 +6,18 @@ $(function () {
 			{ label: '课程ID', name: 'courseId', index: 'course_id', width: 50, key: true },
 			{ label: '班级名称', name: 'courseName', index: 'course_name', width: 80 }, 
 			{ label: '班级类别', name: 'numberType', index: 'number_type', width: 80 },
+			{ label: '老师', name: 'teacherName', index: 'teacher_id', width: 80 }, 			
+			{ label: '课次', name: 'courseTime', index: 'course_time', width: 60 },
+			{ label: '开课日期', name: 'startDate', index: 'start_date', width: 80 }, 			
+			{ label: '结课日期', name: 'endDate', index: 'end_date', width: 80 },
+			{ label: '原价', name: 'originalPrice', index: 'original_price', width: 60 ,
+				formatter: function(value, options, row){
+					return '¥'+value}
+			},
+			{ label: '优惠价', name: 'actualPrice', index: 'actual_price', width: 60, 
+				formatter: function(value, options, row){
+					return '¥'+value}
+			},
 			{ label: '课程状态', name: 'status', index: 'status', width: 80, formatter: function(value, options, row){
 				if(value===1){
 					return '<span class="label label-success">进行中</span>';
@@ -14,19 +26,7 @@ $(function () {
 				}else{
 					return '<span class="label label-warning">未开始</span>';
 				}
-			}}, 			
-			{ label: '课次', name: 'courseTime', index: 'course_time', width: 60 },
-			{ label: '老师', name: 'teacherName', index: 'teacher_id', width: 80 }, 
-			{ label: '开课日期', name: 'startDate', index: 'start_date', width: 80 }, 			
-			{ label: '结课日期', name: 'endDate', index: 'end_date', width: 80 },
-			{ label: '原价', name: 'originalPrice', index: 'original_price', width: 60 ,
-				formatter: function(value, options, row){
-					return '¥'+value}
-			},
-			{ label: '现价', name: 'actualPrice', index: 'actual_price', width: 60, 
-				formatter: function(value, options, row){
-					return '¥'+value}
-			},
+			}}, 
 			{ label: '备注', name: 'remarks', index: 'remarks', width: 80 }
         ],
 		viewrecords: true,

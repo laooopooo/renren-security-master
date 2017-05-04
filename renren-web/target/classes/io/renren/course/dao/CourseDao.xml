@@ -59,7 +59,9 @@
 			`status`, 
 			`course_time`, 
 			`start_date`, 
-			`end_date`
+			`end_date`,
+			`original_price`, 
+			`actual_price`
 		)
 		values
 		(
@@ -71,7 +73,9 @@
 			#{status}, 
 			#{courseTime}, 
 			#{startDate}, 
-			#{endDate}
+			#{endDate},
+			#{originalPrice}, 
+			#{actualPrice}
 		)
 	</insert>
 	 
@@ -86,7 +90,9 @@
 			<if test="status != null">`status` = #{status}, </if>
 			<if test="courseTime != null">`course_time` = #{courseTime}, </if>
 			<if test="startDate != null">`start_date` = #{startDate}, </if>
-			<if test="endDate != null">`end_date` = #{endDate}</if>
+			<if test="endDate != null">`end_date` = #{endDate},</if>
+			<if test="originalPrice != null">`original_price` = #{originalPrice},</if>
+			<if test="actualPrice != null">`actual_price` = #{actualPrice}</if>
 		</set>
 		where course_id = #{courseId}
 	</update>
