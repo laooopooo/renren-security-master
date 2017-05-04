@@ -33,4 +33,9 @@ public class SysPageController {
 	public String course(@PathVariable("url") String url){
 		return "course/" + url + ".html";
 	}
+	
+	@RequestMapping("fin/{url}.html")
+	public String fin(@PathVariable("url") String url){
+		return "fin/" + url + ".html";
+	}
 }
