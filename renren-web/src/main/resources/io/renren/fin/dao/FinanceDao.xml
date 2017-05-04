@@ -20,7 +20,9 @@
 	</select>
 
 	<select id="queryList" resultType="io.renren.fin.entity.FinanceEntity">
-		select * from fin_finance
+		SELECT f.*,(select dd.dd_name from data_dictionary dd 
+		where dd.dd_field = 'quarter' and dd.dd_value=f.fin_quarter) 
+		as finQuarterName from fin_finance f
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}

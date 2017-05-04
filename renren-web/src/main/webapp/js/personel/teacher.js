@@ -3,7 +3,7 @@ $(function () {
         url: '../teacher/list',
         datatype: "json",
         colModel: [			
-			{ label: '教师Id', name: 'teacherId', index: 'teacher_id', width: 50, key: true },
+			{ label: '教师编号', name: 'teacherId', index: 'teacher_id', width: 50, key: true },
 			{ label: '姓名', name: 'name', index: 'name', width: 80 }, 			
 			{ label: '教龄', name: 'teachAge', index: 'teach_age', width: 50 },	
 			{ label: '电话号码', name: 'phone', index: 'phone', width: 80 }, 		

@@ -3,7 +3,7 @@ $(function () {
         url: '../position/list',
         datatype: "json",
         colModel: [			
-			{ label: '职位Id', name: 'positionId', index: 'position_id', width: 50, key: true },
+			{ label: '职位编号', name: 'positionId', index: 'position_id', width: 50, key: true },
 			{ label: '职位名称', name: 'position', index: 'position', width: 80 }		
         ],
 		viewrecords: true,

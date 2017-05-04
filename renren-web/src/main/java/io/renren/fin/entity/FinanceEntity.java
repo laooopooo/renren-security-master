@@ -3,6 +3,8 @@ package io.renren.fin.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 
 
 /**
@@ -22,6 +24,7 @@ public class FinanceEntity implements Serializable {
 	//财务类型
 	private String finType;
 	//
+	@JSONField (format="yyyy-MM-dd")
 	private Date finDate;
 	//收支金额
 	private Float finAmount;
@@ -29,14 +32,19 @@ public class FinanceEntity implements Serializable {
 	private String remarks;
 	//
 	private Integer finQuarter;
+	
+	private String finQuarterName;
 	//
 	private Date lastUpdate;
-
-	/**
-	 * 设置：
-	 */
+	
 	public void setFinanceId(Integer financeId) {
 		this.financeId = financeId;
+	}
+	public String getFinQuarterName() {
+		return finQuarterName;
+	}
+	public void setFinQuarterName(String finQuarterName) {
+		this.finQuarterName = finQuarterName;
 	}
 	/**
 	 * 获取：

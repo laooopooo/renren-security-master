@@ -3,13 +3,22 @@ $(function () {
         url: '../finance/list',
         datatype: "json",
         colModel: [			
-			{ label: 'financeId', name: 'financeId', index: 'finance_id', width: 50, key: true },
-			{ label: '收支', name: 'payOrIncome', index: 'pay_or_income', width: 80 }, 			
-			{ label: '财务类型', name: 'finType', index: 'fin_type', width: 80 }, 			
-			{ label: '日期', name: 'finDate', index: 'fin_date', width: 80 }, 			
-			{ label: '收支金额', name: 'finAmount', index: 'fin_amount', width: 80 }, 			
-			{ label: '备注', name: 'remarks', index: 'remarks', width: 80 }, 			
-			{ label: '季度', name: 'finQuarter', index: 'fin_quarter', width: 80 },
+			{ label: '收支编号', name: 'financeId', index: 'finance_id', width: 50, key: true },
+			{ label: '财务类型', name: 'finType', index: 'fin_type', width: 80 },
+			{ label: '收支金额', name: 'finAmount', index: 'fin_amount', width: 80 }, 		
+			{ label: '季度', name: 'finQuarterName', index: 'fin_quarter', width: 80 },
+			{ label: '日期', name: 'finDate', index: 'fin_date', width: 80 }, 		
+			{ label: '收支', name: 'payOrIncome', index: 'pay_or_income', width: 80 ,
+				formatter: function(value, options, row){
+					if(value===1){
+						return '<span class="label label-success">收入</span>';
+					}else if(value===0){
+						return '<span class="label label-danger">支出</span>';
+					}else{
+						return '<span class="label label-warning">数据错误</span>';
+					}
+				}}, 
+			{ label: '备注', name: 'remarks', index: 'remarks', width: 80 } 			
         ],
 		viewrecords: true,
         height: 385,
@@ -43,7 +52,17 @@ var vm = new Vue({
 	data:{
 		showList: true,
 		title: null,
-		finance: {}
+		finance: {},
+		payInDatas:[
+			{text:'支出',value:'0'},
+			{text:'收入',value:'1'}
+		],
+		finQuarterDatas:[
+			{text:'春季',value:'1'},
+			{text:'暑假',value:'2'},
+			{text:'秋季',value:'3'},
+			{text:'寒假',value:'4'}
+		]
 	},
 	methods: {
 		query: function () {
@@ -53,6 +72,10 @@ var vm = new Vue({
 			vm.showList = false;
 			vm.title = "新增";
 			vm.finance = {};
+			//初始化参数，为添加新的数据提供默认选项
+			vm.finance.payOrIncome=0;
+			vm.finance.finType='工资';
+			vm.finance.finQuarter=1;
 		},
 		update: function (event) {
 			var financeId = getSelectedRow();
