@@ -41,10 +41,9 @@ public class AnalyzeController {
         Query query = new Query(params);
 
 		List<AnalyzeEntity> analyzeList = analyzeService.analyzeList(query);
-		//int total = analyzeService.queryTotal(query);
+		int total = analyzeService.myQueryTotal(query);
 		
-		PageUtils pageUtil = new PageUtils(analyzeList, 1, query.getLimit(), query.getPage());
-		
+		PageUtils pageUtil = new PageUtils(analyzeList, total, query.getLimit(), query.getPage());
 		return R.ok().put("page", pageUtil);
 	}
 	

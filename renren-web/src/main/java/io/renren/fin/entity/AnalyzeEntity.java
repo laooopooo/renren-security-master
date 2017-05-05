@@ -9,10 +9,6 @@ public class AnalyzeEntity  implements Serializable{
 	 * 金额类型名称
 	 */
 	private String typeName;
-	/**
-	 * 金额总额
-	 */
-	private Float finSum;
 	
 	/**
 	 * 该类型的金额
@@ -24,20 +20,12 @@ public class AnalyzeEntity  implements Serializable{
 	 */
 	private Float percent;
 
-	public String getFinType() {
+	public String getTypeName() {
 		return typeName;
 	}
 
-	public void setFinType(String typeName) {
+	public void setTypeName(String typeName) {
 		this.typeName = typeName;
-	}
-
-	public Float getFinSum() {
-		return finSum;
-	}
-
-	public void setFinSum(Float finSum) {
-		this.finSum = finSum;
 	}
 
 	public Float getTypeAmount() {
@@ -55,7 +43,5 @@ public class AnalyzeEntity  implements Serializable{
 	public void setPercent(Float percent) {
 		this.percent = percent;
 	}
-	
-	
-	
+
 }
