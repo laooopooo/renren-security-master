@@ -6,8 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sun.org.apache.xml.internal.security.Init;
-
 import io.renren.fin.dao.AnalyzeDao;
 import io.renren.fin.entity.AnalyzeEntity;
 import io.renren.fin.service.AnalyzeService;

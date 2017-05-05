@@ -3,7 +3,7 @@ $(function () {
         url: '../subject/list',
         datatype: "json",
         colModel: [			
-			{ label: '科目ID', name: 'subjectId', index: 'subject_id', width: 50, key: true },
+			{ label: '科目编号', name: 'subjectId', index: 'subject_id', width: 50, key: true },
 			{ label: '科目名称', name: 'name', index: 'name', width: 80 }		
         ],
 		viewrecords: true,
