@@ -5,7 +5,8 @@ $(function () {
         colModel: [			
 			{ label: '收支编号', name: 'financeId', index: 'finance_id', width: 50, key: true },
 			{ label: '财务类型', name: 'finType', index: 'fin_type', width: 80 },
-			{ label: '收支金额', name: 'finAmount', index: 'fin_amount', width: 80 }, 		
+			{ label: '收支金额', name: 'finAmount', index: 'fin_amount', width: 80 },
+			{ label: '年份', name: 'finYear', index: 'fin_year', width: 80 },		
 			{ label: '季度', name: 'finQuarterName', index: 'fin_quarter', width: 80 },
 			{ label: '日期', name: 'finDate', index: 'fin_date', width: 80 }, 		
 			{ label: '收支', name: 'payOrIncome', index: 'pay_or_income', width: 80 ,

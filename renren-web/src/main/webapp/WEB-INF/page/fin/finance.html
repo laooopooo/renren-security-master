@@ -8,6 +8,20 @@
 <div id="rrapp" v-cloak>
 	<div v-show="showList">
 		<div class="grid-btn">
+			<div class="form-group col-md-2">
+				<input type="text" id="datepicker" class="form-control" placeholder="年份">
+			</div>
+			<div class="form-group col-md-2">
+				<input type="text" class="form-control" placeholder="季度">
+			</div>
+			<div class="form-group col-md-2">
+				<input type="text" class="form-control" placeholder="收支">
+			</div>
+			<div class="form-group col-md-2">
+				<input type="text" class="form-control" placeholder="财务类型、备注">
+			</div>
+			<a class="btn btn-default" @click="query">查找</a>
+
 			#if($shiro.hasPermission("finance:save"))
 			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
 			#end
@@ -108,6 +122,15 @@ layui.use('laydate', function(){
     laydate(mydate);
   }
 });
+
+(function(){
+    $("#datepicker").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange:"1990:2050"
+    });
+    debugger;
+})();
 </script>
 
 <script src="${rc.contextPath}/js/fin/finance.js?_${date.systemTime}"></script>

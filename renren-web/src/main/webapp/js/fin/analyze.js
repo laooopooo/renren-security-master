@@ -108,7 +108,7 @@ var option = {
     ]
 };
 
- option2 = {
+var option2 = {
     title : {
         text: '饼状图',
         x:'center'

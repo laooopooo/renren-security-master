@@ -74,24 +74,78 @@ var typeName=[];
 var typeAmount=[];
 var pieData=new Array();
 
-$.ajax({
-    type : "GET",
-    url : "../analyze/list?limit=10000&page=1&sidx=&order=asc",
-    dataType : "json",
-    success : function (data) {
-    	finData=data.page.list;
-    	//数据格式化，为下面的画图做准备
-    	for (var i = 0; i< finData.length; i++) {
-    		var tempobj=new Object();
-    		typeName[i]=finData[i].typeName;
-    		typeAmount[i]=finData[i].typeAmount;
-    		tempobj.name=finData[i].typeName;
-    		tempobj.value=finData[i].typeAmount;
-    		pieData.push(tempobj);
-    	}
-    	
-    }
-});
+var option = {
+    tooltip: {
+        show: true
+    },
+    legend: {
+        data:['金额']
+    },
+    xAxis : [
+        {
+            type : 'category',
+            data : [''],
+            axisLabel:{
+            	formatter:function(val){
+				    return val.split("、").join("\n");
+				},
+				interval:0
+            }
+        }
+        
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            "name":"金额",
+            "type":"bar",
+            "data":['']
+        }
+    ]
+};
+
+var option2 = {
+    title : {
+        text: '饼状图',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:typeName
+    },
+    
+    calculable : true,
+    series : [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data:pieData,
+            itemStyle:{ 
+	            normal:{ 
+	                label:{ 
+	                    show: true, 
+	                    formatter: '{b} : {c} ({d}%)' 
+	                }, 
+	                labelLine :{show:true} 
+	            } 
+	        } 
+
+        }
+    ]
+};
+
+
 
  // 路径配置
 require.config({
@@ -104,100 +158,36 @@ require.config({
 require(
     [
         'echarts',
-        'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+        'echarts/chart/bar', // 使用柱状图就加载bar模块，按需加载,
+        'echarts/chart/pie' // 使用柱状图就加载bar模块，按需加载
     ],
     function (ec) {
         // 基于准备好的dom，初始化echarts图表
         var myChart = ec.init(document.getElementById('main')); 
-        
-        var option = {
-            tooltip: {
-                show: true
-            },
-            legend: {
-                data:['金额']
-            },
-            xAxis : [
-                {
-                    type : 'category',
-                    data : typeName,
-                    axisLabel:{
-                    	formatter:function(val){
-						    return val.split("、").join("\n");
-						},
-						interval:0
-                    }
-                }
-                
-            ],
-            yAxis : [
-                {
-                    type : 'value'
-                }
-            ],
-            series : [
-                {
-                    "name":"金额",
-                    "type":"bar",
-                    "data":typeAmount
-                }
-            ]
-        };
+		var myChart2 = ec.init(document.getElementById('main2'));
 
-        // 为echarts对象加载数据 
-        myChart.setOption(option); 
+        $.ajax({
+		    type : "GET",
+		    url : "../analyze/list?limit=10000&page=1&sidx=&order=asc",
+		    dataType : "json",
+		    success : function (data) {
+		    	finData=data.page.list;
+		    	//数据格式化，为下面的画图做准备
+		    	for (var i = 0; i< finData.length; i++) {
+		    		var tempobj=new Object();
+		    		typeName[i]=finData[i].typeName;
+		    		typeAmount[i]=finData[i].typeAmount;
+		    		tempobj.name=finData[i].typeName;
+		    		tempobj.value=finData[i].typeAmount;
+		    		pieData.push(tempobj);
+		    	}
+		    	option.xAxis[0].data=typeName;
+    			option.series[0].data=typeAmount;
+		    	myChart.setOption(option); 
+		    	myChart2.setOption(option2); 
+		    }
+		});
+
     }
 );
 
-// 使用
-require(
-    [
-        'echarts',
-        'echarts/chart/pie' // 使用柱状图就加载pie模块，按需加载
-    ],
-    function (ec) {
-        // 基于准备好的dom，初始化echarts图表
-        var myChart2 = ec.init(document.getElementById('main2')); 
-        
-        option2 = {
-            title : {
-                text: '饼状图',
-                x:'center'
-            },
-            tooltip : {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-            legend: {
-                orient : 'vertical',
-                x : 'left',
-                data:typeName
-            },
-            
-            calculable : true,
-            series : [
-                {
-                    name:'访问来源',
-                    type:'pie',
-                    radius : '55%',
-                    center: ['50%', '60%'],
-                    data:pieData,
-                    itemStyle:{ 
-			            normal:{ 
-			                label:{ 
-			                    show: true, 
-			                    formatter: '{b} : {c} ({d}%)' 
-			                }, 
-			                labelLine :{show:true} 
-			            } 
-			        } 
-
-                }
-            ]
-        };
-            
-
-        // 为echarts对象加载数据 
-        myChart2.setOption(option2); 
-    }
-);

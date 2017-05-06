@@ -37,6 +37,16 @@ public class FinanceEntity implements Serializable {
 	//
 	private Date lastUpdate;
 	
+	@JSONField (format="yyyy")
+	private Date finYear;
+	
+	
+	public Date getFinYear() {
+		return finYear;
+	}
+	public void setFinYear(Date finYear) {
+		this.finYear = finYear;
+	}
 	public void setFinanceId(Integer financeId) {
 		this.financeId = financeId;
 	}

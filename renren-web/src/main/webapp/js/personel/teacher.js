@@ -118,7 +118,14 @@ var vm = new Vue({
 		getInfo: function(teacherId){
 			vm.getSubjects();
             vm.getPositions();
-            setTimeout(function(){$.get("../teacher/info/"+teacherId, function(r){vm.teacher = r.teacher;})},200);
+            $.ajax({
+			    type : "GET",
+			    url : "../teacher/info/"+teacherId,
+			    dataType : "json",
+			    success : function (data) {
+			    	vm.teacher = data.teacher;
+			    }
+			});
 		},
 		reload: function (event) {
 			vm.showList = true;

@@ -129,10 +129,14 @@ var vm = new Vue({
 		},
 		getInfo: function(courseId){
 			vm.getTeachers();
-			setTimeout(function(){$.get("../course/info/"+courseId, function(r){
-                vm.course = r.course;
-            });} ,200 );
-			
+			$.ajax({
+			    type : "GET",
+			    url : "../course/info/"+courseId,
+			    dataType : "json",
+			    success : function (data) {
+			    	vm.course = data.course;
+			    }
+			});
 		},
 		reload: function (event) {
 			vm.showList = true;
