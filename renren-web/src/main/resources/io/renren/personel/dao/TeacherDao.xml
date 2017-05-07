@@ -54,27 +54,27 @@
 		(
 			`name`, 
 			`teach_age`, 
-			`last_update`, 
 			`born`, 
 			`sex`, 
 			`subject_id`, 
 			`position_id`,
 			`remarks`,
 			`phone`,
-			`is_fulltime`
+			`is_fulltime`,
+			`graduate_school`
 		)
 		values
 		(
 			#{name}, 
 			#{teachAge}, 
-			#{lastUpdate}, 
 			#{born}, 
 			#{sex}, 
 			#{subjectId}, 
 			#{positionId},
 			#{remarks}, 
 			#{phone},
-			#{isFulltime}
+			#{isFulltime},
+			#{graduateSchool}
 		)
 	</insert>
 	 
@@ -83,14 +83,14 @@
 		<set>
 			<if test="name != null">`name` = #{name}, </if>
 			<if test="teachAge != null">`teach_age` = #{teachAge}, </if>
-			<if test="lastUpdate != null">`last_update` = #{lastUpdate}, </if>
 			<if test="born != null">`born` = #{born}, </if>
 			<if test="sex != null">`sex` = #{sex}, </if>
 			<if test="subjectId != null">`subject_id` = #{subjectId}, </if>
 			<if test="positionId != null">`position_id` = #{positionId},</if>
 			<if test="remarks != null">`remarks` = #{remarks}, </if>
 			<if test="isFulltime != null">`is_fulltime` = #{isFulltime}, </if>
-			<if test="phone != null">`phone` = #{phone}</if>
+			<if test="phone != null">`phone` = #{phone},</if>
+			<if test="graduateSchool != null">`graduate_school` = #{graduateSchool}</if>
 		</set>
 		where teacher_id = #{teacherId}
 	</update>

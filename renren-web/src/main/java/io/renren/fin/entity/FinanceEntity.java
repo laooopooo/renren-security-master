@@ -38,13 +38,13 @@ public class FinanceEntity implements Serializable {
 	private Date lastUpdate;
 	
 	@JSONField (format="yyyy")
-	private Date finYear;
+	private String finYear;
 	
 	
-	public Date getFinYear() {
+	public String getFinYear() {
 		return finYear;
 	}
-	public void setFinYear(Date finYear) {
+	public void setFinYear(String finYear) {
 		this.finYear = finYear;
 	}
 	public void setFinanceId(Integer financeId) {

@@ -65,7 +65,8 @@
 			`fin_amount`, 
 			`remarks`, 
 			`fin_quarter`, 
-			`last_update`
+			`last_update`,
+			`fin_year`
 		)
 		values
 		(
@@ -75,7 +76,8 @@
 			#{finAmount}, 
 			#{remarks}, 
 			#{finQuarter}, 
-			#{lastUpdate}
+			#{lastUpdate},
+			#{finYear}
 		)
 	</insert>
 	 
@@ -89,6 +91,7 @@
 			<if test="remarks != null">`remarks` = #{remarks}, </if>
 			<if test="finQuarter != null">`fin_quarter` = #{finQuarter}, </if>
 			<if test="lastUpdate != null">`last_update` = #{lastUpdate}</if>
+			<if test="finYear != null">`fin_year` = #{finYear}</if>
 		</set>
 		where finance_id = #{financeId}
 	</update>

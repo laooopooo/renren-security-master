@@ -42,6 +42,15 @@ public class TeacherEntity implements Serializable {
 	
 	private String positionName;
 	
+	private String graduateSchool;
+	
+	
+	public String getGraduateSchool() {
+		return graduateSchool;
+	}
+	public void setGraduateSchool(String graduateSchool) {
+		this.graduateSchool = graduateSchool;
+	}
 	/**
 	 * 电话号码
 	 */

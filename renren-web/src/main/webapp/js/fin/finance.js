@@ -160,14 +160,13 @@ var vm = new Vue({
 window.onload=function(){ 
 //设置年份的选择 
 	var myDate= new Date(); 
-	var startYear=myDate.getFullYear()-10;//起始年份 
-	var endYear=myDate.getFullYear()+10;//结束年份 
-	for(var i=0;i<20;i++){
+	var startYear=myDate.getFullYear()-5;//起始年份 
+	var endYear=myDate.getFullYear()+3;//结束年份 
+	for(var i=0;i<9;i++){
 		//debugger;
 		var tempobj=new Object();
 		tempobj.name=startYear+i;
 		tempobj.value=startYear+i
 		vm._data.years.push(tempobj);
 	}
-	
 } 
