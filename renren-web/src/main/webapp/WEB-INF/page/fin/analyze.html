@@ -5,28 +5,52 @@
 #parse("sys/header.html")
 </head>
 <body>
-<div>
-   
-    <div>
-        <div class="col-sm-5">
-              <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    		<div id="main" style="height:400px"></div>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn form-inline">
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;年份</label>
+            <div class="form-group" style="width: 10%">
+                <select class="form-control" style="width: auto;" v-model="q.year" >
+                   <option v-for="year in years" v-bind:value="year.value">
+                        {{year.name}} 
+                   </option>
+                </select>
+            </div>
+            <label>季度</label>
+            <div class="form-group " style="width: 10%">
+                <select class="form-control" v-model="q.quarter" >
+                   <option v-for="quarter in finQuarterDatas" v-bind:value="quarter.value">
+                        {{quarter.name}} 
+                   </option>
+                </select>
+            </div>
+            <label>收支</label>
+            <div class="form-group" style="width: 10%">
+                <select class="form-control" v-model="q.payOrIncome">
+                   <option v-for="payin in payInDatas" v-bind:value="payin.value">
+                        {{payin.name}} 
+                   </option>
+                </select>
+            </div>
+            
+            <a class="btn btn-default" style="width: 8%" @click="query">查找</a>
         </div>
-        <div class="col-sm-6">
-              <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-            <div id="main2" style="height:400px"></div>
-        </div>
-        <div style="height:420px"></div>
-    </div>
-    
+        <div>
+            <div>
+                <div class="col-sm-5">
+                      <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                    <div id="main" style="height:400px"></div>
+                </div>
+                <div class="col-sm-6">
+                      <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                    <div id="main2" style="height:400px"></div>
+                </div>
+                <div style="height:420px"></div>
+            </div>
 
-    <div>
-        <div id="rrapp" v-cloak>
-        <div v-show="showList">
             <table id="jqGrid"></table>
         </div>
     </div> 
-    </div>
 </div>
     
 </body>
