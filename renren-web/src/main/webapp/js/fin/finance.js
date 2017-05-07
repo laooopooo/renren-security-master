@@ -66,7 +66,10 @@ var vm = new Vue({
 		],
 		years:[],
 		q:{
-			year:null
+			year:null,
+			quarter:null,
+			payOrIncome:null,
+			typeOrRemarks:null
 		}
 	},
 	methods: {
@@ -140,7 +143,13 @@ var vm = new Vue({
 		reload: function (event) {
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
-			$("#jqGrid").jqGrid('setGridParam',{ 
+			$("#jqGrid").jqGrid('setGridParam',{
+				postData:{
+					'payOrIncome': vm.q.payOrIncome,
+					'year':vm.q.year,
+					'quarter':vm.q.quarter,
+					'typeOrRemarks':vm.q.typeOrRemarks
+				}, 
                 page:page
             }).trigger("reloadGrid");
 		}
@@ -153,10 +162,6 @@ window.onload=function(){
 	var myDate= new Date(); 
 	var startYear=myDate.getFullYear()-10;//起始年份 
 	var endYear=myDate.getFullYear()+10;//结束年份 
-	var tempobj=new Object();
-	tempobj.name="年份";
-	tempobj.value=null;
-	vm._data.years.push(tempobj);
 	for(var i=0;i<20;i++){
 		//debugger;
 		var tempobj=new Object();

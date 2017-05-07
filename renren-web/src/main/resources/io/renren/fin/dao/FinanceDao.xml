@@ -23,6 +23,22 @@
 		SELECT f.*,(select dd.dd_name from data_dictionary dd 
 		where dd.dd_field = 'quarter' and dd.dd_value=f.fin_quarter) 
 		as finQuarterName from fin_finance f
+		<where>
+			<if test="payOrIncome != null and payOrIncome.trim() != ''">
+				and `pay_or_income` like concat('%',#{payOrIncome},'%') 
+			</if>
+			<if test="year != null and year.trim() != ''">
+				and `fin_year` like concat('%',#{year},'%') 
+			</if>
+			<if test="quarter != null and quarter.trim() != ''">
+				and `fin_quarter` like concat('%',#{quarter},'%') 
+			</if>
+			<if test="typeOrRemarks != null and typeOrRemarks.trim() != ''">
+				and `fin_type` like concat('%',#{typeOrRemarks},'%') or
+				 `remarks` like concat('%',#{typeOrRemarks},'%')
+			</if>
+		</where>
+
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
