@@ -55,15 +55,19 @@ var vm = new Vue({
 		title: null,
 		finance: {},
 		payInDatas:[
-			{text:'支出',value:'0'},
-			{text:'收入',value:'1'}
+			{name:'支出',value:'0'},
+			{name:'收入',value:'1'}
 		],
 		finQuarterDatas:[
-			{text:'春季',value:'1'},
-			{text:'暑假',value:'2'},
-			{text:'秋季',value:'3'},
-			{text:'寒假',value:'4'}
-		]
+			{name:'春季',value:'1'},
+			{name:'暑假',value:'2'},
+			{name:'秋季',value:'3'},
+			{name:'寒假',value:'4'}
+		],
+		years:[],
+		q:{
+			year:null
+		}
 	},
 	methods: {
 		query: function () {
@@ -140,5 +144,25 @@ var vm = new Vue({
                 page:page
             }).trigger("reloadGrid");
 		}
+
 	}
 });
+
+window.onload=function(){ 
+//设置年份的选择 
+	var myDate= new Date(); 
+	var startYear=myDate.getFullYear()-10;//起始年份 
+	var endYear=myDate.getFullYear()+10;//结束年份 
+	var tempobj=new Object();
+	tempobj.name="年份";
+	tempobj.value=null;
+	vm._data.years.push(tempobj);
+	for(var i=0;i<20;i++){
+		//debugger;
+		var tempobj=new Object();
+		tempobj.name=startYear+i;
+		tempobj.value=startYear+i
+		vm._data.years.push(tempobj);
+	}
+	
+} 
