@@ -3,15 +3,16 @@ $(function () {
         url: '../teacher/list',
         datatype: "json",
         colModel: [			
-			{ label: '教师编号', name: 'teacherId', index: 'teacher_id', width: 50, key: true },
-			{ label: '姓名', name: 'name', index: 'name', width: 80 }, 			
-			{ label: '教龄', name: 'teachAge', index: 'teach_age', width: 50 },	
-			{ label: '电话号码', name: 'phone', index: 'phone', width: 80 }, 		
-			{ label: '出生日期', name: 'born', index: 'born', width: 100 }, 			
-			{ label: '性别', name: 'sex', index: 'sex', width: 40 }, 			
-			{ label: '主教科目', name: 'subjectName', index: 'subject_id', width: 80 }, 
+			{ label: '教师编号', name: 'teacherId', index: 'teacher_id', width: 50, key: true ,hidden:true},
+			{ label: '姓名', name: 'name', index: 'name', width: 80 }, 	
+			{ label: '性别', name: 'sex', index: 'sex', width: 40 }, 	
 			{ label: '职位', name: 'positionName', index: 'position_id', width: 80 },
+			{ label: '主教科目', name: 'subjectName', index: 'subject_id', width: 80 }, 
+			{ label: '电话号码', name: 'phone', index: 'phone', width: 80 }, 
+			{ label: '教龄', name: 'teachAge', index: 'teach_age', width: 50 },	
 			{ label: '全职', name: 'isFulltime', index: 'is_fulltime', width: 40 },
+			{ label: '出生日期', name: 'born', index: 'born', width: 100 }, 
+			{ label: '毕业学校', name: 'graduateSchool', index: 'graduate_school', width: 100 }, 
 			{ label: '备注', name: 'remarks', index: 'remarks', width: 40 }			
         ],
 		viewrecords: true,
@@ -118,7 +119,14 @@ var vm = new Vue({
 		getInfo: function(teacherId){
 			vm.getSubjects();
             vm.getPositions();
-            setTimeout(function(){$.get("../teacher/info/"+teacherId, function(r){vm.teacher = r.teacher;})},200);
+            $.ajax({
+			    type : "GET",
+			    url : "../teacher/info/"+teacherId,
+			    dataType : "json",
+			    success : function (data) {
+			    	vm.teacher = data.teacher;
+			    }
+			});
 		},
 		reload: function (event) {
 			vm.showList = true;

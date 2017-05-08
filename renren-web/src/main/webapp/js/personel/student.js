@@ -2,8 +2,17 @@ $(function () {
     $("#jqGrid").jqGrid({
         url: '../student/list',
         datatype: "json",
-        colModel: [			
-			{ label: '学生编号', name: 'studentId', index: 'student_id', width: 50, key: true },
+        colModel: [	
+        	{ label: '操作', width: 70,
+        		formatter: function(value, options, row){
+        			return '<button class="layui-btn layui-btn-mini layui-btn-normal" onclick="addCourse('
+        			+options.rowId+')">报班</button>'+
+        			'<button class="layui-btn layui-btn-mini layui-btn-danger" onclick="alert('
+        			+options.rowId+')">退班</button>'
+        		}
+        	}, 
+
+			{ label: '学生编号', name: 'studentId', index: 'student_id', width: 50, key: true ,hidden:true},
 			{ label: '姓名', name: 'name', index: 'name', width: 50 }, 
 			{ label: '性别', name: 'sex', index: 'sex', width: 40 },			
 			{ label: '学校', name: 'school', index: 'school', width: 100 },
@@ -125,3 +134,17 @@ var vm = new Vue({
 		}
 	}
 });
+
+var studentId='';
+
+var addCourse= function(rowId){
+  studentId=rowId;
+  layer.open({
+  type: 2,
+  title: '报名班级',
+  maxmin: true,
+  shadeClose: true, //点击遮罩关闭层
+  area : ['1000px' , '520px'],
+  content: '../course/addCourse.html'
+  });
+};

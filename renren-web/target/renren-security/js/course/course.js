@@ -3,7 +3,7 @@ $(function () {
         url: '../course/list',
         datatype: "json",
         colModel: [			
-			{ label: '课程编号', name: 'courseId', index: 'course_id', width: 50, key: true },
+			{ label: '课程编号', name: 'courseId', index: 'course_id', width: 50, key: true ,hidden:true},
 			{ label: '班级名称', name: 'courseName', index: 'course_name', width: 80 }, 
 			{ label: '班级类别', name: 'numberType', index: 'number_type', width: 80 },
 			{ label: '老师', name: 'teacherName', index: 'teacher_id', width: 80 }, 			
@@ -129,10 +129,14 @@ var vm = new Vue({
 		},
 		getInfo: function(courseId){
 			vm.getTeachers();
-			setTimeout(function(){$.get("../course/info/"+courseId, function(r){
-                vm.course = r.course;
-            });} ,200 );
-			
+			$.ajax({
+			    type : "GET",
+			    url : "../course/info/"+courseId,
+			    dataType : "json",
+			    success : function (data) {
+			    	vm.course = data.course;
+			    }
+			});
 		},
 		reload: function (event) {
 			vm.showList = true;

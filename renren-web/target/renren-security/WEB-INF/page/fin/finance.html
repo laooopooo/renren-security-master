@@ -7,7 +7,36 @@
 <body>
 <div id="rrapp" v-cloak>
 	<div v-show="showList">
-		<div class="grid-btn">
+		<div class="grid-btn form-inline">
+			<label>&nbsp;&nbsp;&nbsp;&nbsp;年份</label>
+			<div class="form-group" style="width: 10%">
+				<select class="form-control" style="width: auto;" v-model="q.year" >
+			   	   <option v-for="year in years" v-bind:value="year.value">
+			   	   		{{year.name}} 
+			       </option>
+				</select>
+			</div>
+			<label>季度</label>
+			<div class="form-group " style="width: 10%">
+				<select class="form-control" v-model="q.quarter" >
+			   	   <option v-for="quarter in finQuarterDatas" v-bind:value="quarter.value">
+			   	   		{{quarter.name}} 
+			       </option>
+				</select>
+			</div>
+			<label>收支</label>
+			<div class="form-group" style="width: 10%">
+				<select class="form-control" v-model="q.payOrIncome">
+			   	   <option v-for="payin in payInDatas" v-bind:value="payin.value">
+			   	   		{{payin.name}} 
+			       </option>
+				</select>
+			</div>
+			<div class="form-group" style="width: 20%">
+				<input type="text" class="form-control" v-model="q.typeOrRemarks"  @keyup.enter="query" placeholder="财务类型、备注">
+			</div>
+			<a class="btn btn-default" @click="query">查找</a>
+
 			#if($shiro.hasPermission("finance:save"))
 			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
 			#end
@@ -30,7 +59,7 @@
 			   	<div class="col-sm-10">
 			   		<select class="input-md form-control" v-model="finance.payOrIncome">
 				   	   <option v-for="payInData in payInDatas" v-bind:value="payInData.value">
-				   	   		{{payInData.text}} 
+				   	   		{{payInData.name}} 
 				       </option>
 				   	</select>
 			    </div>
@@ -39,26 +68,30 @@
 			   	<div class="col-sm-2 control-label">财务类型</div>
 			   	<div class="col-sm-10">
 			   		<select class="input-md form-control" v-model="finance.finType">
-				        <option>工资</option>
-				        <option>学费</option>
-				        <option>书籍、办公用品</option>
-				        <option>装修费、修理</option>
-				        <option>业务招待</option>
-				        <option>出差、餐费</option>
-				        <option>广告宣传</option>
-				        <option>福利奖金</option>
-				        <option>保险</option>
-				        <option>水电物管</option>
-				        <option>租赁</option>
-				        <option>交通运输</option>
-				        <option>其他</option>
+					    <option v-for="finType in finTypes" v-bind:value="finType.name">
+					   	   {{finType.name}} 
+				        </option>   
 				   	</select>
 			    </div>
 			</div>
 			<div class="form-group">
-			   	<div class="col-sm-2 control-label">收支日期</div>
+			   	<div class="col-sm-2 control-label">年份</div>
 			   	<div class="col-sm-10">
-			      <input type="text" id="lay_finDate" class="form-control" v-model="finance.finDate" placeholder="收支日期"/>
+			      <select class="input-md form-control" v-model="finance.finYear">
+				   	   <option v-for="year in years" v-bind:value="year.value">
+				   	   		{{year.name}} 
+				       </option>
+				   	</select>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">季度</div>
+			   	<div class="col-sm-10">
+			   		<select class="input-md form-control" v-model="finance.finQuarter">
+				   	   <option v-for="finQuarterData in finQuarterDatas" v-bind:value="finQuarterData.value">
+				   	   		{{finQuarterData.name}} 
+				       </option>
+				   	</select>
 			    </div>
 			</div>
 			<div class="form-group">
@@ -67,15 +100,10 @@
 			      <input type="number" class="form-control" v-model="finance.finAmount" placeholder="收支金额"/>
 			    </div>
 			</div>
-			
 			<div class="form-group">
-			   	<div class="col-sm-2 control-label">季度</div>
+			   	<div class="col-sm-2 control-label">收支日期</div>
 			   	<div class="col-sm-10">
-			   		<select class="input-md form-control" v-model="finance.finQuarter">
-				   	   <option v-for="finQuarterData in finQuarterDatas" v-bind:value="finQuarterData.value">
-				   	   		{{finQuarterData.text}} 
-				       </option>
-				   	</select>
+			      <input type="text" id="lay_finDate" class="form-control" v-model="finance.finDate" placeholder="收支日期"/>
 			    </div>
 			</div>
 			<div class="form-group">
@@ -108,6 +136,15 @@ layui.use('laydate', function(){
     laydate(mydate);
   }
 });
+
+(function(){
+    $("#datepicker").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange:"1990:2050"
+    });
+    debugger;
+})();
 </script>
 
 <script src="${rc.contextPath}/js/fin/finance.js?_${date.systemTime}"></script>

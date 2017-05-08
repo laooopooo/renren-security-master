@@ -3,7 +3,7 @@ $(function () {
         url: '../student/list',
         datatype: "json",
         colModel: [			
-			{ label: '学生编号', name: 'studentId', index: 'student_id', width: 50, key: true },
+			{ label: '学生编号', name: 'studentId', index: 'student_id', width: 50, key: true ,hidden:true},
 			{ label: '姓名', name: 'name', index: 'name', width: 50 }, 
 			{ label: '性别', name: 'sex', index: 'sex', width: 40 },			
 			{ label: '学校', name: 'school', index: 'school', width: 100 },

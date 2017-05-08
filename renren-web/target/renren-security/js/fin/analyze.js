@@ -43,15 +43,22 @@ var vm = new Vue({
 		title: null,
 		analyze: {},
 		payInDatas:[
-			{text:'支出',value:'0'},
-			{text:'收入',value:'1'}
+			{name:'支出',value:'0'},
+			{name:'收入',value:'1'}
 		],
 		finQuarterDatas:[
-			{text:'春季',value:'1'},
-			{text:'暑假',value:'2'},
-			{text:'秋季',value:'3'},
-			{text:'寒假',value:'4'}
-		]
+			{name:'春季',value:'1'},
+			{name:'暑假',value:'2'},
+			{name:'秋季',value:'3'},
+			{name:'寒假',value:'4'}
+		],
+        years:[],
+        q:{
+            year:null,
+            quarter:null,
+            payOrIncome:null,
+            typeOrRemarks:null
+        }
 	},
 	methods: {
 		query: function () {
@@ -59,20 +66,22 @@ var vm = new Vue({
 		},
 		
 		reload: function (event) {
+            startChart(vm.q.payOrIncome,vm.q.year,vm.q.quarter);
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
+                postData:{
+                    'payOrIncome': vm.q.payOrIncome,
+                    'year':vm.q.year,
+                    'quarter':vm.q.quarter
+                },
                 page:page
             }).trigger("reloadGrid");
 		}
 	}
 });
 
-//因为gqgrid的数据无法取出来，所有重新用ajax再次去后台取一次
-var finData=[];
-var typeName=[];
-var typeAmount=[];
-var pieData=new Array();
+
 
 var option = {
     tooltip: {
@@ -120,7 +129,7 @@ var option2 = {
     legend: {
         orient : 'vertical',
         x : 'left',
-        data:typeName
+        data:['']
     },
     
     calculable : true,
@@ -130,7 +139,7 @@ var option2 = {
             type:'pie',
             radius : '55%',
             center: ['50%', '60%'],
-            data:pieData,
+            data:[''],
             itemStyle:{ 
 	            normal:{ 
 	                label:{ 
@@ -154,6 +163,11 @@ require.config({
     }
 });
 
+var startChart=function(payOrIncome,year,quarter){
+    if (payOrIncome==null) {payOrIncome=""}
+    if (year==null) {year=""}
+    if (quarter==null) {quarter=""}
+    debugger;
 // 使用
 require(
     [
@@ -166,9 +180,15 @@ require(
         var myChart = ec.init(document.getElementById('main')); 
 		var myChart2 = ec.init(document.getElementById('main2'));
 
+        //因为gqgrid的数据无法取出来，所有重新用ajax再次去后台取一次
+        var finData=[];
+        var typeName=[];
+        var typeAmount=[];
+        var pieData=new Array();
+        
         $.ajax({
 		    type : "GET",
-		    url : "../analyze/list?limit=10000&page=1&sidx=&order=asc",
+		    url : "../analyze/list?limit=10000&page=1&sidx=&order=asc&payOrIncome="+payOrIncome+"&year="+year+"&quarter="+quarter,
 		    dataType : "json",
 		    success : function (data) {
 		    	finData=data.page.list;
@@ -183,6 +203,7 @@ require(
 		    	}
 		    	option.xAxis[0].data=typeName;
     			option.series[0].data=typeAmount;
+                option2.series[0].data=pieData;
 		    	myChart.setOption(option); 
 		    	myChart2.setOption(option2); 
 		    }
@@ -190,4 +211,18 @@ require(
 
     }
 );
-
+}
+window.onload=function(){ 
+//设置年份的选择 
+    var myDate= new Date(); 
+    var startYear=myDate.getFullYear()-5;//起始年份 
+    var endYear=myDate.getFullYear()+3;//结束年份 
+    for(var i=0;i<9;i++){
+        //debugger;
+        var tempobj=new Object();
+        tempobj.name=startYear+i;
+        tempobj.value=startYear+i
+        vm._data.years.push(tempobj);
+    }
+    startChart('','','');
+} 

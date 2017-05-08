@@ -95,6 +95,7 @@
 	</div>
 </div>
 <script>
+setTimeout(function(){
 layui.use('laydate', function(){
   var laydate = layui.laydate;
  	var born_date = {
@@ -109,6 +110,8 @@ layui.use('laydate', function(){
     laydate(born_date);
   }
 });
+}, 1000)
+
 </script>
 <script src="${rc.contextPath}/js/personel/student.js?_${date.systemTime}"></script>
 

@@ -11,6 +11,7 @@
 			<div class="form-group col-sm-2">
 				<input type="text" class="form-control" v-model="q.name"  @keyup.enter="query" placeholder="姓名">
 			</div>
+			<a class="btn btn-default" @click="query">查询</a>
 			#if($shiro.hasPermission("teacher:save"))
 			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
 			#end
@@ -27,34 +28,14 @@
     
     <div v-show="!showList" class="panel panel-default">
 		<div class="panel-heading">{{title}}</div>
-		<form class="form-horizontal">
+		<form class="form-horizontal" style="width:100% ">
 			<div class="form-group">
-			   	<div class="col-sm-2 control-label">姓名</div>
-			   	<div class="col-sm-10">
+			   	<div class="col-sm-1 control-label">姓名</div>
+			   	<div class="col-sm-4">
 			      <input type="text" class="form-control" v-model="teacher.name" placeholder="姓名"/>
 			    </div>
-			</div>
-			<div class="form-group">
-			   	<div class="col-sm-2 control-label">教龄</div>
-			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="teacher.teachAge" placeholder="教龄"/>
-			    </div>
-			</div>
-			<div class="form-group">
-			   	<div class="col-sm-2 control-label">电话号码</div>
-			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="teacher.phone" placeholder="电话号码"/>
-			    </div>
-			</div>
-			<div class="form-group">
-			   	<div class="col-sm-2 control-label">出生日期</div>
-			   	<div class="col-sm-10">
-			      <input type="text" id="lay_born" class="form-control" v-model="teacher.born" placeholder="出生日期"/>
-			    </div>
-			</div>
-			<div class="form-group">
-			   	<div class="col-sm-2 control-label">性别</div>
-			   	<div class="col-sm-10">
+			    <div class="col-sm-1 control-label">性别</div>
+			   	<div class="col-sm-4">
 			   		<select class="input-md form-control" v-model="teacher.sex">
 				        <option>男</option>
 				        <option>女</option>
@@ -62,8 +43,16 @@
 			    </div>
 			</div>
 			<div class="form-group">
-			   	<div class="col-sm-2 control-label">主教科目</div>
-			   	<div class="col-sm-10">
+			   	<div class="col-sm-1 control-label">职位</div>
+			   	<div class="col-sm-4">
+			   		<select class="input-md form-control" v-model="teacher.positionId">
+				   	   <option v-for="position in positions" v-bind:value="position.positionId">
+				   	   		{{position.position}} 
+				       </option>
+				   	</select>
+			    </div>
+			    <div class="col-sm-1 control-label">主教科目</div>
+			   	<div class="col-sm-4">
 				   	<select class="input-md form-control" v-model="teacher.subjectId">
 				   	   <option v-for="subject in subjects" v-bind:value="subject.subjectId">
 				   	   		{{subject.name}} 
@@ -71,33 +60,45 @@
 				   	</select>
 			    </div>
 			</div>
+
 			<div class="form-group">
-			   	<div class="col-sm-2 control-label">职位</div>
-			   	<div class="col-sm-10">
-			   		<select class="input-md form-control" v-model="teacher.positionId">
-				   	   <option v-for="position in positions" v-bind:value="position.positionId">
-				   	   		{{position.position}} 
-				       </option>
-				   	</select>
+			   	<div class="col-sm-1 control-label">电话号码</div>
+			   	<div class="col-sm-4">
+			      <input type="text" class="form-control" v-model="teacher.phone" placeholder="电话号码"/>
+			    </div>
+			    <div class="col-sm-1 control-label">教龄</div>
+			   	<div class="col-sm-4">
+			      <input type="number" class="form-control" v-model="teacher.teachAge" placeholder="教龄"/>
 			    </div>
 			</div>
+			
 			<div class="form-group">
-			   	<div class="col-sm-2 control-label">全职</div>
-			   	<div class="col-sm-10">
+			   	<div class="col-sm-1 control-label">出生日期</div>
+			   	<div class="col-sm-4">
+			      <input type="text" id="lay_born" class="form-control" v-model="teacher.born" placeholder="出生日期"/>
+			    </div>
+			    <div class="col-sm-1 control-label">毕业学校</div>
+			   	<div class="col-sm-4">
+			      <input type="text" class="form-control" v-model="teacher.graduateSchool" placeholder="毕业学校"/>
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			   	<div class="col-sm-1 control-label">全职</div>
+			   	<div class="col-sm-4">
 			   		<select class="input-md form-control" v-model="teacher.isFulltime">
 				        <option>是</option>
 				        <option>否</option>
 				   	</select>
 			    </div>
-			</div>
-			<div class="form-group">
-			   	<div class="col-sm-2 control-label">备注</div>
-			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="teacher.remarks" placeholder="备注"/>
+			    <div class="col-sm-1 control-label">备注</div>
+			   	<div class="col-sm-4">
+			      <textarea rows="1" class="form-control" v-model="teacher.remarks"></textarea>
 			    </div>
 			</div>
+			
 			<div class="form-group">
-				<div class="col-sm-2 control-label"></div> 
+				<div class="col-sm-10 control-label"></div> 
 				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
 				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
 			</div>

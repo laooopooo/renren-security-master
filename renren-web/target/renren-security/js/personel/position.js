@@ -3,7 +3,7 @@ $(function () {
         url: '../position/list',
         datatype: "json",
         colModel: [			
-			{ label: '职位编号', name: 'positionId', index: 'position_id', width: 50, key: true },
+			{ label: '职位编号', name: 'positionId', index: 'position_id', width: 50, key: true ,hidden:true},
 			{ label: '职位名称', name: 'position', index: 'position', width: 80 }		
         ],
 		viewrecords: true,
@@ -12,7 +12,7 @@ $(function () {
 		rowList : [10,30,50],
         rownumbers: true, 
         rownumWidth: 25, 
-        autowidth:true,
+        autowidth:false,
         multiselect: true,
         pager: "#jqGridPager",
         jsonReader : {

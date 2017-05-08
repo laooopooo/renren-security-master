@@ -3,9 +3,10 @@ $(function () {
         url: '../finance/list',
         datatype: "json",
         colModel: [			
-			{ label: '收支编号', name: 'financeId', index: 'finance_id', width: 50, key: true },
+			{ label: '收支编号', name: 'financeId', index: 'finance_id', width: 50, key: true ,hidden:true},
 			{ label: '财务类型', name: 'finType', index: 'fin_type', width: 80 },
-			{ label: '收支金额', name: 'finAmount', index: 'fin_amount', width: 80 }, 		
+			{ label: '收支金额', name: 'finAmount', index: 'fin_amount', width: 80 },
+			{ label: '年份', name: 'finYear', index: 'fin_year', width: 80 },		
 			{ label: '季度', name: 'finQuarterName', index: 'fin_quarter', width: 80 },
 			{ label: '日期', name: 'finDate', index: 'fin_date', width: 80 }, 		
 			{ label: '收支', name: 'payOrIncome', index: 'pay_or_income', width: 80 ,
@@ -53,16 +54,59 @@ var vm = new Vue({
 		showList: true,
 		title: null,
 		finance: {},
-		payInDatas:[
-			{text:'支出',value:'0'},
-			{text:'收入',value:'1'}
+		payInDatas:[{
+			name:'收入',
+			value:'1',
+			finTypes:[
+				{ name: '晚辅学费' },
+				{ name: '一对一学费' },
+				{ name: '小班学费' },
+				{ name: '其他' },
+			]
+		},
+		{
+			name:'支出',
+			value:'0',
+			finTypes:[
+				{ name: '工资' },
+				{ name: '书籍、办公用品' },
+				{ name: '装修费、修理' },
+				{ name: '业务招待' },
+				{ name: '出差、餐费' },
+				{ name: '广告宣传' },
+				{ name: '福利奖金' },
+				{ name: '保险' },
+				{ name: '水电物管' },
+				{ name: '租赁' },
+				{ name: '交通运输' },
+				{ name: '其他' },
+			]
+		}
 		],
 		finQuarterDatas:[
-			{text:'春季',value:'1'},
-			{text:'暑假',value:'2'},
-			{text:'秋季',value:'3'},
-			{text:'寒假',value:'4'}
-		]
+			{name:'春季',value:'1'},
+			{name:'暑假',value:'2'},
+			{name:'秋季',value:'3'},
+			{name:'寒假',value:'4'}
+		],
+		years:[],
+		q:{
+			year:null,
+			quarter:null,
+			payOrIncome:null,
+			typeOrRemarks:null
+		}
+	},
+	computed: {
+	    finTypes: function() {
+	    	var finTypes = [], payOrIncome = this.$data.finance.payOrIncome;
+	    	debugger;
+	    	 this.$data.payInDatas.forEach(function(d) {
+		        if(d.value == payOrIncome)
+		          finTypes = d.finTypes;
+		      });
+	    	 return finTypes;
+	    }
 	},
 	methods: {
 		query: function () {
@@ -71,11 +115,16 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.finance = {};
 			//初始化参数，为添加新的数据提供默认选项
-			vm.finance.payOrIncome=0;
-			vm.finance.finType='工资';
-			vm.finance.finQuarter=1;
+			vm.finance = {
+				payOrIncome:0,
+				finType:'',
+				finYear:'2017',
+				finQuarter:'1',
+				finAmount:null,
+				finDate:'',
+				remarks:''
+			};
 		},
 		update: function (event) {
 			var financeId = getSelectedRow();
@@ -135,9 +184,30 @@ var vm = new Vue({
 		reload: function (event) {
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
-			$("#jqGrid").jqGrid('setGridParam',{ 
+			$("#jqGrid").jqGrid('setGridParam',{
+				postData:{
+					'payOrIncome': vm.q.payOrIncome,
+					'year':vm.q.year,
+					'quarter':vm.q.quarter,
+					'typeOrRemarks':vm.q.typeOrRemarks
+				}, 
                 page:page
             }).trigger("reloadGrid");
 		}
+
 	}
 });
+
+window.onload=function(){ 
+//设置年份的选择 
+	var myDate= new Date(); 
+	var startYear=myDate.getFullYear()-5;//起始年份 
+	var endYear=myDate.getFullYear()+3;//结束年份 
+	for(var i=0;i<9;i++){
+		//debugger;
+		var tempobj=new Object();
+		tempobj.name=startYear+i;
+		tempobj.value=startYear+i
+		vm._data.years.push(tempobj);
+	}
+} 
