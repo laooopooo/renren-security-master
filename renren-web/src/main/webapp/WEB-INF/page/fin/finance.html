@@ -68,19 +68,9 @@
 			   	<div class="col-sm-2 control-label">财务类型</div>
 			   	<div class="col-sm-10">
 			   		<select class="input-md form-control" v-model="finance.finType">
-				        <option>工资</option>
-				        <option>学费</option>
-				        <option>书籍、办公用品</option>
-				        <option>装修费、修理</option>
-				        <option>业务招待</option>
-				        <option>出差、餐费</option>
-				        <option>广告宣传</option>
-				        <option>福利奖金</option>
-				        <option>保险</option>
-				        <option>水电物管</option>
-				        <option>租赁</option>
-				        <option>交通运输</option>
-				        <option>其他</option>
+					    <option v-for="finType in finTypes" v-bind:value="finType.name">
+					   	   {{finType.name}} 
+				        </option>   
 				   	</select>
 			    </div>
 			</div>

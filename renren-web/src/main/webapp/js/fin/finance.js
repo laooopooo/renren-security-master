@@ -54,9 +54,33 @@ var vm = new Vue({
 		showList: true,
 		title: null,
 		finance: {},
-		payInDatas:[
-			{name:'支出',value:'0'},
-			{name:'收入',value:'1'}
+		payInDatas:[{
+			name:'收入',
+			value:'1',
+			finTypes:[
+				{ name: '晚辅学费' },
+				{ name: '一对一学费' },
+				{ name: '小班学费' }
+			]
+		},
+		{
+			name:'支出',
+			value:'0',
+			finTypes:[
+				{ name: '工资' },
+				{ name: '书籍、办公用品' },
+				{ name: '装修费、修理' },
+				{ name: '业务招待' },
+				{ name: '出差、餐费' },
+				{ name: '广告宣传' },
+				{ name: '福利奖金' },
+				{ name: '保险' },
+				{ name: '水电物管' },
+				{ name: '租赁' },
+				{ name: '交通运输' },
+				{ name: '其他' },
+			]
+		}
 		],
 		finQuarterDatas:[
 			{name:'春季',value:'1'},
@@ -72,6 +96,17 @@ var vm = new Vue({
 			typeOrRemarks:null
 		}
 	},
+	computed: {
+	    finTypes: function() {
+	    	var finTypes = [], payOrIncome = this.$data.finance.payOrIncome;
+	    	debugger;
+	    	 this.$data.payInDatas.forEach(function(d) {
+		        if(d.value == payOrIncome)
+		          finTypes = d.finTypes;
+		      });
+	    	 return finTypes;
+	    }
+	},
 	methods: {
 		query: function () {
 			vm.reload();
@@ -79,11 +114,17 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.finance = {};
 			//初始化参数，为添加新的数据提供默认选项
-			vm.finance.payOrIncome=0;
-			vm.finance.finType='工资';
-			vm.finance.finQuarter=1;
+			vm.finance = {
+				payOrIncome:0,
+				finType:'',
+				finYear:'2017',
+				finQuarter:'1',
+				finAmount:null,
+				finDate:'',
+				remarks:''
+
+			};
 		},
 		update: function (event) {
 			var financeId = getSelectedRow();
