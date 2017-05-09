@@ -34,8 +34,6 @@ public class FinanceEntity implements Serializable {
 	private Integer finQuarter;
 	
 	private String finQuarterName;
-	//
-	private Date lastUpdate;
 	
 	@JSONField (format="yyyy")
 	private String finYear;
@@ -134,16 +132,5 @@ public class FinanceEntity implements Serializable {
 	public Integer getFinQuarter() {
 		return finQuarter;
 	}
-	/**
-	 * 设置：
-	 */
-	public void setLastUpdate(Date lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
-	/**
-	 * 获取：
-	 */
-	public Date getLastUpdate() {
-		return lastUpdate;
-	}
+	
 }

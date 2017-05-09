@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.course.dao.CourseRecordDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.course.entity.CourseRecordEntity" id="courseRecordMap">
+        <result property="courseRecordId" column="course_record_id"/>
+        <result property="courseId" column="course_id"/>
+        <result property="studentId" column="student_id"/>
+        <result property="courseTime" column="course_time"/>
+        <result property="financeId" column="finance_id"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.renren.course.entity.CourseRecordEntity">
+		select * from c_course_record where course_record_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.renren.course.entity.CourseRecordEntity">
+		select * from c_course_record
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by course_record_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from c_course_record 
+	</select>
+	 
+	<insert id="save" parameterType="io.renren.course.entity.CourseRecordEntity" useGeneratedKeys="true" keyProperty="courseRecordId">
+		insert into c_course_record
+		(
+			`course_id`, 
+			`student_id`, 
+			`course_time`, 
+			`finance_id`
+		)
+		values
+		(
+			#{courseId}, 
+			#{studentId}, 
+			#{courseTime}, 
+			#{financeId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.renren.course.entity.CourseRecordEntity">
+		update c_course_record 
+		<set>
+			<if test="courseId != null">`course_id` = #{courseId}, </if>
+			<if test="studentId != null">`student_id` = #{studentId}, </if>
+			<if test="courseTime != null">`course_time` = #{courseTime}, </if>
+			<if test="financeId != null">`finance_id` = #{financeId}</if>
+		</set>
+		where course_record_id = #{courseRecordId}
+	</update>
+	
+	<delete id="delete">
+		delete from c_course_record where course_record_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from c_course_record where course_record_id in 
+		<foreach item="courseRecordId" collection="array" open="(" separator="," close=")">
+			#{courseRecordId}
+		</foreach>
+	</delete>
+
+</mapper>

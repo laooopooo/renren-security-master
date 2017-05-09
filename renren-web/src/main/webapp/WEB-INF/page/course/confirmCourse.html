@@ -9,29 +9,35 @@
 
 	<div v-show="showList">
 		<div>
-		   	<div>
-		    	<label>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名: {{parent.vm.student.name}}</label>
-		    </div>
+		    <label>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名: {{parent.vm.student.name}}</label>
         <div>
-          <label>报名课程:</label>
+            <label>报名课程:{{parent.vm.course.courseName}}</label>
         </div>
         <div>
-          <label>应收费用:</label>
+            <label>任课老师:{{parent.vm.course.teacherName}}</label>
         </div>
         <div>
-        	 实收费用: <input type="number">
+             <label>应收费用:{{parent.vm.course.actualPrice}}</label>
+        </div>
+        <div>
+        	 实收费用: <input id="actualPrice" type="number">
         </div>
 		</div>
-    <div class="form-group">
-        <div class="col-sm-2 control-label"></div> 
-        <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
-        &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
-      </div>
+		<br>
     </div>
     
 </div>
 <script src="${rc.contextPath}/js/course/addCourse.js?_${date.systemTime}"></script>
+<script type="text/javascript">
+    var confirm=function(){
+        //var index = parent.layer.getFrameIndex(window.name);
+        parent.vm.courseRecord.actualPrice= $("#actualPrice").val();
 
+        //parent.layer.close(index);
+    }
+     
+   
+</script>
 
 </body>
 </html>

@@ -6,19 +6,16 @@ $(function () {
         	{ label: '操作', width: 50,
         		formatter: function(value, options, row){
         			return '<button class="layui-btn layui-btn-mini layui-btn-normal" onclick="addCourse('
-        			+options.rowId+')">班课详情</button>'
+        			+options.rowId+')">报名小班</button>'
         		}
         	}, 
+
 			{ label: '学生编号', name: 'studentId', index: 'student_id', width: 50, key: true ,hidden:true},
 			{ label: '姓名', name: 'name', index: 'name', width: 50 }, 
 			{ label: '性别', name: 'sex', index: 'sex', width: 40 },			
 			{ label: '学校', name: 'school', index: 'school', width: 100 },
-			{ label: '生日', name: 'born', index: 'born', width: 80 }, 
 			{ label: '家长姓名', name: 'parentName', index: 'parent_name', width: 60 },
-			{ label: '家长电话', name: 'parentTel', index: 'parent_tel', width: 80 },
-			{ label: '家庭住址', name: 'address', index: 'address', width: 60 },
-			{ label: '补习方式', name: 'studyWay', index: 'studyWay', width: 60 },
-			{ label: '备注', name: 'remarks', index: 'remarks', width: 60 },
+			
         ],
 		viewrecords: true,
         height: 385,

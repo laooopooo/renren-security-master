@@ -21,8 +21,8 @@ public class CourseEntity implements Serializable {
 	private String courseName;
 	//备注
 	private String remarks;
-	//班级-类别，小班，晚辅,一对一
-	private String numberType;
+	//
+	private Integer expendTime;
 	//
 	private Date lastUpdate;
 	//
@@ -47,7 +47,28 @@ public class CourseEntity implements Serializable {
 	
 	private Float actualPrice;
 	
+	private Integer quarter;
 	
+	private String year;
+	
+	public Integer getQuarter() {
+		return quarter;
+	}
+	public void setQuarter(Integer quarter) {
+		this.quarter = quarter;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
+	public Integer getExpendTime() {
+		return expendTime;
+	}
+	public void setExpendTime(Integer expendTime) {
+		this.expendTime = expendTime;
+	}
 	public Float getOriginalPrice() {
 		return originalPrice;
 	}
@@ -109,18 +130,6 @@ public class CourseEntity implements Serializable {
 	 */
 	public String getRemarks() {
 		return remarks;
-	}
-	/**
-	 * 设置：班级-类别，小班，晚辅,一对一
-	 */
-	public void setNumberType(String numberType) {
-		this.numberType = numberType;
-	}
-	/**
-	 * 获取：班级-类别，小班，晚辅,一对一
-	 */
-	public String getNumberType() {
-		return numberType;
 	}
 	/**
 	 * 设置：

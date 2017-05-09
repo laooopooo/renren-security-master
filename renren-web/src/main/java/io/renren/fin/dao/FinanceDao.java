@@ -11,5 +11,6 @@ import io.renren.fin.entity.FinanceEntity;
  * @date 2017-05-04 14:57:23
  */
 public interface FinanceDao extends BaseDao<FinanceEntity> {
+	int selectMaxId();
 	
 }
