@@ -119,7 +119,7 @@ var option = {
 
 var option2 = {
     title : {
-        text: '饼状图',
+        text: '财务类型',
         x:'center'
     },
     tooltip : {

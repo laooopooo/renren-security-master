@@ -3,18 +3,6 @@
 
 <mapper namespace="io.renren.fin.dao.FinanceDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="io.renren.fin.entity.FinanceEntity" id="financeMap">
-        <result property="financeId" column="finance_id"/>
-        <result property="payOrIncome" column="pay_or_income"/>
-        <result property="finType" column="fin_type"/>
-        <result property="finDate" column="fin_date"/>
-        <result property="finAmount" column="fin_amount"/>
-        <result property="remarks" column="remarks"/>
-        <result property="finQuarter" column="fin_quarter"/>
-        <result property="lastUpdate" column="last_update"/>
-    </resultMap>
-
 	<select id="queryObject" resultType="io.renren.fin.entity.FinanceEntity">
 		select * from fin_finance where finance_id = #{value}
 	</select>
@@ -65,7 +53,6 @@
 			`fin_amount`, 
 			`remarks`, 
 			`fin_quarter`, 
-			`last_update`,
 			`fin_year`
 		)
 		values
@@ -76,7 +63,6 @@
 			#{finAmount}, 
 			#{remarks}, 
 			#{finQuarter}, 
-			#{lastUpdate},
 			#{finYear}
 		)
 	</insert>
@@ -90,7 +76,6 @@
 			<if test="finAmount != null">`fin_amount` = #{finAmount}, </if>
 			<if test="remarks != null">`remarks` = #{remarks}, </if>
 			<if test="finQuarter != null">`fin_quarter` = #{finQuarter}, </if>
-			<if test="lastUpdate != null">`last_update` = #{lastUpdate}</if>
 			<if test="finYear != null">`fin_year` = #{finYear}</if>
 		</set>
 		where finance_id = #{financeId}
@@ -106,5 +91,9 @@
 			#{financeId}
 		</foreach>
 	</delete>
+	
+	<select id="selectMaxId" resultType="int">
+		select max(finance_id) from fin_finance 
+	</select>
 
 </mapper>

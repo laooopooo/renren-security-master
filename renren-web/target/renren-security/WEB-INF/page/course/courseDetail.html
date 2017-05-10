@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+#parse("sys/header.html")
+</head>
+<body>
+<div id="rrapp" v-cloak>
+
+	<div v-show="showList">
+		<div>
+			<div class="form-group">
+			   	<div class="control-label col-md-2" >
+			    	<label>姓名: {{student.name}}</label>
+			    </div>
+
+			    <div class="control-label col-md-2">
+			    	<label>性别: {{student.sex}}</label>
+			    </div>
+
+			   	<div class="control-label col-md-3">
+			   		<label>学校: {{student.school}}</label>
+			    </div>
+
+			   	<div class="control-label col-md-5">
+			   		<label>家长姓名: {{student.parentName}}</label>
+			    </div>
+			</div>
+		</div>
+		<br>
+		<br>
+		<br>
+	    <table id="jqGrid"></table>
+    </div>
+    
+</div>
+<script src="${rc.contextPath}/js/course/courseDetail.js?_${date.systemTime}"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+#parse("sys/header.html")
+</head>
+<body>
+<div id="rrapp" v-cloak>
+
+	<div v-show="showList">
+		<div>
+		    <label>&nbsp;&nbsp;&nbsp;&nbsp;姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名: {{parent.vm.student.name}}</label>
+        <div>
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;报名课程: {{parent.vm.course.courseName}}</label>
+        </div>
+        <div>
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;任课老师: {{parent.vm.course.teacherName}}</label>
+        </div>
+        <div>
+             <label>&nbsp;&nbsp;&nbsp;&nbsp;应收费用: {{parent.vm.course.originalPrice}}</label>
+        </div>
+        <div>
+        	 &nbsp;&nbsp;&nbsp;&nbsp;实收费用: <input id="actualPrice" type="number">
+        </div>
+		</div>
+		<br>
+    </div>
+    
+</div>
+<script src="${rc.contextPath}/js/course/addCourse.js?_${date.systemTime}"></script>
+<script type="text/javascript">
+    var confirm=function(){
+        var actualPrice= $("#actualPrice").val()
+        if (actualPrice == 0) {
+            return "0";
+        }
+        parent.vm.courseRecord.actualPrice= $("#actualPrice").val();
+        return "1";
+    }
+     
+   
+</script>
+
+</body>
+</html>

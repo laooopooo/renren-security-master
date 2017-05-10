@@ -107,6 +107,8 @@
 	                    <prop key="kaptcha.border">no</prop>
 	                    <prop key="kaptcha.textproducer.font.color">black</prop>
 	                    <prop key="kaptcha.textproducer.char.space">1</prop>
+	                    <!-- 验证码个数 -->
+						<prop key="kaptcha.textproducer.char.length">4</prop>
 	                </props>
 	            </constructor-arg>
 	        </bean>

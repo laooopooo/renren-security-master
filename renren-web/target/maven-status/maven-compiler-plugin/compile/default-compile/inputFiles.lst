@@ -9,6 +9,7 @@ D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\system
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\fin\dao\FinanceDao.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\personel\dao\StudentDao.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\course\service\impl\CourseServiceImpl.java
+D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\course\entity\CourseRecordEntity.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\fin\service\impl\FinanceServiceImpl.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\personel\controller\SubjectController.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\course\service\CourseSelectService.java
@@ -29,12 +30,16 @@ D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\person
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\personel\controller\StudentController.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\system\controllers\SysConfigController.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\personel\dao\PositionDao.java
+D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\course\service\impl\CourseRecordServiceImpl.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\personel\service\SubjectService.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\personel\dao\SubjectDao.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\fin\entity\AnalyzeEntity.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\personel\service\StudentService.java
+D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\course\dao\CourseRecordDao.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\course\controller\CourseSelectController.java
+D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\course\controller\CourseRecordController.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\fin\service\impl\AnalyzeServiceImpl.java
+D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\course\service\CourseRecordService.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\course\entity\CourseEntity.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\fin\controller\AnalyzeController.java
 D:\eclipse_work\renren-security-master\renren-web\src\main\java\io\renren\personel\entity\TeacherEntity.java

@@ -2,19 +2,21 @@ $(function () {
     $("#jqGrid").jqGrid({
         url: '../course/list',
         datatype: "json",
-        colModel: [			
+        colModel: [	
+        	{ label: '操作', width: 80, 
+        		formatter: function(value, options, row){
+        			return '<button class="layui-btn layui-btn-mini layui-btn-normal" onclick="studentList('
+        			+options.rowId+')">学员名单</button>'
+        		}
+        	},	
 			{ label: '课程编号', name: 'courseId', index: 'course_id', width: 50, key: true ,hidden:true},
-			{ label: '班级名称', name: 'courseName', index: 'course_name', width: 80 }, 
-			{ label: '班级类别', name: 'numberType', index: 'number_type', width: 80 },
+			{ label: '班级名称', name: 'courseName', index: 'course_name', width: 80 },
 			{ label: '老师', name: 'teacherName', index: 'teacher_id', width: 80 }, 			
-			{ label: '课次', name: 'courseTime', index: 'course_time', width: 60 },
+			{ label: '总课次', name: 'courseTime', index: 'course_time', width: 60 },
+			{ label: '已上课次', name: 'expendTime', index: 'expend_time', width: 60 },
 			{ label: '开课日期', name: 'startDate', index: 'start_date', width: 80 }, 			
 			{ label: '结课日期', name: 'endDate', index: 'end_date', width: 80 },
-			{ label: '原价', name: 'originalPrice', index: 'original_price', width: 60 ,
-				formatter: function(value, options, row){
-					return '¥'+value}
-			},
-			{ label: '优惠价', name: 'actualPrice', index: 'actual_price', width: 60, 
+			{ label: '价格', name: 'originalPrice', index: 'original_price', width: 60 ,
 				formatter: function(value, options, row){
 					return '¥'+value}
 			},
@@ -154,3 +156,16 @@ var vm = new Vue({
 
 	}
 });
+
+
+var studentList= function(rowId){
+  vm.getInfo(rowId);
+  layer.open({
+  type: 2,
+  title: '学生名单',
+  maxmin: true,
+  shadeClose: true, //点击遮罩关闭层
+  area : ['600px' , '320px'],
+  content: '../course/studentList.html'
+  });
+};

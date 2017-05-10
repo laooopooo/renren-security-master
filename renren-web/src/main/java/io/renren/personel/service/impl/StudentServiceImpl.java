@@ -71,4 +71,13 @@ public class StudentServiceImpl implements StudentService {
 		return courseDao.queryListInCourseIds(courseIds);
 	}
 	
+	@Override
+	public List<String> queryStudentNames(Integer courseId) {
+		//1.通过courseId找到所有的学生id
+		List<Integer> studentIds=courseRecordDao.queryStudents(courseId);
+		
+		//2.根据studentIds查出所有相关的学生姓名出来。
+		return studentDao.queryNamesInStudentIds(studentIds);
+	}
+	
 }

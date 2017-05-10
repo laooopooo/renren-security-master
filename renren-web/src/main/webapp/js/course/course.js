@@ -65,6 +65,13 @@ var vm = new Vue({
 		title: null,
 		course: {},
 		teachers: {},
+		quarterDatas:[
+			{name:'春季',value:'1'},
+			{name:'暑假',value:'2'},
+			{name:'秋季',value:'3'},
+			{name:'寒假',value:'4'}
+		],
+		years:[],
 		q:{
 			key : null
 		}
@@ -169,3 +176,17 @@ var studentList= function(rowId){
   content: '../course/studentList.html'
   });
 };
+
+window.onload=function(){ 
+//设置年份的选择 
+	var myDate= new Date(); 
+	var startYear=myDate.getFullYear()-5;//起始年份 
+	var endYear=myDate.getFullYear()+3;//结束年份 
+	for(var i=0;i<9;i++){
+		//debugger;
+		var tempobj=new Object();
+		tempobj.name=startYear+i;
+		tempobj.value=startYear+i
+		vm._data.years.push(tempobj);
+	}
+}
