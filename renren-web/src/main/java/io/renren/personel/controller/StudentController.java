@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.renren.course.entity.CourseEntity;
 import io.renren.personel.entity.StudentEntity;
 import io.renren.personel.service.StudentService;
 import io.renren.utils.PageUtils;
@@ -91,6 +92,19 @@ public class StudentController {
 		studentService.deleteBatch(studentIds);
 		
 		return R.ok();
+	}
+	
+	@RequestMapping("/courseList")
+	@RequiresPermissions("student:list")
+	public R courseList(@RequestParam Map<String, Object> params){
+		//查询列表数据
+        Query query = new Query(params);
+
+		List<CourseEntity> courseEntities = studentService.queryCourseList(query);
+		
+		PageUtils pageUtil = new PageUtils(courseEntities, 0, query.getLimit(), query.getPage());
+		
+		return R.ok().put("page", pageUtil);
 	}
 	
 }

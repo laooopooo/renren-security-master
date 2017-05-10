@@ -1,6 +1,7 @@
 package io.renren.course.service;
 
 import io.renren.course.entity.CourseRecordEntity;
+import io.renren.utils.R;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public interface CourseRecordService {
 	
 	int queryTotal(Map<String, Object> map);
 	
-	void save(CourseRecordEntity courseRecord);
+	R save(CourseRecordEntity courseRecord);
 	
 	void update(CourseRecordEntity courseRecord);
 	

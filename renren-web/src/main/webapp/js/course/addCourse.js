@@ -9,11 +9,7 @@ $(function () {
 			{ label: '课次', name: 'courseTime', index: 'course_time', width: 60 },
 			{ label: '开课日期', name: 'startDate', index: 'start_date', width: 80 }, 			
 			{ label: '结课日期', name: 'endDate', index: 'end_date', width: 80 },
-			{ label: '原价', name: 'originalPrice', index: 'original_price', width: 60 ,
-				formatter: function(value, options, row){
-					return '¥'+value}
-			},
-			{ label: '优惠价', name: 'actualPrice', index: 'actual_price', width: 60, 
+			{ label: '价格', name: 'originalPrice', index: 'original_price', width: 60 ,
 				formatter: function(value, options, row){
 					return '¥'+value}
 			},
@@ -113,41 +109,46 @@ var vm = new Vue({
 			    dataType : "json",
 			    success : function (data) {
 			    	vm.course = data.course;
+			    	if (vm.course.status==2) {
+			    		layer.msg('该课程已结课，不能报名'); 
+			    		return ;
+			    	}
+			    	var iframeWin=null;
+					layer.open({
+					  type: 2,
+					  title: '确认报名',
+					  btn: ['确认', '取消'],
+					  maxmin: true,
+					  shadeClose: true, //点击遮罩关闭层
+					  area : ['320px' , '220px'],
+					  content: '../course/confirmCourse.html',
+					  success: function(layero, index){
+					  	iframeWin = window[layero.find('iframe')[0]['name']];
+					  },
+					  yes: function(){
+					  	if (iframeWin.confirm()=='0') {
+					  		layer.msg('请输入实收费用'); 
+					  		return ;
+					  	}
+					  	//添加课程到数据库
+					  	$.ajax({
+							type: "POST",
+						    url: '../courserecord/save',
+						    data: JSON.stringify(vm.courseRecord),
+						    success: function(r){
+						    	if(r.code === 0){
+									alert('操作成功', function(index){
+										 layer.close(layer.index); //如果设定了yes回调，需进行手工关闭
+									});
+								}else{
+									alert(r.msg);
+								}
+							}
+						});
+					  }
+					});
 			    }
 			});
-
-			var iframeWin=null;
-			layer.open({
-			  type: 2,
-			  title: '确认报名',
-			  btn: ['确认', '取消'],
-			  maxmin: true,
-			  shadeClose: true, //点击遮罩关闭层
-			  area : ['320px' , '220px'],
-			  content: '../course/confirmCourse.html',
-			  success: function(layero, index){
-			  	iframeWin = window[layero.find('iframe')[0]['name']];
-			  },
-			  yes: function(){
-			  	iframeWin.confirm();
-			  	//添加课程到数据库
-			  	$.ajax({
-					type: "POST",
-				    url: '../courserecord/save',
-				    data: JSON.stringify(vm.courseRecord),
-				    success: function(r){
-				    	if(r.code === 0){
-							alert('操作成功', function(index){
-								vm.reload();
-							});
-						}else{
-							alert(r.msg);
-						}
-					}
-				});
-			  }
-			});
-
 		}
 
 	}

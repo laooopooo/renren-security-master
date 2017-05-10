@@ -5,7 +5,7 @@ $(function () {
         colModel: [	
         	{ label: '操作', width: 50,
         		formatter: function(value, options, row){
-        			return '<button class="layui-btn layui-btn-mini layui-btn-normal" onclick="addCourse('
+        			return '<button class="layui-btn layui-btn-mini layui-btn-normal" onclick="courseDetail('
         			+options.rowId+')">班课详情</button>'
         		}
         	}, 
@@ -134,14 +134,14 @@ var vm = new Vue({
 
 var studentId='';
 
-var addCourse= function(rowId){
+var courseDetail= function(rowId){
   studentId=rowId;
   layer.open({
   type: 2,
-  title: '报名班级',
+  title: '已报班级详情',
   maxmin: true,
   shadeClose: true, //点击遮罩关闭层
   area : ['1000px' , '520px'],
-  content: '../course/addCourse.html'
+  content: '../course/courseDetail.html'
   });
 };

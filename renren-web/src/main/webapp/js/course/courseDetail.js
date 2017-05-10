@@ -1,13 +1,12 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '../course/list',
+        url: '../student/courseList?studentId='+parent.studentId,
         datatype: "json",
         colModel: [			
 			{ label: '课程编号', name: 'courseId', index: 'course_id', width: 50, key: true ,hidden:true},
-			{ label: '班级名称', name: 'courseName', index: 'course_name', width: 80 },
+			{ label: '班级名称', name: 'courseName', index: 'course_name', width: 80 }, 
 			{ label: '老师', name: 'teacherName', index: 'teacher_id', width: 80 }, 			
-			{ label: '总课次', name: 'courseTime', index: 'course_time', width: 60 },
-			{ label: '已上课次', name: 'expendTime', index: 'expend_time', width: 60 },
+			{ label: '课次', name: 'courseTime', index: 'course_time', width: 60 },
 			{ label: '开课日期', name: 'startDate', index: 'start_date', width: 80 }, 			
 			{ label: '结课日期', name: 'endDate', index: 'end_date', width: 80 },
 			{ label: '价格', name: 'originalPrice', index: 'original_price', width: 60 ,
@@ -59,6 +58,12 @@ var vm = new Vue({
 		title: null,
 		course: {},
 		teachers: {},
+		student:{},
+		courseRecord:{//提交添加课程到课程记录中使用的对象
+			actualPrice:'',
+			courseId:'',
+			studentId:''
+		},
 		q:{
 			key : null
 		}
@@ -66,62 +71,6 @@ var vm = new Vue({
 	methods: {
 		query: function () {
 			vm.reload();
-		},
-		add: function(){
-			vm.getTeachers();
-			vm.showList = false;
-			vm.title = "新增";
-			vm.course = {};
-		},
-		update: function (event) {
-			var courseId = getSelectedRow();
-			if(courseId == null){
-				return ;
-			}
-			vm.showList = false;
-            vm.title = "修改";
-            
-            vm.getInfo(courseId)
-		},
-		saveOrUpdate: function (event) {
-			var url = vm.course.courseId == null ? "../course/save" : "../course/update";
-			$.ajax({
-				type: "POST",
-			    url: url,
-			    data: JSON.stringify(vm.course),
-			    success: function(r){
-			    	if(r.code === 0){
-						alert('操作成功', function(index){
-							vm.reload();
-						});
-					}else{
-						alert(r.msg);
-					}
-				}
-			});
-		},
-		del: function (event) {
-			var courseIds = getSelectedRows();
-			if(courseIds == null){
-				return ;
-			}
-			
-			confirm('确定要删除选中的记录？', function(){
-				$.ajax({
-					type: "POST",
-				    url: "../course/delete",
-				    data: JSON.stringify(courseIds),
-				    success: function(r){
-						if(r.code == 0){
-							alert('操作成功', function(index){
-								$("#jqGrid").trigger("reloadGrid");
-							});
-						}else{
-							alert(r.msg);
-						}
-					}
-				});
-			});
 		},
 		getInfo: function(courseId){
 			vm.getTeachers();
@@ -138,7 +87,7 @@ var vm = new Vue({
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
-				postData:{'key': vm.q.key},
+				//postData:{'studentId': vm.student.studentId},
                 page:page
             }).trigger("reloadGrid");
 		},
@@ -146,7 +95,23 @@ var vm = new Vue({
 			$.get("../teacher/list?limit=10000&page=1&sidx=&order=asc",function(r){
 				vm.teachers = r.page.list;
 			});
-		},
+		}
 
 	}
 });
+
+
+//报名
+window.onload=function(){ 
+	$.ajax({
+		type: "GET",
+	    url: "../student/info/"+parent.studentId,
+	    dataType : "json",
+	    success: function(r){
+			vm.student = r.student;
+			//vm.reload();
+			debugger;
+		}
+	});
+
+} 

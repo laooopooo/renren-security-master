@@ -3,15 +3,6 @@
 
 <mapper namespace="io.renren.course.dao.CourseRecordDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="io.renren.course.entity.CourseRecordEntity" id="courseRecordMap">
-        <result property="courseRecordId" column="course_record_id"/>
-        <result property="courseId" column="course_id"/>
-        <result property="studentId" column="student_id"/>
-        <result property="courseTime" column="course_time"/>
-        <result property="financeId" column="finance_id"/>
-    </resultMap>
-
 	<select id="queryObject" resultType="io.renren.course.entity.CourseRecordEntity">
 		select * from c_course_record where course_record_id = #{value}
 	</select>
@@ -73,5 +64,14 @@
 			#{courseRecordId}
 		</foreach>
 	</delete>
+	
+	<select id="queryCourses" parameterType="java.lang.String" resultType="int">
+		SELECT cr.course_id from c_course_record cr
+		<where>
+			<if test="studentId != null and studentId.trim() != ''">
+				and cr.student_id = #{studentId}
+			</if>
+		</where>
+	</select>
 
 </mapper>

@@ -1,12 +1,12 @@
 package io.renren.course.service.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import io.renren.course.dao.CourseDao;
 import io.renren.course.dao.CourseRecordDao;
@@ -17,6 +17,7 @@ import io.renren.fin.dao.FinanceDao;
 import io.renren.fin.entity.FinanceEntity;
 import io.renren.personel.dao.StudentDao;
 import io.renren.personel.entity.StudentEntity;
+import io.renren.utils.R;
 
 
 
@@ -49,15 +50,18 @@ public class CourseRecordServiceImpl implements CourseRecordService {
 		return courseRecordDao.queryTotal(map);
 	}
 	
+	@Transactional
 	@Override
-	public void save(CourseRecordEntity courseRecord){
+	public R save(CourseRecordEntity courseRecord){
 		//courseRecordDao.save(courseRecord);
 		
 		//1、插入fin_finance表
 		CourseEntity cEntity=courseDao.queryObject(courseRecord.getCourseId());
 		StudentEntity sEntity=studentDao.queryObject(courseRecord.getStudentId());
 		FinanceEntity fEntity=new FinanceEntity();
-		
+		if (courseRecord.getActualPrice()>cEntity.getOriginalPrice()) {
+			return R.error("实收费用不能高于原价");
+		}
 		fEntity.setPayOrIncome(1);
 		fEntity.setFinType("小班学费");
 		fEntity.setFinDate(new Date());
@@ -71,6 +75,8 @@ public class CourseRecordServiceImpl implements CourseRecordService {
 		//2、插入c_course_record表
 		courseRecord.setFinanceId(financeDao.selectMaxId());
 		courseRecordDao.save(courseRecord);
+		
+		return R.ok();
 	}
 	
 	@Override

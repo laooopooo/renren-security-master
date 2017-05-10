@@ -94,5 +94,17 @@
 			#{courseId}
 		</foreach>
 	</delete>
+	
+	<select id="queryListInCourseIds" parameterType="java.util.List" resultType="io.renren.course.entity.CourseEntity">
+		select c.*,
+		(SELECT t.name from pl_teacher t where t.teacher_id=c.teacher_id ) as teacherName
+		from c_course c
+		where c.course_id in
+		<foreach collection="courseIds" item="item" index="index"   
+       		open="(" separator="," close=")">  
+           	#{item} 
+       	</foreach>
+		 
+	</select>
 
 </mapper>

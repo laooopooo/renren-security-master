@@ -66,9 +66,7 @@ public class CourseRecordController {
 	@RequestMapping("/save")
 	@RequiresPermissions("courserecord:save")
 	public R save(@RequestBody CourseRecordEntity courseRecord){
-		courseRecordService.save(courseRecord);
-		
-		return R.ok();
+		return courseRecordService.save(courseRecord);
 	}
 	
 	/**

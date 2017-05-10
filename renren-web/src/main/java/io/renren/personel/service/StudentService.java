@@ -3,6 +3,7 @@ package io.renren.personel.service;
 import java.util.List;
 import java.util.Map;
 
+import io.renren.course.entity.CourseEntity;
 import io.renren.personel.entity.StudentEntity;
 
 /**
@@ -27,4 +28,6 @@ public interface StudentService {
 	void delete(Integer studentId);
 	
 	void deleteBatch(Integer[] studentIds);
+	
+	List<CourseEntity> queryCourseList(Map<String, Object> map);
 }
