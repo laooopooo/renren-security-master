@@ -107,4 +107,11 @@ public class StudentController {
 		return R.ok().put("page", pageUtil);
 	}
 	
+	@RequestMapping("/names")
+	@RequiresPermissions("course:list")
+	public R names(@RequestParam String courseId){
+		List<String> names= studentService.queryStudentNames(Integer.parseInt(courseId));
+		return R.ok().put("names", names);
+	}
+	
 }

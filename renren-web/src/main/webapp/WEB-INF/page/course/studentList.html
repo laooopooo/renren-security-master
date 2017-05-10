@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+#parse("sys/header.html")
+</head>
+<body>
+
+<div id="rrapp" v-cloak>
+
+	<div style="margin-top: 15px;text-align: center;">
+		<p style="font-size: 25px;">{{parent.vm.course.courseName}}</p>
+    </div>
+    <br>
+    <div>
+        <label v-for="items in studentNames">
+            <label v-for="name in items">
+            	<div class="col-sm-4">
+            		{{name}}
+            	</div>
+            </label>
+        </label>
+        
+    </div>
+    
+    <!-- <table class="layui-table">
+    	<colgroup>
+		    <col width="150">
+		    <col width="200">
+		    <col>
+	    </colgroup>
+		  
+		<tbody>
+		    <tr>
+		      <td>贤心</td>
+		      <td>2016-11-29</td>
+		      <td>人生就像是一场修行</td>
+		    </tr>
+		    <tr>
+		      <td>贤心</td>
+		      <td>2016-11-29</td>
+		      <td>人生就像是一场修行</td>
+		    </tr>
+  		</tbody>
+    </table> -->
+    
+</div>
+
+
+<script type="text/javascript">
+var vm = new Vue({
+    el: '#rrapp',
+    data: {
+    	studentNames:null
+    },
+    methods:{
+    	queryStudentNames:function (courseId) {
+    		$.ajax({
+				type: "GET",
+			    url: "../student/names?courseId="+courseId,
+			    dataType : "json",
+			    success: function (data) {
+			    	vm.studentNames=data;
+					debugger;
+				}
+			});
+    	}
+    }
+});
+
+window.onload=function(){ 
+	vm.queryStudentNames(parent.vm.course.courseId);
+}
+
+</script>
+
+</body>
+</html>

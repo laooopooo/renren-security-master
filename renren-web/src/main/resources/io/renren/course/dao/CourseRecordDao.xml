@@ -73,5 +73,15 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="queryStudents" parameterType="java.lang.Integer" resultType="int">
+		SELECT cr.student_id from c_course_record cr
+		<where>
+			<if test="courseId != null and courseId != 0">
+				and cr.course_id = #{courseId}
+			</if>
+		</where>
+	</select>
+	
 
 </mapper>

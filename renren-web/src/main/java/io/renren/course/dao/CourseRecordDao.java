@@ -15,5 +15,17 @@ import io.renren.dao.BaseDao;
  * @date 2017-05-09 18:43:47
  */
 public interface CourseRecordDao extends BaseDao<CourseRecordEntity> {
+	/**通过学生查找课程
+	 * 
+	 * @param studentId
+	 * @return
+	 */
 	List<Integer> queryCourses(@Param("studentId") String studentId);
+	
+	/**通过课程查找学生
+	 * 
+	 * @param courseId
+	 * @return
+	 */
+	List<Integer> queryStudents(@Param("courseId") Integer courseId);
 }

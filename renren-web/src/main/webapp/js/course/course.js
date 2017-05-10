@@ -2,7 +2,13 @@ $(function () {
     $("#jqGrid").jqGrid({
         url: '../course/list',
         datatype: "json",
-        colModel: [			
+        colModel: [	
+        	{ label: '操作', width: 80, 
+        		formatter: function(value, options, row){
+        			return '<button class="layui-btn layui-btn-mini layui-btn-normal" onclick="studentList('
+        			+options.rowId+')">学员名单</button>'
+        		}
+        	},	
 			{ label: '课程编号', name: 'courseId', index: 'course_id', width: 50, key: true ,hidden:true},
 			{ label: '班级名称', name: 'courseName', index: 'course_name', width: 80 },
 			{ label: '老师', name: 'teacherName', index: 'teacher_id', width: 80 }, 			
@@ -150,3 +156,16 @@ var vm = new Vue({
 
 	}
 });
+
+
+var studentList= function(rowId){
+  vm.getInfo(rowId);
+  layer.open({
+  type: 2,
+  title: '学生名单',
+  maxmin: true,
+  shadeClose: true, //点击遮罩关闭层
+  area : ['600px' , '320px'],
+  content: '../course/studentList.html'
+  });
+};

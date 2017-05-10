@@ -30,4 +30,6 @@ public interface StudentService {
 	void deleteBatch(Integer[] studentIds);
 	
 	List<CourseEntity> queryCourseList(Map<String, Object> map);
+	
+	List<String> queryStudentNames(Integer courseId);
 }

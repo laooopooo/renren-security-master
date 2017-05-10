@@ -1,5 +1,9 @@
 package io.renren.personel.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import io.renren.dao.BaseDao;
 import io.renren.personel.entity.StudentEntity;
 
@@ -12,4 +16,11 @@ import io.renren.personel.entity.StudentEntity;
  */
 public interface StudentDao extends BaseDao<StudentEntity> {
 	
+	
+	/**
+	 * 根据listIds 查出所有在该id组中的学生信息
+	 * @param studentIds
+	 * @return
+	 */
+	List<String> queryNamesInStudentIds(@Param("studentIds")List<Integer> studentIds);
 }
