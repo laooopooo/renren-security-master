@@ -6,7 +6,8 @@ $(function () {
 			{ label: '课程编号', name: 'courseId', index: 'course_id', width: 50, key: true ,hidden:true},
 			{ label: '班级名称', name: 'courseName', index: 'course_name', width: 80 }, 
 			{ label: '老师', name: 'teacherName', index: 'teacher_id', width: 80 }, 			
-			{ label: '课次', name: 'courseTime', index: 'course_time', width: 60 },
+			{ label: '总课次', name: 'courseTime', index: 'course_time', width: 60 },
+			{ label: '已上课次', name: 'expendTime', index: 'expend_time', width: 60 },
 			{ label: '开课日期', name: 'startDate', index: 'start_date', width: 80 }, 			
 			{ label: '结课日期', name: 'endDate', index: 'end_date', width: 80 },
 			{ label: '价格', name: 'originalPrice', index: 'original_price', width: 60 ,
@@ -22,7 +23,11 @@ $(function () {
 					return '<span class="label label-warning">未开始</span>';
 				}
 			}}, 
-			{ label: '备注', name: 'remarks', index: 'remarks', width: 80 }
+			{ label: '操作', width: 80,
+				formatter: function(value, options, row){
+					return '<a href="#" onclick="vm.signUp('+options.rowId+')">'+'报名'+'</a>'
+				}
+			}
         ],
 		viewrecords: true,
         height: 385,
@@ -96,11 +101,7 @@ var vm = new Vue({
 				vm.teachers = r.page.list;
 			});
 		},
-		signUp: function (event) {
-			var courseId = getSelectedRow();
-			if(courseId == null){
-				return ;
-			}
+		signUp: function (courseId) {
 			vm.courseRecord.courseId=courseId;
 			vm.courseRecord.studentId=vm.student.studentId;
 			$.ajax({
@@ -120,7 +121,7 @@ var vm = new Vue({
 					  btn: ['确认', '取消'],
 					  maxmin: true,
 					  shadeClose: true, //点击遮罩关闭层
-					  area : ['320px' , '220px'],
+					  area : ['420px' , '320px'],
 					  content: '../course/confirmCourse.html',
 					  success: function(layero, index){
 					  	iframeWin = window[layero.find('iframe')[0]['name']];

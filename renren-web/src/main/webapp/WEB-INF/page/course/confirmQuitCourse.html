@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+#parse("sys/header.html")
+</head>
+<body>
+<div id="rrapp" v-cloak>
+
+	<div v-show="showList">
+        <form class="form-horizontal" style="width:100% ">
+            <div class="form-group">
+                <div class="col-xs-2 col-xs-offset-1 control-label">学生姓名: </div>
+                <div class="col-xs-2">
+                  {{parent.vm.student.name}}
+                </div>
+                <div class="col-xs-2 col-xs-offset-1 control-label">报名课程: </div>
+                <div class="col-xs-2">
+                  {{parent.vm.course.courseName}}
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <div class="col-xs-2 col-xs-offset-1 control-label">任课老师: </div>
+                <div class="col-xs-2">
+                   {{parent.vm.course.teacherName}}
+                </div>
+                <div class="col-xs-2 col-xs-offset-1 control-label">课程价格: </div>
+                <div class="col-xs-2">
+                   {{parent.vm.course.originalPrice}}元
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-xs-offset-1 control-label">总 课 次: </div>
+                <div class="col-xs-2">
+                   {{parent.vm.course.courseTime}}
+                </div>
+                <div class="col-xs-2 col-xs-offset-1 control-label">已上课次: </div>
+                <div class="col-xs-2">
+                   {{parent.vm.course.expendTime}}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-xs-offset-1 control-label">未上课次: </div>
+                <div class="col-xs-2">
+                   {{parent.vm.course.courseTime-parent.vm.course.expendTime}}
+                </div>
+                <div class="col-xs-2 col-xs-offset-1 control-label">应退金额: </div>
+                <div class="col-xs-2">
+                   {{parent.vm.shouldquitMoney}}元
+                </div>
+                <div style="color: darkgray;" class="col-xs-11 col-xs-offset-1 control-label"><退课金额=课程价格/总课次×(总课次-已上课次)></div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-xs-2 col-xs-offset-1 control-label">实退金额: </div>
+                <div class="col-xs-6">
+                  <input id="actualPrice" class="form-control" type="number">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-2 col-xs-offset-1 control-label">退课理由: </div>
+                <div class="col-xs-6">
+                  <textarea rows="2" class="form-control" ></textarea>
+                </div>
+            </div>
+           
+            
+        </form>
+    </div>
+    
+</div>
+<script src="${rc.contextPath}/js/course/addCourse.js?_${date.systemTime}"></script>
+<script type="text/javascript">
+    var confirm=function(){
+        var actualPrice= $("#actualPrice").val()
+        if (actualPrice == 0) {
+            return "0";
+        }
+        parent.vm.courseRecord.actualPrice= $("#actualPrice").val();
+        return "1";
+    }
+     
+   
+</script>
+
+</body>
+</html>

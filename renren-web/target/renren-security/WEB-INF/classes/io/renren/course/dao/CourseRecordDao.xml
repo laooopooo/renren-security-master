@@ -66,10 +66,17 @@
 	</delete>
 	
 	<select id="queryCourses" parameterType="java.lang.String" resultType="int">
-		SELECT cr.course_id from c_course_record cr
+		SELECT cr.course_id from c_course_record cr 
+		LEFT JOIN c_course c on c.course_id=cr.course_id
 		<where>
 			<if test="studentId != null and studentId.trim() != ''">
 				and cr.student_id = #{studentId}
+			</if>
+			<if test="status == 1">
+				and c.`status`!=2;
+			</if>
+			<if test="status ==0 ">
+				and c.`status`=2;
 			</if>
 		</where>
 	</select>

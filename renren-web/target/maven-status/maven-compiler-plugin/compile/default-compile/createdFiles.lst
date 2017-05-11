@@ -14,7 +14,6 @@ io\renren\system\controllers\SysConfigController.class
 io\renren\personel\entity\SubjectEntity.class
 io\renren\fin\controller\AnalyzeController.class
 io\renren\personel\entity\TeacherEntity.class
-io\renren\course\service\CourseSelectService.class
 io\renren\course\service\impl\CourseRecordServiceImpl.class
 io\renren\system\service\SysOssService.class
 io\renren\personel\entity\PositionEntity.class
@@ -25,7 +24,6 @@ io\renren\course\controller\CourseRecordController.class
 io\renren\personel\service\impl\PositionServiceImpl.class
 io\renren\course\entity\CourseRecordEntity.class
 io\renren\course\service\impl\CourseServiceImpl.class
-io\renren\course\entity\CourseSelectEntity.class
 io\renren\personel\controller\TeacherController.class
 io\renren\fin\dao\AnalyzeDao.class
 io\renren\course\dao\CourseDao.class
@@ -33,16 +31,13 @@ io\renren\course\entity\CourseEntity.class
 io\renren\system\controllers\SysOssController.class
 io\renren\personel\controller\PositionController.class
 io\renren\personel\dao\PositionDao.class
-io\renren\course\controller\CourseSelectController.class
 io\renren\course\service\CourseService.class
 io\renren\personel\service\impl\StudentServiceImpl.class
-io\renren\course\service\impl\CourseSelectServiceImpl.class
 io\renren\personel\service\SubjectService.class
 io\renren\fin\service\AnalyzeService.class
 io\renren\personel\dao\TeacherDao.class
 io\renren\system\controllers\SysLogController.class
 io\renren\fin\service\impl\FinanceServiceImpl.class
-io\renren\course\dao\CourseSelectDao.class
 io\renren\course\dao\CourseRecordDao.class
 io\renren\course\service\CourseRecordService.class
 io\renren\fin\entity\FinanceEntity.class

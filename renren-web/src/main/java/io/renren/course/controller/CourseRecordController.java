@@ -87,8 +87,9 @@ public class CourseRecordController {
 	@RequiresPermissions("courserecord:delete")
 	public R delete(@RequestBody Integer[] courseRecordIds){
 		courseRecordService.deleteBatch(courseRecordIds);
-		
 		return R.ok();
 	}
+	
+	
 	
 }

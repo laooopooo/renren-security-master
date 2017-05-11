@@ -92,8 +92,12 @@ public class CourseController {
 	@RequiresPermissions("course:delete")
 	public R delete(@RequestBody Integer[] courseIds){
 		courseService.deleteBatch(courseIds);
-		
 		return R.ok();
 	}
+	/**
+	 * 退课
+	 */
+	
+	
 	
 }

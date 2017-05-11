@@ -6,7 +6,7 @@ $(function () {
         	{ label: '操作', width: 60, align:'center',
         		formatter: function(value, options, row){
         			return '<a href="#" onclick="addCourse('+options.rowId+')">[选课] </a>'+
-        			'<a href="#" onclick="addCourse('+options.rowId+')">[退课] </a>'
+        			'<a href="#" onclick="quitCourse('+options.rowId+')">[退课] </a>'
         		}
         	}, 
 			{ label: '学生编号', name: 'studentId', index: 'student_id', width: 50, key: true ,hidden:true},
@@ -175,5 +175,18 @@ var addCourse= function(rowId){
   shadeClose: true, //点击遮罩关闭层
   area : ['1000px' , '520px'],
   content: '../course/addCourse.html'
+  });
+};
+
+var quitCourse=function(rowId){
+  studentId=rowId;
+  status=1;
+  layer.open({
+  type: 2,
+  title: '退课',
+  maxmin: true,
+  shadeClose: true, //点击遮罩关闭层
+  area : ['1000px' , '520px'],
+  content: '../course/quitCourse.html'
   });
 };

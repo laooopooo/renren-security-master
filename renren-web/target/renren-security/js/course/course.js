@@ -3,12 +3,7 @@ $(function () {
         url: '../course/list',
         datatype: "json",
         colModel: [	
-        	{ label: '操作', width: 80, 
-        		formatter: function(value, options, row){
-        			return '<button class="layui-btn layui-btn-mini layui-btn-normal" onclick="studentList('
-        			+options.rowId+')">学员名单</button>'
-        		}
-        	},	
+        	
 			{ label: '课程编号', name: 'courseId', index: 'course_id', width: 50, key: true ,hidden:true},
 			{ label: '班级名称', name: 'courseName', index: 'course_name', width: 80 },
 			{ label: '老师', name: 'teacherName', index: 'teacher_id', width: 80 }, 			
@@ -29,7 +24,13 @@ $(function () {
 					return '<span class="label label-warning">未开始</span>';
 				}
 			}}, 
+			{ label: '报名人数',name:'studentNumber', width: 80, 
+        		formatter: function(value, options, row){
+        			return '<a href="#" onclick="studentList('+options.rowId+')">'+value+'人</a>'
+        		}
+        	},
 			{ label: '备注', name: 'remarks', index: 'remarks', width: 80 }
+				
         ],
 		viewrecords: true,
         height: 385,

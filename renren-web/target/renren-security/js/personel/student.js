@@ -3,22 +3,34 @@ $(function () {
         url: '../student/list',
         datatype: "json",
         colModel: [	
-        	{ label: '操作', width: 50,
+        	{ label: '操作', width: 60, align:'center',
         		formatter: function(value, options, row){
-        			return '<button class="layui-btn layui-btn-mini layui-btn-normal" onclick="courseDetail('
-        			+options.rowId+')">班课详情</button>'
+        			return '<a href="#" onclick="addCourse('+options.rowId+')">[选课] </a>'+
+        			'<a href="#" onclick="addCourse('+options.rowId+')">[退课] </a>'
         		}
         	}, 
 			{ label: '学生编号', name: 'studentId', index: 'student_id', width: 50, key: true ,hidden:true},
-			{ label: '姓名', name: 'name', index: 'name', width: 50 }, 
+			{ label: '姓名', name: 'name', index: 'name', width: 50 ,
+				formatter: function(value, options, row){
+					return '<a href="#" onclick="vm.detail('+options.rowId+')">'+value+'</a>'
+				}
+			}, 
 			{ label: '性别', name: 'sex', index: 'sex', width: 40 },			
 			{ label: '学校', name: 'school', index: 'school', width: 100 },
 			{ label: '生日', name: 'born', index: 'born', width: 80 }, 
 			{ label: '家长姓名', name: 'parentName', index: 'parent_name', width: 60 },
 			{ label: '家长电话', name: 'parentTel', index: 'parent_tel', width: 80 },
-			{ label: '家庭住址', name: 'address', index: 'address', width: 60 },
-			{ label: '补习方式', name: 'studyWay', index: 'studyWay', width: 60 },
-			{ label: '备注', name: 'remarks', index: 'remarks', width: 60 },
+			
+			{ label: '未结课班级', name: 'courseNotEndNum', index: 'courseNotEndNum', width: 60, 
+				formatter: function(value, options, row){
+					return '<a href="#" onclick="courseDetail('+options.rowId+',1)">'+value+'个</a>'
+				}
+			},
+			{ label: '已结课班级', name: 'courseEndNum', index: 'courseEndNum', width: 60, 
+				formatter: function(value, options, row){
+					return '<a href="#" onclick="courseDetail('+options.rowId+',0)">'+value+'个</a>'
+				}
+			}
         ],
 		viewrecords: true,
         height: 385,
@@ -128,14 +140,22 @@ var vm = new Vue({
 				postData:{'name': vm.q.name},
                 page:page
             }).trigger("reloadGrid");
+		},
+		detail:function(studentId){
+			vm.showList = false;
+            vm.title = "详细信息";
+			vm.getInfo(studentId);
+			debugger;
 		}
 	}
 });
 
 var studentId='';
+var status=0;
 
-var courseDetail= function(rowId){
+var courseDetail= function(rowId,courseStatus){
   studentId=rowId;
+  status=courseStatus;
   layer.open({
   type: 2,
   title: '已报班级详情',
@@ -143,5 +163,17 @@ var courseDetail= function(rowId){
   shadeClose: true, //点击遮罩关闭层
   area : ['1000px' , '520px'],
   content: '../course/courseDetail.html'
+  });
+};
+
+var addCourse= function(rowId){
+  studentId=rowId;
+  layer.open({
+  type: 2,
+  title: '报名班级',
+  maxmin: true,
+  shadeClose: true, //点击遮罩关闭层
+  area : ['1000px' , '520px'],
+  content: '../course/addCourse.html'
   });
 };
