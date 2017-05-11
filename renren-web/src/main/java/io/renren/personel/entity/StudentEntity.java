@@ -46,15 +46,26 @@ public class StudentEntity implements Serializable {
 	private String studyWay;
 	
 	/**
-	 * 已报名的班级个数
+	 * 未结课班级个数
 	 */
-	private Integer courseNumber;
+	private Integer courseNotEndNum;
+	/**
+	 * 已结课班级个数
+	 */
+	private Integer courseEndNum;
 
-	public Integer getCourseNumber() {
-		return courseNumber;
+	
+	public Integer getCourseNotEndNum() {
+		return courseNotEndNum;
 	}
-	public void setCourseNumber(Integer courseNumber) {
-		this.courseNumber = courseNumber;
+	public void setCourseNotEndNum(Integer courseNotEndNum) {
+		this.courseNotEndNum = courseNotEndNum;
+	}
+	public Integer getCourseEndNum() {
+		return courseEndNum;
+	}
+	public void setCourseEndNum(Integer courseEndNum) {
+		this.courseEndNum = courseEndNum;
 	}
 	public String getParentName() {
 		return parentName;

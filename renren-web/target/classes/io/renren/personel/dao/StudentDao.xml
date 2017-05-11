@@ -3,25 +3,18 @@
 
 <mapper namespace="io.renren.personel.dao.StudentDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="io.renren.personel.entity.StudentEntity" id="studentMap">
-        <result property="studentId" column="student_id"/>
-        <result property="name" column="name"/>
-        <result property="school" column="school"/>
-        <result property="parentTel" column="parent_tel"/>
-        <result property="address" column="address"/>
-        <result property="lastUpdate" column="last_update"/>
-        <result property="born" column="born"/>
-        <result property="sex" column="sex"/>
-    </resultMap>
-
 	<select id="queryObject" resultType="io.renren.personel.entity.StudentEntity">
 		select * from pl_student where student_id = #{value}
 	</select>
 
 	<select id="queryList" resultType="io.renren.personel.entity.StudentEntity">
 		select s.*,
-		(SELECT count(1) from c_course_record cr where cr.student_id=s.student_id) as courseNumber
+		(SELECT count(student_id) from c_course_record cr RIGHT JOIN c_course c on c.course_id=cr.course_id 
+		where cr.student_id=s.student_id and c.status !=2)
+		as courseNotEndNum,
+		(SELECT count(student_id) from c_course_record cr RIGHT JOIN c_course c on c.course_id=cr.course_id 
+		where cr.student_id=s.student_id and c.status =2)
+		as courseEndNum
 		from pl_student s
 		<where>
 			<if test="name != null and name.trim() != ''">
