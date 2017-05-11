@@ -20,7 +20,7 @@ public interface CourseRecordDao extends BaseDao<CourseRecordEntity> {
 	 * @param studentId
 	 * @return
 	 */
-	List<Integer> queryCourses(@Param("studentId") String studentId);
+	List<Integer> queryCourses(@Param("studentId") String studentId,@Param("status") String status);
 	
 	/**通过课程查找学生
 	 * 

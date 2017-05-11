@@ -65,7 +65,8 @@ public class StudentServiceImpl implements StudentService {
 	public List<CourseEntity> queryCourseList(Map<String, Object> map) {
 		//1、查找出该学生的所有的课程id list
 		String studentId=map.get("studentId").toString();
-		List<Integer> courseIds=courseRecordDao.queryCourses(studentId);
+		String status=map.get("status").toString();
+		List<Integer> courseIds=courseRecordDao.queryCourses(studentId,status);
 		
 		//2、根据courseIds查出相关的课程对象。
 		return courseDao.queryListInCourseIds(courseIds);

@@ -1,6 +1,6 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '../student/courseList?studentId='+parent.studentId,
+        url: '../student/courseList?studentId='+parent.studentId+"&status="+parent.status,
         datatype: "json",
         colModel: [			
 			{ label: '课程编号', name: 'courseId', index: 'course_id', width: 50, key: true ,hidden:true},

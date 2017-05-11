@@ -23,12 +23,12 @@ $(function () {
 			
 			{ label: '未结课班级', name: 'courseNotEndNum', index: 'courseNotEndNum', width: 60, 
 				formatter: function(value, options, row){
-					return '<a href="#" onclick="courseDetail('+options.rowId+')">'+value+'个</a>'
+					return '<a href="#" onclick="courseDetail('+options.rowId+',1)">'+value+'个</a>'
 				}
 			},
 			{ label: '已结课班级', name: 'courseEndNum', index: 'courseEndNum', width: 60, 
 				formatter: function(value, options, row){
-					return '<a href="#" onclick="courseDetail('+options.rowId+')">'+value+'个</a>'
+					return '<a href="#" onclick="courseDetail('+options.rowId+',0)">'+value+'个</a>'
 				}
 			}
         ],
@@ -151,9 +151,11 @@ var vm = new Vue({
 });
 
 var studentId='';
+var status=0;
 
-var courseDetail= function(rowId){
+var courseDetail= function(rowId,courseStatus){
   studentId=rowId;
+  status=courseStatus;
   layer.open({
   type: 2,
   title: '已报班级详情',
@@ -165,13 +167,13 @@ var courseDetail= function(rowId){
 };
 
 var addCourse= function(rowId){
-	  studentId=rowId;
-	  layer.open({
-	  type: 2,
-	  title: '报名班级',
-	  maxmin: true,
-	  shadeClose: true, //点击遮罩关闭层
-	  area : ['1000px' , '520px'],
-	  content: '../course/addCourse.html'
-	  });
-	};
+  studentId=rowId;
+  layer.open({
+  type: 2,
+  title: '报名班级',
+  maxmin: true,
+  shadeClose: true, //点击遮罩关闭层
+  area : ['1000px' , '520px'],
+  content: '../course/addCourse.html'
+  });
+};
