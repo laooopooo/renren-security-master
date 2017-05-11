@@ -143,6 +143,7 @@ var vm = new Vue({
 									});
 								}else{
 									alert(r.msg);
+									layer.close(layer.index); //如果设定了yes回调，需进行手工关闭
 								}
 							}
 						});

@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.renren.course.dao.CourseDao;
+import io.renren.course.dao.CourseQuitDao;
 import io.renren.course.dao.CourseRecordDao;
 import io.renren.course.entity.CourseEntity;
+import io.renren.course.entity.CourseQuitEntity;
 import io.renren.course.entity.CourseRecordEntity;
 import io.renren.course.service.CourseRecordService;
 import io.renren.fin.dao.FinanceDao;
@@ -35,6 +37,9 @@ public class CourseRecordServiceImpl implements CourseRecordService {
 	@Autowired
 	private FinanceDao financeDao;
 	
+	@Autowired
+	private CourseQuitDao courseQuitDao;
+	
 	@Override
 	public CourseRecordEntity queryObject(Integer courseRecordId){
 		return courseRecordDao.queryObject(courseRecordId);
@@ -53,7 +58,6 @@ public class CourseRecordServiceImpl implements CourseRecordService {
 	@Transactional
 	@Override
 	public R save(CourseRecordEntity courseRecord){
-		//courseRecordDao.save(courseRecord);
 		
 		//1、插入fin_finance表
 		CourseEntity cEntity=courseDao.queryObject(courseRecord.getCourseId());
@@ -62,7 +66,7 @@ public class CourseRecordServiceImpl implements CourseRecordService {
 		if (courseRecord.getActualPrice()>cEntity.getOriginalPrice()) {
 			return R.error("实收费用不能高于原价");
 		}
-		fEntity.setPayOrIncome(1);
+		fEntity.setPayOrIncome(1);//这里1表示收入，0表示支出
 		fEntity.setFinType("小班学费");
 		fEntity.setFinDate(new Date());
 		fEntity.setFinAmount(courseRecord.getActualPrice());
@@ -92,6 +96,38 @@ public class CourseRecordServiceImpl implements CourseRecordService {
 	@Override
 	public void deleteBatch(Integer[] courseRecordIds){
 		courseRecordDao.deleteBatch(courseRecordIds);
+	}
+
+	@Transactional
+	public R quit(CourseRecordEntity courseRecord) {
+		//1、插入fin_finance表
+		FinanceEntity fEntity=new FinanceEntity();
+		CourseEntity cEntity=courseDao.queryObject(courseRecord.getCourseId());
+		StudentEntity sEntity=studentDao.queryObject(courseRecord.getStudentId());
+		
+		fEntity.setPayOrIncome(0);//这里1表示收入，0表示支出
+		fEntity.setFinType("小班退课");
+		fEntity.setFinDate(new Date());
+		fEntity.setFinAmount(courseRecord.getQuitMoney());
+		fEntity.setFinQuarter(cEntity.getQuarter());
+		fEntity.setFinYear(cEntity.getYear());
+		fEntity.setRemarks(sEntity.getName()+"退出了"+cEntity.getCourseName());
+		
+		financeDao.save(fEntity);
+		
+		//2、插入c_course_quit表
+		CourseQuitEntity cQEntity=new CourseQuitEntity();
+		cQEntity.setFinanceId(financeDao.selectMaxId());
+		cQEntity.setCourseId(courseRecord.getCourseId());
+		cQEntity.setStudentId(courseRecord.getStudentId());
+		cQEntity.setQuitReason(courseRecord.getQuitReason());
+		courseQuitDao.save(cQEntity);
+		
+		//3、删除c_course_record表中的数据
+		int courseRecordId= courseRecordDao.selectIdbyStuCid(courseRecord.getCourseId(), courseRecord.getStudentId());
+		courseRecordDao.delete(courseRecordId);
+		System.out.println("");
+		return R.ok();
 	}
 	
 }

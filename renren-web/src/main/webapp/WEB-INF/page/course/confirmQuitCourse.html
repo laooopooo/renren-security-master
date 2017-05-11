@@ -55,14 +55,14 @@
             <div class="form-group">
                 <div class="col-xs-2 col-xs-offset-1 control-label">实退金额: </div>
                 <div class="col-xs-6">
-                  <input id="actualPrice" class="form-control" type="number">
+                  <input id="quitMoney" class="form-control" type="number">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-xs-2 col-xs-offset-1 control-label">退课理由: </div>
                 <div class="col-xs-6">
-                  <textarea rows="2" class="form-control" ></textarea>
+                  <textarea id="quitReason" rows="2" class="form-control" ></textarea>
                 </div>
             </div>
            
@@ -74,11 +74,12 @@
 <script src="${rc.contextPath}/js/course/addCourse.js?_${date.systemTime}"></script>
 <script type="text/javascript">
     var confirm=function(){
-        var actualPrice= $("#actualPrice").val()
-        if (actualPrice == 0) {
+        var quitMoney= $("#quitMoney").val()
+        if (quitMoney == 0) {
             return "0";
         }
-        parent.vm.courseRecord.actualPrice= $("#actualPrice").val();
+        parent.vm.courseRecord.quitMoney= $("#quitMoney").val();
+        parent.vm.courseRecord.quitReason=$("#quitReason").val();
         return "1";
     }
      

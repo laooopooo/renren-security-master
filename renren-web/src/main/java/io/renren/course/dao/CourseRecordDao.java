@@ -28,4 +28,7 @@ public interface CourseRecordDao extends BaseDao<CourseRecordEntity> {
 	 * @return
 	 */
 	List<Integer> queryStudents(@Param("courseId") Integer courseId);
+	
+	int selectIdbyStuCid(@Param("courseId") Integer courseId,@Param("studentId") Integer studentId);
+	
 }

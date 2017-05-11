@@ -90,6 +90,14 @@ public class CourseRecordController {
 		return R.ok();
 	}
 	
+	/**
+	 * 退课
+	 */
+	@RequestMapping("/quit")
+	@RequiresPermissions("courserecord:save")
+	public R quit(@RequestBody CourseRecordEntity courseRecord){
+		return courseRecordService.quit(courseRecord);
+	}
 	
 	
 }

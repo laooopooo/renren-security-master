@@ -28,4 +28,6 @@ public interface CourseRecordService {
 	void delete(Integer courseRecordId);
 	
 	void deleteBatch(Integer[] courseRecordIds);
+	
+	R quit(CourseRecordEntity courseRecord);
 }

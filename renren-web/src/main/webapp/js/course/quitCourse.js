@@ -70,7 +70,8 @@ var vm = new Vue({
 		courseRecord:{//提交添加课程到课程记录中使用的对象
 			quitMoney:'',//退课金额
 			courseId:'',
-			studentId:''
+			studentId:'',
+			quitReason:''
 		},
 		shouldquitMoney: null,//应退金额，通过计算的到
 		q:{
@@ -130,21 +131,23 @@ var vm = new Vue({
 					  },
 					  yes: function(){
 					  	if (iframeWin.confirm()=='0') {
-					  		layer.msg('请输入实收费用'); 
+					  		layer.msg('请输入退款金额'); 
 					  		return ;
 					  	}
 					  	//添加课程到数据库
 					  	$.ajax({
 							type: "POST",
-						    url: '../courserecord/save',
+						    url: '../courserecord/quit',
 						    data: JSON.stringify(vm.courseRecord),
 						    success: function(r){
 						    	if(r.code === 0){
 									alert('操作成功', function(index){
 										 layer.close(layer.index); //如果设定了yes回调，需进行手工关闭
+										 vm.reload();
 									});
 								}else{
 									alert(r.msg);
+									layer.close(layer.index); //如果设定了yes回调，需进行手工关闭
 								}
 							}
 						});

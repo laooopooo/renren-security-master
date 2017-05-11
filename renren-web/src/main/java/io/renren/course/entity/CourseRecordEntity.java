@@ -20,15 +20,45 @@ public class CourseRecordEntity implements Serializable {
 	private Integer courseId;
 	//
 	private Integer studentId;
-	//上课次数
-	private Float courseTime;
+	
 	//账单编号
 	private Integer financeId;
 	
 	//实际缴费
 	private Float actualPrice;
 	
-
+	/**
+	 * 退款金额
+	 */
+	private Float quitMoney;
+	
+	private String quitReason;
+	
+	
+	/**
+	 * 用于保存学生选课的状态，正常为1，退课状态为0
+	 */
+	private Integer status;
+	
+	
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	public String getQuitReason() {
+		return quitReason;
+	}
+	public void setQuitReason(String quitReason) {
+		this.quitReason = quitReason;
+	}
+	public Float getQuitMoney() {
+		return quitMoney;
+	}
+	public void setQuitMoney(Float quitMoney) {
+		this.quitMoney = quitMoney;
+	}
 	public Float getActualPrice() {
 		return actualPrice;
 	}
@@ -70,18 +100,6 @@ public class CourseRecordEntity implements Serializable {
 	 */
 	public Integer getStudentId() {
 		return studentId;
-	}
-	/**
-	 * 设置：上课次数
-	 */
-	public void setCourseTime(Float courseTime) {
-		this.courseTime = courseTime;
-	}
-	/**
-	 * 获取：上课次数
-	 */
-	public Float getCourseTime() {
-		return courseTime;
 	}
 	/**
 	 * 设置：账单编号
