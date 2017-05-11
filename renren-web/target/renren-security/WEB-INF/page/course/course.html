@@ -34,14 +34,7 @@
 			   	<div class="col-sm-4">
 			      <input type="text" class="form-control" v-model="course.courseName" placeholder="班级名称"/>
 			    </div>
-				<div class="col-sm-1 control-label">班级类别</div>
-			   	<div class="col-sm-4">
-			      <input type="text" class="form-control" v-model="course.numberType" placeholder="班级-类别"/>
-			    </div>
-			</div>
-
-			<div class="form-group">
-			   	<div class="col-sm-1 control-label">老师</div>
+			    <div class="col-sm-1 control-label">老师</div>
 			   	<div class="col-sm-4">
 			   		<select class="input-md form-control" v-model="course.teacherId">
 				   	   <option v-for="teacher in teachers" v-bind:value="teacher.teacherId">
@@ -49,16 +42,6 @@
 				       </option>
 				   	</select>
 			    </div>
-				<div class="col-sm-1 control-label">课程状态</div>
-				<label class="radio-inline">
-				  <input type="radio" name="status" value="0" v-model="course.status" checked="checked" disabled/> 未开始
-				</label>
-				<label class="radio-inline">
-				  <input type="radio" name="status" value="1" v-model="course.status" disabled/> 进行中
-				</label>
-				<label class="radio-inline">
-				  <input type="radio" name="status" value="2" v-model="course.status" disabled/> 已结束
-				</label>
 			</div>
 
 			<div class="form-group">
@@ -77,22 +60,36 @@
 			   	<div class="col-sm-4">
 			      <input type="number" class="form-control" v-model="course.courseTime" placeholder="课次"/>
 			    </div>
-			   	<div class="col-sm-1 control-label">备注</div>
+			   <div class="col-sm-1 control-label">价格</div>
 			   	<div class="col-sm-4">
-			      <input type="text" class="form-control" v-model="course.remarks" placeholder="备注"/>
+			      <input type="number" class="form-control" v-model="course.originalPrice" placeholder="价格"/>
+			    </div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-1 control-label">年份</div>
+			   	<div class="col-sm-4">
+			      <select class="input-md form-control" v-model="course.year">
+				   	   <option v-for="year in years" v-bind:value="year.value">
+				   	   		{{year.name}} 
+				       </option>
+				   	</select>
+			    </div>
+			    <div class="col-sm-1 control-label">季度</div>
+			   	<div class="col-sm-4">
+			   		<select class="input-md form-control" v-model="course.quarter">
+				   	   <option v-for="quarterData in quarterDatas" v-bind:value="quarterData.value">
+				   	   		{{quarterData.name}} 
+				       </option>
+				   	</select>
+			    </div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-1 control-label">备注</div>
+			   	<div class="col-sm-4">
+			      <textarea rows="1" class="form-control" v-model="course.remarks" placeholder="备注"></textarea>
 			    </div>
 			</div>
 
-			<div class="form-group">
-				<div class="col-sm-1 control-label">原价</div>
-			   	<div class="col-sm-4">
-			      <input type="number" class="form-control" v-model="course.originalPrice" placeholder="原价"/>
-			    </div>
-			   	<div class="col-sm-1 control-label">优惠价</div>
-			   	<div class="col-sm-4">
-			      <input type="number" class="form-control" v-model="course.actualPrice" placeholder="优惠价"/>
-			    </div>
-			</div>
 
 			<div class="form-group">
 				<div class="col-sm-10 control-label"></div> 

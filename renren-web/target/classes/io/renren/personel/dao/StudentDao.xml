@@ -20,7 +20,9 @@
 	</select>
 
 	<select id="queryList" resultType="io.renren.personel.entity.StudentEntity">
-		select * from pl_student
+		select s.*,
+		(SELECT count(1) from c_course_record cr where cr.student_id=s.student_id) as courseNumber
+		from pl_student s
 		<where>
 			<if test="name != null and name.trim() != ''">
 				and `name` like concat('%',#{name},'%') 

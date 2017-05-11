@@ -6,10 +6,11 @@ $(function () {
         	{ label: '操作', width: 50,
         		formatter: function(value, options, row){
         			return '<button class="layui-btn layui-btn-mini layui-btn-normal" onclick="addCourse('
-        			+options.rowId+')">报名小班</button>'
+        			+options.rowId+')">选课</button>'+
+        			'<button class="layui-btn layui-btn-mini layui-btn-warm" onclick="addCourse('
+        			+options.rowId+')">退课</button>'
         		}
         	}, 
-
 			{ label: '学生编号', name: 'studentId', index: 'student_id', width: 50, key: true ,hidden:true},
 			{ label: '姓名', name: 'name', index: 'name', width: 50 }, 
 			{ label: '性别', name: 'sex', index: 'sex', width: 40 },			
@@ -142,3 +143,5 @@ var addCourse= function(rowId){
   content: '../course/addCourse.html'
   });
 };
+
+

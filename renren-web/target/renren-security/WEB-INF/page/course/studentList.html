@@ -9,10 +9,11 @@
 <div id="rrapp" v-cloak>
 
 	<div style="margin-top: 15px;text-align: center;">
-		<p style="font-size: 25px;">{{parent.vm.course.courseName}}</p>
+		<p style="font-size: 18px;">{{parent.vm.course.courseName}}</p>
     </div>
     <br>
-    <div>
+    <div style="text-align: center;">
+    	<label style="margin-left: 20px">已报名学员：</label>
         <label v-for="items in studentNames">
             <label v-for="name in items">
             	<div class="col-sm-4">
@@ -20,30 +21,7 @@
             	</div>
             </label>
         </label>
-        
     </div>
-    
-    <!-- <table class="layui-table">
-    	<colgroup>
-		    <col width="150">
-		    <col width="200">
-		    <col>
-	    </colgroup>
-		  
-		<tbody>
-		    <tr>
-		      <td>贤心</td>
-		      <td>2016-11-29</td>
-		      <td>人生就像是一场修行</td>
-		    </tr>
-		    <tr>
-		      <td>贤心</td>
-		      <td>2016-11-29</td>
-		      <td>人生就像是一场修行</td>
-		    </tr>
-  		</tbody>
-    </table> -->
-    
 </div>
 
 

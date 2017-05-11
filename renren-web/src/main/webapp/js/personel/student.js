@@ -3,10 +3,10 @@ $(function () {
         url: '../student/list',
         datatype: "json",
         colModel: [	
-        	{ label: '操作', width: 50,
+        	{ label: '操作', width: 60, align:'center',
         		formatter: function(value, options, row){
-        			return '<button class="layui-btn layui-btn-mini layui-btn-normal" onclick="courseDetail('
-        			+options.rowId+')">班课详情</button>'
+        			return '<a href="#" onclick="addCourse('+options.rowId+')">[选课] </a>'+
+        			'<a href="#" onclick="addCourse('+options.rowId+')">[退课] </a>'
         		}
         	}, 
 			{ label: '学生编号', name: 'studentId', index: 'student_id', width: 50, key: true ,hidden:true},
@@ -17,8 +17,12 @@ $(function () {
 			{ label: '家长姓名', name: 'parentName', index: 'parent_name', width: 60 },
 			{ label: '家长电话', name: 'parentTel', index: 'parent_tel', width: 80 },
 			{ label: '家庭住址', name: 'address', index: 'address', width: 60 },
-			{ label: '补习方式', name: 'studyWay', index: 'studyWay', width: 60 },
-			{ label: '备注', name: 'remarks', index: 'remarks', width: 60 },
+			{ label: '已报课程', name: 'courseNumber', index: 'courseNumber', width: 60, 
+				formatter: function(value, options, row){
+					return '<a href="#" onclick="courseDetail('+options.rowId+')">'+value+'个</a>'
+				}
+			},
+			{ label: '备注', name: 'remarks', index: 'remarks', width: 60 }
         ],
 		viewrecords: true,
         height: 385,
@@ -145,3 +149,15 @@ var courseDetail= function(rowId){
   content: '../course/courseDetail.html'
   });
 };
+
+var addCourse= function(rowId){
+	  studentId=rowId;
+	  layer.open({
+	  type: 2,
+	  title: '报名班级',
+	  maxmin: true,
+	  shadeClose: true, //点击遮罩关闭层
+	  area : ['1000px' , '520px'],
+	  content: '../course/addCourse.html'
+	  });
+	};

@@ -44,7 +44,18 @@ public class StudentEntity implements Serializable {
 	private String kinskip;
 	
 	private String studyWay;
+	
+	/**
+	 * 已报名的班级个数
+	 */
+	private Integer courseNumber;
 
+	public Integer getCourseNumber() {
+		return courseNumber;
+	}
+	public void setCourseNumber(Integer courseNumber) {
+		this.courseNumber = courseNumber;
+	}
 	public String getParentName() {
 		return parentName;
 	}
