@@ -3,7 +3,6 @@ $(function () {
         url: '../course/list',
         datatype: "json",
         colModel: [	
-        	
 			{ label: '课程编号', name: 'courseId', index: 'course_id', width: 50, key: true ,hidden:true},
 			{ label: '班级名称', name: 'courseName', index: 'course_name', width: 80 },
 			{ label: '老师', name: 'teacherName', index: 'teacher_id', width: 80 }, 			

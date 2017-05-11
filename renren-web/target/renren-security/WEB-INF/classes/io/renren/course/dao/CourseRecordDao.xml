@@ -31,14 +31,12 @@
 		(
 			`course_id`, 
 			`student_id`, 
-			`course_time`, 
 			`finance_id`
 		)
 		values
 		(
 			#{courseId}, 
 			#{studentId}, 
-			#{courseTime}, 
 			#{financeId}
 		)
 	</insert>
@@ -48,11 +46,17 @@
 		<set>
 			<if test="courseId != null">`course_id` = #{courseId}, </if>
 			<if test="studentId != null">`student_id` = #{studentId}, </if>
-			<if test="courseTime != null">`course_time` = #{courseTime}, </if>
-			<if test="financeId != null">`finance_id` = #{financeId}</if>
+			<if test="financeId != null">`finance_id` = #{financeId},</if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="remarks != null">`remarks` = #{remarks}</if>
 		</set>
 		where course_record_id = #{courseRecordId}
 	</update>
+	
+	<select id="selectIdbyStuCid" parameterType="int" resultType="int">
+		SELECT cr.course_record_id from c_course_record cr 
+		where cr.course_id = #{courseId} and cr.student_id = #{studentId};
+	</select>
 	
 	<delete id="delete">
 		delete from c_course_record where course_record_id = #{value}
