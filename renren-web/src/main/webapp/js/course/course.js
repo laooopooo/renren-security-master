@@ -29,7 +29,7 @@ $(function () {
         			return '<a href="#" onclick="studentList('+options.rowId+')">'+value+'人</a>'
         		}
         	},
-			{ label: '备注', name: 'remarks', index: 'remarks', width: 80 },
+			{ label: '备注', name: 'remarks', index: 'remarks', width: 80 }
 				
         ],
 		viewrecords: true,
