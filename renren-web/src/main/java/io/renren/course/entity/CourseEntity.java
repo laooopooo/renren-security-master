@@ -51,6 +51,18 @@ public class CourseEntity implements Serializable {
 	
 	private String year;
 	
+	/**
+	 * 报名人数
+	 */
+	private Integer studentNumber;
+	
+	
+	public Integer getStudentNumber() {
+		return studentNumber;
+	}
+	public void setStudentNumber(Integer studentNumber) {
+		this.studentNumber = studentNumber;
+	}
 	public Integer getQuarter() {
 		return quarter;
 	}

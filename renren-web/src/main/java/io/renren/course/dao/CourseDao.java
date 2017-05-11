@@ -16,4 +16,5 @@ import io.renren.dao.BaseDao;
  */
 public interface CourseDao extends BaseDao<CourseEntity> {
 	 List<CourseEntity> queryListInCourseIds(@Param("courseIds")List<Integer> courseIds);
+	 
 }

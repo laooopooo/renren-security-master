@@ -3,16 +3,13 @@ package io.renren.fin.controller;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.renren.fin.entity.AnalyzeEntity;
-import io.renren.fin.entity.FinanceEntity;
 import io.renren.fin.service.AnalyzeService;
-import io.renren.fin.service.FinanceService;
 import io.renren.utils.PageUtils;
 import io.renren.utils.Query;
 import io.renren.utils.R;
