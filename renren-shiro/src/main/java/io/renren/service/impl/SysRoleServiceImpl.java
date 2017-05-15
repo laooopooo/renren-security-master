@@ -1,14 +1,5 @@
 package io.renren.service.impl;
 
-import io.renren.dao.SysRoleDao;
-import io.renren.entity.SysRoleEntity;
-import io.renren.service.SysRoleMenuService;
-import io.renren.service.SysRoleService;
-import io.renren.service.SysUserRoleService;
-import io.renren.service.SysUserService;
-import io.renren.utils.Constant;
-import io.renren.utils.RRException;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +7,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import io.renren.dao.SysRoleDao;
+import io.renren.entity.SysRoleEntity;
+import io.renren.service.SysRoleMenuService;
+import io.renren.service.SysRoleService;
+import io.renren.service.SysUserService;
+import io.renren.utils.Constant;
+import io.renren.utils.RRException;
 
 
 
@@ -32,8 +31,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 	private SysRoleDao sysRoleDao;
 	@Autowired
 	private SysRoleMenuService sysRoleMenuService;
-	@Autowired
-	private SysUserRoleService sysUserRoleService;
 	@Autowired
 	private SysUserService sysUserService;
 

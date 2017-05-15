@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import io.renren.dao.SysMenuDao;
 import io.renren.entity.SysMenuEntity;
 import io.renren.service.SysMenuService;
-import io.renren.service.SysRoleMenuService;
 import io.renren.service.SysUserService;
 import io.renren.utils.Constant.MenuType;
 
@@ -22,9 +21,6 @@ public class SysMenuServiceImpl implements SysMenuService {
 	private SysMenuDao sysMenuDao;
 	@Autowired
 	private SysUserService sysUserService;
-	@Autowired
-	private SysRoleMenuService sysRoleMenuService;
-	
 	@Override
 	public List<SysMenuEntity> queryListParentId(Long parentId, List<Long> menuIdList) {
 		List<SysMenuEntity> menuList = sysMenuDao.queryListParentId(parentId);

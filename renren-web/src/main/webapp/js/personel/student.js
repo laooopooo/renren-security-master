@@ -174,7 +174,10 @@ var addCourse= function(rowId){
   maxmin: true,
   shadeClose: true, //点击遮罩关闭层
   area : ['1000px' , '520px'],
-  content: '../course/addCourse.html'
+  content: '../course/addCourse.html',
+  end:function(){
+  	vm.reload();
+  }
   });
 };
 
@@ -187,6 +190,9 @@ var quitCourse=function(rowId){
   maxmin: true,
   shadeClose: true, //点击遮罩关闭层
   area : ['1000px' , '520px'],
-  content: '../course/quitCourse.html'
+  content: '../course/quitCourse.html',
+  end:function(){
+  	vm.reload();
+  }
   });
 };
