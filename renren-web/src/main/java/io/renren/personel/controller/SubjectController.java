@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.renren.controllers.AbstractController;
 import io.renren.personel.entity.SubjectEntity;
 import io.renren.personel.service.SubjectService;
 import io.renren.utils.PageUtils;
@@ -27,7 +28,7 @@ import io.renren.utils.R;
  */
 @RestController
 @RequestMapping("subject")
-public class SubjectController {
+public class SubjectController extends AbstractController{
 	@Autowired
 	private SubjectService subjectService;
 	
@@ -37,6 +38,7 @@ public class SubjectController {
 	@RequestMapping("/list")
 	@RequiresPermissions("subject:list")
 	public R list(@RequestParam Map<String, Object> params){
+		params.put("tenantId", getTenantId());
 		//查询列表数据
         Query query = new Query(params);
 
@@ -66,8 +68,8 @@ public class SubjectController {
 	@RequestMapping("/save")
 	@RequiresPermissions("subject:save")
 	public R save(@RequestBody SubjectEntity subject){
+		subject.setTenantId(getTenantId());
 		subjectService.save(subject);
-		
 		return R.ok();
 	}
 	

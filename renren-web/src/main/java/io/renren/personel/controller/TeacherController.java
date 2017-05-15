@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.renren.controllers.AbstractController;
 import io.renren.personel.entity.TeacherEntity;
 import io.renren.personel.service.TeacherService;
 import io.renren.utils.PageUtils;
@@ -27,7 +28,7 @@ import io.renren.utils.R;
  */
 @RestController
 @RequestMapping("teacher")
-public class TeacherController {
+public class TeacherController extends AbstractController{
 	@Autowired
 	private TeacherService teacherService;
 	
@@ -37,6 +38,8 @@ public class TeacherController {
 	@RequestMapping("/list")
 	@RequiresPermissions("teacher:list")
 	public R list(@RequestParam Map<String, Object> params){
+		
+		params.put("tenantId", getTenantId());
 		//查询列表数据
         Query query = new Query(params);
 
@@ -66,6 +69,7 @@ public class TeacherController {
 	@RequestMapping("/save")
 	@RequiresPermissions("teacher:save")
 	public R save(@RequestBody TeacherEntity teacher){
+		teacher.setTenantId(getTenantId());
 		teacherService.save(teacher);
 		
 		return R.ok();

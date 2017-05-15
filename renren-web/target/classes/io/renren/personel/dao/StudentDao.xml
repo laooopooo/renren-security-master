@@ -17,6 +17,7 @@
 		as courseEndNum
 		from pl_student s
 		<where>
+			and `tenant_id` = #{tenantId} 
 			<if test="name != null and name.trim() != ''">
 				and `name` like concat('%',#{name},'%') 
 			</if>
@@ -50,7 +51,8 @@
 			`parent_name`, 
 			`remarks`, 
 			`kinskip`, 
-			`study_way`
+			`study_way`,
+			`tenant_id`
 		)
 		values
 		(
@@ -63,7 +65,8 @@
 			#{parentName}, 
 			#{remarks}, 
 			#{kinskip}, 
-			#{studyWay}
+			#{studyWay},
+			#{tenantId}
 		)
 	</insert>
 	 

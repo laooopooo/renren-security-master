@@ -44,6 +44,19 @@ public class SysRoleEntity implements Serializable {
 	 * 创建时间
 	 */
 	private Date createTime;
+	
+	
+	private Integer tenantId;
+	
+	
+
+	public Integer getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(Integer tenantId) {
+		this.tenantId = tenantId;
+	}
 
 	/**
 	 * 设置：

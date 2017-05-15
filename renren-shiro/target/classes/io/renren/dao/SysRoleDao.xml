@@ -10,6 +10,7 @@
 	<select id="queryList" resultType="io.renren.entity.SysRoleEntity">
 		select * from sys_role 
 		<where>
+			and `tenant_id` = #{tenantId} 
 			<if test="roleName != null and roleName.trim() != ''">
 				and `role_name` like concat('%',#{roleName},'%') 
 			</if>
@@ -49,7 +50,8 @@
 			`role_name`, 
 			`remark`,
 			`create_user_id`,
-			`create_time`
+			`create_time`,
+			`tenant_id`
 		)
 		values
 		(
@@ -57,7 +59,8 @@
 			#{roleName}, 
 			#{remark},
 			#{createUserId},
-			#{createTime}
+			#{createTime},
+			#{tenantId}
 		)
 	</insert>
 	 

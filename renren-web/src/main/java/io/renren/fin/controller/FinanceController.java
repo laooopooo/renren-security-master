@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.renren.controllers.AbstractController;
 import io.renren.fin.entity.FinanceEntity;
 import io.renren.fin.service.FinanceService;
 import io.renren.utils.PageUtils;
@@ -27,7 +28,7 @@ import io.renren.utils.R;
  */
 @RestController
 @RequestMapping("finance")
-public class FinanceController {
+public class FinanceController extends AbstractController{
 	@Autowired
 	private FinanceService financeService;
 	
@@ -37,6 +38,8 @@ public class FinanceController {
 	@RequestMapping("/list")
 	@RequiresPermissions("finance:list")
 	public R list(@RequestParam Map<String, Object> params){
+		
+		params.put("tenantId", getTenantId());
 		//查询列表数据
         Query query = new Query(params);
 
@@ -66,6 +69,7 @@ public class FinanceController {
 	@RequestMapping("/save")
 	@RequiresPermissions("finance:save")
 	public R save(@RequestBody FinanceEntity finance){
+		finance.setTenantId(getTenantId());
 		financeService.save(finance);
 		
 		return R.ok();

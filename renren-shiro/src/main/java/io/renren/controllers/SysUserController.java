@@ -53,6 +53,7 @@ public class SysUserController extends AbstractController {
 		if(getUserId() != Constant.SUPER_ADMIN){
 			params.put("createUserId", getUserId());
 		}
+		params.put("tenantId", getTenantId());
 		
 		//查询列表数据
 		Query query = new Query(params);
@@ -124,6 +125,7 @@ public class SysUserController extends AbstractController {
 		ValidatorUtils.validateEntity(user, AddGroup.class);
 		
 		user.setCreateUserId(getUserId());
+		user.setTenantId(getTenantId());
 		sysUserService.save(user);
 		
 		return R.ok();

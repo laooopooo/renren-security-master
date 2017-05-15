@@ -105,6 +105,7 @@ public class UserRealm extends AuthorizingRealm {
 		String realmName = getName();// 当前realm的name
         ByteSource credentialsSalt =ByteSource.Util.bytes(username);//用用户的username作为盐值进行盐值加密
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, credentials, credentialsSalt, realmName);
+
         return info;
 	}
 

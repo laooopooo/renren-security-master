@@ -38,6 +38,16 @@ public class FinanceEntity implements Serializable {
 	@JSONField (format="yyyy")
 	private String finYear;
 	
+	private Integer tenantId;
+
+	public Integer getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(Integer tenantId) {
+		this.tenantId = tenantId;
+	}
+	
 	
 	public String getFinYear() {
 		return finYear;

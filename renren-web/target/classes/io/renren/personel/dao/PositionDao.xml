@@ -16,6 +16,7 @@
 
 	<select id="queryList" resultType="io.renren.personel.entity.PositionEntity">
 		select * from pl_position
+		where `tenant_id` = #{tenantId} 
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -37,12 +38,14 @@
 		insert into pl_position
 		(
 			`position`, 
-			`last_update`
+			`last_update`,
+			`tenant_id` 
 		)
 		values
 		(
 			#{position}, 
-			#{lastUpdate}
+			#{lastUpdate},
+			#{tenantId}
 		)
 	</insert>
 	 

@@ -42,6 +42,15 @@ public class TeacherEntity implements Serializable {
 	
 	private String graduateSchool;
 	
+	private Integer tenantId;
+
+	public Integer getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(Integer tenantId) {
+		this.tenantId = tenantId;
+	}
 	
 	public String getGraduateSchool() {
 		return graduateSchool;

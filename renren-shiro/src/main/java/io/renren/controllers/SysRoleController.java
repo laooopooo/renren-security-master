@@ -42,6 +42,7 @@ public class SysRoleController extends AbstractController {
 		if(getUserId() != Constant.SUPER_ADMIN){
 			params.put("createUserId", getUserId());
 		}
+		params.put("tenantId", getTenantId());
 		
 		//查询列表数据
 		Query query = new Query(params);
@@ -95,6 +96,7 @@ public class SysRoleController extends AbstractController {
 		ValidatorUtils.validateEntity(role);
 		
 		role.setCreateUserId(getUserId());
+		role.setTenantId(getTenantId());
 		sysRoleService.save(role);
 		
 		return R.ok();

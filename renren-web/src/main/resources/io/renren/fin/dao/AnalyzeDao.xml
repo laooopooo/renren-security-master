@@ -7,6 +7,7 @@
 		SELECT f.fin_type as typeName,SUM(f.fin_amount) as typeAmount 
 		from fin_finance  f
 		<where>
+			and `tenant_id` = #{tenantId} 
 			<if test="payOrIncome != null and payOrIncome.trim() != ''">
 				and `pay_or_income` like concat('%',#{payOrIncome},'%') 
 			</if>
@@ -25,6 +26,7 @@
 	<select id="myQueryTotal" resultType="java.lang.Integer">
 		SELECT COUNT(DISTINCT f.fin_type) from fin_finance  f
 		<where>
+			and `tenant_id` = #{tenantId} 
 			<if test="payOrIncome == null">
 				and f.pay_or_income=0
 			</if>

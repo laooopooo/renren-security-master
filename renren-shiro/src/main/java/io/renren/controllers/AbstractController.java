@@ -22,6 +22,12 @@ public abstract class AbstractController {
 	protected Long getUserId() {
 		return getUser().getUserId();
 	}
+	
+	//add by cyl
+	protected Integer getTenantId() {
+		return getUser().getTenantId();
+	}
+	
 	//add by cyl
 	protected String getUsername() {
 		return getUser().getUsername();

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.renren.controllers.AbstractController;
 import io.renren.fin.entity.AnalyzeEntity;
 import io.renren.fin.service.AnalyzeService;
 import io.renren.utils.PageUtils;
@@ -24,7 +25,7 @@ import io.renren.utils.R;
  */
 @RestController
 @RequestMapping("analyze")
-public class AnalyzeController {
+public class AnalyzeController extends AbstractController{
 	@Autowired
 	private AnalyzeService analyzeService;
 	
@@ -34,6 +35,7 @@ public class AnalyzeController {
 	@RequestMapping("/list")
 	// @RequiresPermissions("analyze:list")
 	public R list(@RequestParam Map<String, Object> params){
+		params.put("tenantId", getTenantId());
 		//查询列表数据
         Query query = new Query(params);
 

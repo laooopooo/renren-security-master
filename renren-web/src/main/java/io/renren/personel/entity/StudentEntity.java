@@ -45,6 +45,17 @@ public class StudentEntity implements Serializable {
 	
 	private String studyWay;
 	
+	private Integer tenantId;
+
+	public Integer getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(Integer tenantId) {
+		this.tenantId = tenantId;
+	}
+	
+	
 	/**
 	 * 未结课班级个数
 	 */

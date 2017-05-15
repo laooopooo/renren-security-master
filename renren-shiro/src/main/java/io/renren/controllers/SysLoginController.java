@@ -71,6 +71,7 @@ public class SysLoginController {
 			//password = new Sha256Hash(password).toHex();
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 			subject.login(token);
+			
 		}catch (UnknownAccountException e) {
 			return R.error("找不到该用户");
 		}catch (IncorrectCredentialsException e) {

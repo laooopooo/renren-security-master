@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.renren.controllers.AbstractController;
 import io.renren.personel.entity.PositionEntity;
 import io.renren.personel.service.PositionService;
 import io.renren.utils.PageUtils;
@@ -27,7 +28,7 @@ import io.renren.utils.R;
  */
 @RestController
 @RequestMapping("position")
-public class PositionController {
+public class PositionController extends AbstractController{
 	@Autowired
 	private PositionService positionService;
 	
@@ -37,6 +38,8 @@ public class PositionController {
 	@RequestMapping("/list")
 	@RequiresPermissions("position:list")
 	public R list(@RequestParam Map<String, Object> params){
+		
+		params.put("tenantId", getTenantId());
 		//查询列表数据
         Query query = new Query(params);
 
@@ -66,6 +69,7 @@ public class PositionController {
 	@RequestMapping("/save")
 	@RequiresPermissions("position:save")
 	public R save(@RequestBody PositionEntity position){
+		position.setTenantId(getTenantId());
 		positionService.save(position);
 		
 		return R.ok();

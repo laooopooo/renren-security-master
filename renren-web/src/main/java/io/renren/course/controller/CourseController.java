@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.renren.controllers.AbstractController;
 import io.renren.course.entity.CourseEntity;
 import io.renren.course.service.CourseService;
 import io.renren.utils.PageUtils;
@@ -27,7 +28,7 @@ import io.renren.utils.R;
  */
 @RestController
 @RequestMapping("course")
-public class CourseController {
+public class CourseController extends AbstractController{
 	@Autowired
 	private CourseService courseService;
 	
@@ -37,6 +38,8 @@ public class CourseController {
 	@RequestMapping("/list")
 	@RequiresPermissions("course:list")
 	public R list(@RequestParam Map<String, Object> params){
+		
+		params.put("tenantId", getTenantId());
 		//查询列表数据
         Query query = new Query(params);
 
@@ -65,9 +68,7 @@ public class CourseController {
 	@RequestMapping("/save")
 	@RequiresPermissions("course:save")
 	public R save(@RequestBody CourseEntity course){
-		if (course.getActualPrice()>course.getOriginalPrice()) {
-			return R.error("现价不能比原价高！");
-		}
+		course.setTenantId(getTenantId());
 		courseService.save(course);
 		return R.ok();
 	}
@@ -78,9 +79,6 @@ public class CourseController {
 	@RequestMapping("/update")
 	@RequiresPermissions("course:update")
 	public R update(@RequestBody CourseEntity course){
-		if (course.getActualPrice()>course.getOriginalPrice()) {
-			return R.error("现价不能比原价高！");
-		}
 		courseService.update(course);
 		return R.ok();
 	}

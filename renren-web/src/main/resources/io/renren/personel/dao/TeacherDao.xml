@@ -3,18 +3,6 @@
 
 <mapper namespace="io.renren.personel.dao.TeacherDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="io.renren.personel.entity.TeacherEntity" id="teacherMap">
-        <result property="teacherId" column="teacher_id"/>
-        <result property="name" column="name"/>
-        <result property="teachAge" column="teach_age"/>
-        <result property="lastUpdate" column="last_update"/>
-        <result property="born" column="born"/>
-        <result property="sex" column="sex"/>
-        <result property="subjectId" column="subject_id"/>
-        <result property="positionId" column="position_id"/>
-    </resultMap>
-
 	<select id="queryObject" resultType="io.renren.personel.entity.TeacherEntity">
 		select t.*,
 		(SELECT p.position from pl_position p where p.position_id=t.position_id ) as positionName ,
@@ -28,6 +16,7 @@
 		(SELECT s.name from pl_subject s where s.subject_id=t.subject_id ) as subjectName
  		from pl_teacher t
  		<where>
+ 			and `tenant_id` = #{tenantId} 
 			<if test="name != null and name.trim() != ''">
 				and `name` like concat('%',#{name},'%') 
 			</if>
@@ -61,7 +50,8 @@
 			`remarks`,
 			`phone`,
 			`is_fulltime`,
-			`graduate_school`
+			`graduate_school`,
+			`tenant_id`
 		)
 		values
 		(
@@ -74,7 +64,8 @@
 			#{remarks}, 
 			#{phone},
 			#{isFulltime},
-			#{graduateSchool}
+			#{graduateSchool},
+			#{tenantId} 
 		)
 	</insert>
 	 

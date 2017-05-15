@@ -16,6 +16,7 @@
 		(SELECT COUNT(1) from c_course_record cr where cr.course_id=c.course_id ) as studentNumber
 		 from c_course c) as newc 
 		 <where>
+		 	and `tenant_id` = #{tenantId} 
 		 	<if test="key != null and key.trim() != ''">
 				and `course_name` like concat('%',#{key},'%') or `teacherName` like concat('%',#{key},'%')
 			</if>
@@ -41,30 +42,32 @@
 		insert into c_course
 		(
 			`course_name`, 
-			`remarks`, 
-			`number_type`, 
+			`remarks`,  
 			`teacher_id`, 
 			`status`, 
 			`course_time`, 
 			`start_date`, 
 			`end_date`,
-			`original_price`, 
-			`actual_price`,
-			`expend_time`
+			`original_price`,
+			`expend_time`,
+			`year`,
+			`quarter`,
+			`tenant_id`
 		)
 		values
 		(
 			#{courseName}, 
 			#{remarks}, 
-			#{numberType},
 			#{teacherId}, 
 			0, 
 			#{courseTime}, 
 			#{startDate}, 
 			#{endDate},
-			#{originalPrice}, 
-			#{actualPrice},
-			#{expendTime}
+			#{originalPrice},
+			#{expendTime},
+			#{year},
+			#{quarter},
+			#{tenantId}
 		)
 	</insert>
 	 

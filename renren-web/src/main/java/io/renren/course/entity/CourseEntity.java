@@ -45,11 +45,19 @@ public class CourseEntity implements Serializable {
 
 	private Float originalPrice;
 	
-	private Float actualPrice;
-	
 	private Integer quarter;
 	
 	private String year;
+	
+	private Integer tenantId;
+
+	public Integer getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(Integer tenantId) {
+		this.tenantId = tenantId;
+	}
 	
 	/**
 	 * 报名人数
@@ -86,12 +94,6 @@ public class CourseEntity implements Serializable {
 	}
 	public void setOriginalPrice(Float originalPrice) {
 		this.originalPrice = originalPrice;
-	}
-	public Float getActualPrice() {
-		return actualPrice;
-	}
-	public void setActualPrice(Float actualPrice) {
-		this.actualPrice = actualPrice;
 	}
 	public String getStatusName() {
 		return statusName;
