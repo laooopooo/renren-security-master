@@ -73,6 +73,7 @@ public class CourseRecordServiceImpl implements CourseRecordService {
 		fEntity.setFinQuarter(cEntity.getQuarter());
 		fEntity.setFinYear(cEntity.getYear());
 		fEntity.setRemarks(sEntity.getName()+"报名了"+cEntity.getCourseName());
+		fEntity.setTenantId(cEntity.getTenantId());
 		
 		financeDao.save(fEntity);
 		
@@ -112,6 +113,7 @@ public class CourseRecordServiceImpl implements CourseRecordService {
 		fEntity.setFinQuarter(cEntity.getQuarter());
 		fEntity.setFinYear(cEntity.getYear());
 		fEntity.setRemarks(sEntity.getName()+"退出了"+cEntity.getCourseName());
+		fEntity.setTenantId(sEntity.getTenantId());
 		
 		financeDao.save(fEntity);
 		
@@ -126,7 +128,6 @@ public class CourseRecordServiceImpl implements CourseRecordService {
 		//3、删除c_course_record表中的数据
 		int courseRecordId= courseRecordDao.selectIdbyStuCid(courseRecord.getCourseId(), courseRecord.getStudentId());
 		courseRecordDao.delete(courseRecordId);
-		System.out.println("");
 		return R.ok();
 	}
 	

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+#parse("sys/header.html")
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showList">
+		<div class="grid-btn">
+			#if($shiro.hasPermission("tenant:save"))
+			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			#end
+			#if($shiro.hasPermission("tenant:update"))
+			<a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			#end
+			#if($shiro.hasPermission("tenant:delete"))
+			<a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			#end
+		</div>
+	    <table id="jqGrid"></table>
+	    <div id="jqGridPager"></div>
+    </div>
+    
+    <div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal" style="width: 100%">
+			<div class="form-group">
+				<div class="col-sm-1 control-label">机构名字</div>
+			   	<div class="col-sm-4">
+			      <input type="text" class="form-control" v-model="tenant.tenantName" placeholder=""/>
+			    </div>
+			   	<div class="col-sm-1 control-label">租户电话</div>
+			   	<div class="col-sm-4">
+			      <input type="text" class="form-control" v-model="tenant.tenantPhone" placeholder=""/>
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			   	<div class="col-sm-1 control-label">省份证</div>
+			   	<div class="col-sm-4">
+			      <input type="text" class="form-control" v-model="tenant.tenantIdcard" placeholder="省份证"/>
+			    </div>
+			    <div class="col-sm-1 control-label">租户姓名</div>
+			   	<div class="col-sm-4">
+			      <input type="text" class="form-control" v-model="tenant.trueName" placeholder="真实姓名"/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-1 control-label">机构地址</div>
+			   	<div class="col-sm-4">
+			      <input type="text" class="form-control" v-model="tenant.tenantAddress" placeholder="地址"/>
+			    </div>
+			    <div class="col-sm-1 control-label">缴费金额</div>
+			   	<div class="col-sm-4">
+			      <input type="text" class="form-control" v-model="tenant.payMoney" placeholder="缴费金额"/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-1 control-label">开始日期</div>
+			   	<div class="col-sm-4">
+			      <input type="text"  id="lay_start_date" class="form-control" v-model="tenant.hireDate" placeholder="开始日期"/>
+			    </div>
+			    <div class="col-sm-1 control-label">到期日期</div>
+			   	<div class="col-sm-4">
+			      <input type="text" id="lay_end_date" class="form-control" v-model="tenant.expirationDate" placeholder="到期日期"/>
+			    </div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-10 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+	layui.use('laydate', function(){
+    var laydate = layui.laydate;
+  
+	var start = {
+	    min: '2009-06-16 23:59:59',
+	    max: '2099-06-16 23:59:59',
+	    istoday: false,
+	    choose: function(datas){
+	      end.min = datas; //开始日选好后，重置结束日的最小日期
+	      end.start = datas //将结束日的初始值设定为开始日
+	      vm.tenant.hireDate=datas;
+	    }
+	};
+  
+	var end = {
+		min: laydate.now(),
+		max: '2099-06-16 23:59:59',
+		istoday: false,
+		choose: function(datas){
+		 	start.max = datas; //结束日选好后，重置开始日的最大日期
+		 	vm.tenant.expirationDate=datas;
+		}
+	};
+  
+	document.getElementById('lay_start_date').onclick = function(){
+		start.elem = this;
+		start.max = vm.tenant.expirationDate;
+		laydate(start);
+	}
+	document.getElementById('lay_end_date').onclick = function(){
+		end.elem = this;
+		end.min = vm.tenant.hireDate;
+		laydate(end);
+	}
+  
+});
+</script>
+<script src="${rc.contextPath}/js/sys/tenant.js?_${date.systemTime}"></script>
+</body>
+</html>
