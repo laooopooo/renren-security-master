@@ -14,6 +14,7 @@ import io.renren.service.SysRoleMenuService;
 import io.renren.service.SysRoleService;
 import io.renren.service.SysUserService;
 import io.renren.utils.Constant;
+import io.renren.utils.R;
 import io.renren.utils.RRException;
 
 
@@ -76,8 +77,14 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	@Transactional
-	public void deleteBatch(Long[] roleIds) {
+	public R deleteBatch(Long[] roleIds) {
+		for(int i=0;i<roleIds.length;i++){
+			if (roleIds[i]==1) {
+				return R.error("角色id为1不能删除");
+			}
+		}
 		sysRoleDao.deleteBatch(roleIds);
+		return R.ok();
 	}
 	
 	@Override

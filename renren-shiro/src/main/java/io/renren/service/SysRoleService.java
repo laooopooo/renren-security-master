@@ -1,6 +1,7 @@
 package io.renren.service;
 
 import io.renren.entity.SysRoleEntity;
+import io.renren.utils.R;
 
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ public interface SysRoleService {
 	
 	void update(SysRoleEntity role);
 	
-	void deleteBatch(Long[] roleIds);
+	R deleteBatch(Long[] roleIds);
 	
 	/**
 	 * 查询用户创建的角色ID列表

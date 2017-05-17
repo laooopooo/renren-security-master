@@ -124,8 +124,7 @@ public class SysRoleController extends AbstractController {
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:role:delete")
 	public R delete(@RequestBody Long[] roleIds){
-		sysRoleService.deleteBatch(roleIds);
 		
-		return R.ok();
+		return sysRoleService.deleteBatch(roleIds);
 	}
 }
