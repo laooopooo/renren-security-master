@@ -15,6 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import io.renren.dao.SysUserDao;
 import io.renren.dao.SysUserRoleDao;
 import io.renren.entity.SysUserEntity;
+import io.renren.personel.dao.PositionDao;
+import io.renren.personel.dao.SubjectDao;
+import io.renren.personel.entity.PositionEntity;
+import io.renren.personel.entity.SubjectEntity;
+import io.renren.personel.service.PositionService;
 import io.renren.system.dao.TenantDao;
 import io.renren.system.entity.TenantEntity;
 import io.renren.system.service.TenantService;
@@ -31,6 +36,12 @@ public class TenantServiceImpl implements TenantService {
 	
 	@Autowired
 	private SysUserRoleDao sysUserRoleDao;
+	
+	@Autowired
+	private PositionDao positionDao;
+	
+	@Autowired
+	private SubjectDao subjectDao;
 	
 
 	
@@ -81,8 +92,77 @@ public class TenantServiceImpl implements TenantService {
 		map.put("roleIdList", roleIdList);
 		sysUserRoleDao.save(map);
 		
+		//4、初始化职位
+		PositionEntity position;
 		
+		position=new PositionEntity();
+		position.setPosition("教务主任");
+		position.setTenantId(tenant.getTenantId());
+		positionDao.save(position);
 		
+		position=new PositionEntity();
+		position.setPosition("前台");
+		position.setTenantId(tenant.getTenantId());
+		positionDao.save(position);
+		
+		position=new PositionEntity();
+		position.setPosition("任课老师");
+		position.setTenantId(tenant.getTenantId());
+		positionDao.save(position);
+		
+		//5、初始化科目
+		SubjectEntity subject;
+		subject=new SubjectEntity();
+		subject.setName("语文");
+		subject.setTenantId(tenant.getTenantId());
+		subjectDao.save(subject);
+		
+		subject=new SubjectEntity();
+		subject.setName("数学");
+		subject.setTenantId(tenant.getTenantId());
+		subjectDao.save(subject);
+		
+		subject=new SubjectEntity();
+		subject.setName("英语");
+		subject.setTenantId(tenant.getTenantId());
+		subjectDao.save(subject);
+		
+		subject=new SubjectEntity();
+		subject.setName("物理");
+		subject.setTenantId(tenant.getTenantId());
+		subjectDao.save(subject);
+		
+		subject=new SubjectEntity();
+		subject.setName("化学");
+		subject.setTenantId(tenant.getTenantId());
+		subjectDao.save(subject);
+		
+		subject=new SubjectEntity();
+		subject.setName("生物");
+		subject.setTenantId(tenant.getTenantId());
+		subjectDao.save(subject);
+		
+		subject=new SubjectEntity();
+		subject.setName("生物");
+		subject.setTenantId(tenant.getTenantId());
+		subjectDao.save(subject);
+		
+		subject=new SubjectEntity();
+		subject.setName("地理");
+		subject.setTenantId(tenant.getTenantId());
+		subjectDao.save(subject);
+		
+		subject=new SubjectEntity();
+		subject.setName("历史");
+		subject.setTenantId(tenant.getTenantId());
+		subjectDao.save(subject);
+		
+		subject=new SubjectEntity();
+		subject.setName("政治");
+		subject.setTenantId(tenant.getTenantId());
+		subjectDao.save(subject);
+		
+		System.out.println("");
 		
 	}
 	
