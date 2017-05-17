@@ -1,6 +1,7 @@
-package io.renren.dao;
+package io.renren.system.dao;
 
-import io.renren.entity.TenantEntity;
+import io.renren.dao.BaseDao;
+import io.renren.system.entity.TenantEntity;
 
 /**
  * 

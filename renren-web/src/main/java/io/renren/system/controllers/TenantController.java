@@ -1,4 +1,4 @@
-package io.renren.controllers;
+package io.renren.system.controllers;
 
 import java.util.List;
 import java.util.Map;
@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.renren.entity.TenantEntity;
-import io.renren.service.TenantService;
+import io.renren.controllers.AbstractController;
+import io.renren.system.entity.TenantEntity;
+import io.renren.system.service.TenantService;
 import io.renren.utils.PageUtils;
 import io.renren.utils.Query;
 import io.renren.utils.R;

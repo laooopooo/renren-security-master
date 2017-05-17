@@ -6,7 +6,7 @@ $(function () {
 			{ label: 'tenantId', name: 'tenantId', index: 'tenant_id', width: 50, key: true,hidden:true },
 			{ label: '机构名字', name: 'tenantName', index: 'tenant_name', width: 60 }, 	
 			{ label: '租户电话', name: 'tenantPhone', index: 'tenant_phone', width: 60 }, 
-			{ label: '省份证', name: 'tenantIdcard', index: 'tenant_idcard', width: 80 }, 		
+			{ label: '省份证', name: 'tenantIdcard', index: 'tenant_idcard', width: 90 }, 		
 			{ label: '租户姓名', name: 'trueName', index: 'true_name', width: 50 }, 			
 			{ label: '机构地址', name: 'tenantAddress', index: 'tenant_address', width: 80 }, 
 			{ label: '缴费金额', name: 'payMoney', index: 'pay_money', width: 50 },			

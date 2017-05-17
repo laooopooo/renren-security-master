@@ -1,4 +1,4 @@
-package io.renren.service.impl;
+package io.renren.system.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.renren.dao.SysUserDao;
 import io.renren.dao.SysUserRoleDao;
-import io.renren.dao.TenantDao;
 import io.renren.entity.SysUserEntity;
-import io.renren.entity.TenantEntity;
-import io.renren.service.TenantService;
+import io.renren.system.dao.TenantDao;
+import io.renren.system.entity.TenantEntity;
+import io.renren.system.service.TenantService;
 
 
 
@@ -81,7 +81,6 @@ public class TenantServiceImpl implements TenantService {
 		map.put("roleIdList", roleIdList);
 		sysUserRoleDao.save(map);
 		
-		//初始化科目、职务
 		
 		
 		

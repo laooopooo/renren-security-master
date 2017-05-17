@@ -1,9 +1,9 @@
-package io.renren.service;
-
-import io.renren.entity.TenantEntity;
+package io.renren.system.service;
 
 import java.util.List;
 import java.util.Map;
+
+import io.renren.system.entity.TenantEntity;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package io.renren.entity;
+package io.renren.system.entity;
 
 import java.io.Serializable;
 import java.util.Date;

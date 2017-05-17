@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.renren.dao.TenantDao">
+<mapper namespace="io.renren.system.dao.TenantDao">
 
-	<select id="queryObject" resultType="io.renren.entity.TenantEntity">
+	<select id="queryObject" resultType="io.renren.system.entity.TenantEntity">
 		select * from tb_tenant where tenant_id = #{value}
 	</select>
 
-	<select id="queryList" resultType="io.renren.entity.TenantEntity">
+	<select id="queryList" resultType="io.renren.system.entity.TenantEntity">
 		select * from tb_tenant
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -26,7 +26,7 @@
 		select count(*) from tb_tenant 
 	</select>
 	 
-	<insert id="save" parameterType="io.renren.entity.TenantEntity" useGeneratedKeys="true" keyProperty="tenantId">
+	<insert id="save" parameterType="io.renren.system.entity.TenantEntity" useGeneratedKeys="true" keyProperty="tenantId">
 		insert into tb_tenant
 		(
 			`tenant_phone`, 
@@ -61,7 +61,7 @@
 		)
 	</insert>
 	 
-	<update id="update" parameterType="io.renren.entity.TenantEntity">
+	<update id="update" parameterType="io.renren.system.entity.TenantEntity">
 		update tb_tenant 
 		<set>
 			<if test="tenantPhone != null">`tenant_phone` = #{tenantPhone}, </if>
@@ -74,8 +74,8 @@
 			<if test="tenantAddress != null">`tenant_address` = #{tenantAddress}, </if>
 			<if test="hireDate != null">`hire_date` = #{hireDate}, </if>
 			<if test="payMoney != null">`pay_money` = #{payMoney}, </if>
-			<if test="tenantPassword != null">`tenant_password` = #{tenantPassword}</if>
-			<if test="expirationDate != null">`expiration_date` = #{expirationDate}</if>
+			<if test="tenantPassword != null">`tenant_password` = #{tenantPassword},</if>
+			<if test="expirationDate != null">`expiration_date` = #{expirationDate},</if>
 			<if test="email != null">`email` = #{email}</if>
 		</set>
 		where tenant_id = #{tenantId}
