@@ -16,6 +16,7 @@
 
 	<select id="queryList" resultType="io.renren.personel.entity.SubjectEntity">
 		select * from pl_subject
+		where `tenant_id` = #{tenantId} 
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -30,19 +31,21 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from pl_subject 
+		select count(*) from pl_subject where `tenant_id` = #{tenantId} 
 	</select>
 	 
 	<insert id="save" parameterType="io.renren.personel.entity.SubjectEntity" useGeneratedKeys="true" keyProperty="subjectId">
 		insert into pl_subject
 		(
 			`name`, 
-			`last_update`
+			`last_update`,
+			`tenant_id`
 		)
 		values
 		(
 			#{name}, 
-			#{lastUpdate}
+			#{lastUpdate},
+			#{tenantId} 
 		)
 	</insert>
 	 

@@ -23,7 +23,7 @@ $(function () {
 			
 			{ label: '未结课班级', name: 'courseNotEndNum', index: 'courseNotEndNum', width: 60, 
 				formatter: function(value, options, row){
-					return '<a href="#" onclick="courseDetail('+options.rowId+',1)">'+value+'个</a>'
+					return '<a href="#" onclick="quitCourse('+options.rowId+')">'+value+'个</a>'
 				}
 			},
 			{ label: '已结课班级', name: 'courseEndNum', index: 'courseEndNum', width: 60, 
@@ -174,7 +174,10 @@ var addCourse= function(rowId){
   maxmin: true,
   shadeClose: true, //点击遮罩关闭层
   area : ['1000px' , '520px'],
-  content: '../course/addCourse.html'
+  content: '../course/addCourse.html',
+  end:function(){
+  	vm.reload();
+  }
   });
 };
 
@@ -183,10 +186,13 @@ var quitCourse=function(rowId){
   status=1;
   layer.open({
   type: 2,
-  title: '退课',
+  title: '未结课班级',
   maxmin: true,
   shadeClose: true, //点击遮罩关闭层
   area : ['1000px' , '520px'],
-  content: '../course/quitCourse.html'
+  content: '../course/quitCourse.html',
+  end:function(){
+  	vm.reload();
+  }
   });
 };

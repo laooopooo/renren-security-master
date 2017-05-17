@@ -9,12 +9,14 @@
 	</select>
 
 	<select id="queryList" resultType="io.renren.course.entity.CourseEntity">
-		select c.*,
+		SELECT newc.* from
+ 		(select c.*,
 		(SELECT t.name from pl_teacher t where t.teacher_id=c.teacher_id ) as teacherName,
 		(select dd.dd_name from data_dictionary dd where dd.dd_field = 'status' and dd.dd_value= c.`status`) as statusName,
 		(SELECT COUNT(1) from c_course_record cr where cr.course_id=c.course_id ) as studentNumber
-		 from c_course c 
+		 from c_course c) as newc 
 		 <where>
+		 	and `tenant_id` = #{tenantId} 
 		 	<if test="key != null and key.trim() != ''">
 				and `course_name` like concat('%',#{key},'%') or `teacherName` like concat('%',#{key},'%')
 			</if>
@@ -33,37 +35,39 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from c_course 
+		select count(*) from c_course where `tenant_id` = #{tenantId} 
 	</select>
 	 
 	<insert id="save" parameterType="io.renren.course.entity.CourseEntity" useGeneratedKeys="true" keyProperty="courseId">
 		insert into c_course
 		(
 			`course_name`, 
-			`remarks`, 
-			`number_type`, 
+			`remarks`,  
 			`teacher_id`, 
 			`status`, 
 			`course_time`, 
 			`start_date`, 
 			`end_date`,
-			`original_price`, 
-			`actual_price`,
-			`expend_time`
+			`original_price`,
+			`expend_time`,
+			`year`,
+			`quarter`,
+			`tenant_id`
 		)
 		values
 		(
 			#{courseName}, 
 			#{remarks}, 
-			#{numberType},
 			#{teacherId}, 
 			0, 
 			#{courseTime}, 
 			#{startDate}, 
 			#{endDate},
-			#{originalPrice}, 
-			#{actualPrice},
-			#{expendTime}
+			#{originalPrice},
+			#{expendTime},
+			#{year},
+			#{quarter},
+			#{tenantId}
 		)
 	</insert>
 	 

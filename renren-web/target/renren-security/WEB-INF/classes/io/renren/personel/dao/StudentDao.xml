@@ -17,6 +17,7 @@
 		as courseEndNum
 		from pl_student s
 		<where>
+			and `tenant_id` = #{tenantId} 
 			<if test="name != null and name.trim() != ''">
 				and `name` like concat('%',#{name},'%') 
 			</if>
@@ -35,7 +36,7 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from pl_student 
+		select count(*) from pl_student where `tenant_id` = #{tenantId} 
 	</select>
 	 
 	<insert id="save" parameterType="io.renren.personel.entity.StudentEntity" useGeneratedKeys="true" keyProperty="studentId">
@@ -50,7 +51,8 @@
 			`parent_name`, 
 			`remarks`, 
 			`kinskip`, 
-			`study_way`
+			`study_way`,
+			`tenant_id`
 		)
 		values
 		(
@@ -63,7 +65,8 @@
 			#{parentName}, 
 			#{remarks}, 
 			#{kinskip}, 
-			#{studyWay}
+			#{studyWay},
+			#{tenantId}
 		)
 	</insert>
 	 
