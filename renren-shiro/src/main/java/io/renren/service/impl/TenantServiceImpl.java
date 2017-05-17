@@ -1,6 +1,8 @@
 package io.renren.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,11 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.renren.dao.SysUserDao;
+import io.renren.dao.SysUserRoleDao;
 import io.renren.dao.TenantDao;
 import io.renren.entity.SysUserEntity;
 import io.renren.entity.TenantEntity;
-import io.renren.service.SysRoleService;
-import io.renren.service.SysUserRoleService;
 import io.renren.service.TenantService;
 
 
@@ -29,9 +30,8 @@ public class TenantServiceImpl implements TenantService {
 	private SysUserDao sysUserDao;
 	
 	@Autowired
-	private SysUserRoleService sysUserRoleService;
-	@Autowired
-	private SysRoleService sysRoleService;
+	private SysUserRoleDao sysUserRoleDao;
+	
 
 	
 	@Override
@@ -52,27 +52,38 @@ public class TenantServiceImpl implements TenantService {
 	@Transactional
 	@Override
 	public void save(TenantEntity tenant){
-		//添加租户
+		//1、添加租户
 		tenantDao.save(tenant);
+		
 		//2.为租户添加登陆的用户账号，并赋予管理员权限
 		SysUserEntity user=new SysUserEntity();
 		user.setUsername(tenant.getTenantPhone());
-		
+		user.setMobile(tenant.getTenantPhone());
 		user.setCreateTime(new Date());
-		//sha256加密
-		//user.setPassword(new Sha256Hash(user.getPassword()).toHex());
+		user.setTenantId(tenant.getTenantId());
+		user.setStatus(1);
+		user.setEmail(tenant.getEmail());
 		
-		//使用MD5盐值加密3次
+		//租户的初始密码为省份证的后四位
+		String str=tenant.getTenantIdcard();
+		user.setPassword(str.substring(str.length()-4, str.length()));
 		ByteSource credentialsSalt =ByteSource.Util.bytes(user.getUsername());
 		Object result= new  SimpleHash("MD5", user.getPassword(),credentialsSalt, 3);
 		user.setPassword(result.toString());
 		
 		sysUserDao.save(user);
 		
-		//保存用户与角色关系
-		sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
+		//3、设置用户权限为租户管理员(角色管理ID为1)  保存用户与角色关系
+		Map<String, Object> map = new HashMap<>();
+		List<Long> roleIdList =new ArrayList<Long>();
+		roleIdList.add(1L);
+		map.put("userId", user.getUserId());
+		map.put("roleIdList", roleIdList);
+		sysUserRoleDao.save(map);
 		
-		sysUserDao.save(user);
+		//初始化科目、职务
+		
+		
 		
 	}
 	

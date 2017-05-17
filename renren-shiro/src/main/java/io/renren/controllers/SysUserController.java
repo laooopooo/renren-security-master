@@ -52,8 +52,8 @@ public class SysUserController extends AbstractController {
 		//只有超级管理员，才能查看所有管理员列表
 		if(getUserId() != Constant.SUPER_ADMIN){
 			params.put("createUserId", getUserId());
+			params.put("tenantId", getTenantId());
 		}
-		params.put("tenantId", getTenantId());
 		
 		//查询列表数据
 		Query query = new Query(params);

@@ -46,8 +46,15 @@ public class TenantEntity implements Serializable {
 	@JSONField (format="yyyy-MM-dd")
 	private Date expirationDate;
 	
+	private String email;
 	
 
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public Date getExpirationDate() {
 		return expirationDate;
 	}

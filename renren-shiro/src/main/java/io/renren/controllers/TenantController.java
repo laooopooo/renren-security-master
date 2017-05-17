@@ -3,6 +3,7 @@ package io.renren.controllers;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +28,7 @@ import io.renren.utils.R;
  */
 @RestController
 @RequestMapping("tenant")
-public class TenantController {
+public class TenantController extends AbstractController{
 	@Autowired
 	private TenantService tenantService;
 	
@@ -88,6 +89,13 @@ public class TenantController {
 	@RequestMapping("/delete")
 	@RequiresPermissions("tenant:delete")
 	public R delete(@RequestBody Integer[] tenantIds){
+		if(ArrayUtils.contains(tenantIds, 1)){
+			return R.error("系统租户不能删除");
+		}
+		if(ArrayUtils.contains(tenantIds, getTenantId())){
+			return R.error("当前租户不能删除");
+		}
+		
 		tenantService.deleteBatch(tenantIds);
 		
 		return R.ok();

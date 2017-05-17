@@ -9,6 +9,8 @@ import io.renren.utils.PageUtils;
 import io.renren.utils.Query;
 import io.renren.utils.R;
 import io.renren.validator.ValidatorUtils;
+
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -124,7 +126,11 @@ public class SysRoleController extends AbstractController {
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:role:delete")
 	public R delete(@RequestBody Long[] roleIds){
+		if(ArrayUtils.contains(roleIds, 1L)){
+			return R.error("系统自带角色不能删除");
+		}
 		
-		return sysRoleService.deleteBatch(roleIds);
+		sysRoleService.deleteBatch(roleIds);
+		return R.ok();
 	}
 }

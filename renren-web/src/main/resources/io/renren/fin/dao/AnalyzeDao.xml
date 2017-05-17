@@ -24,7 +24,7 @@
 		GROUP BY f.fin_type;
 	</select>
 	<select id="myQueryTotal" resultType="java.lang.Integer">
-		SELECT COUNT(DISTINCT f.fin_type) from fin_finance  f
+		SELECT COUNT(DISTINCT f.fin_type) from fin_finance  f 
 		<where>
 			and `tenant_id` = #{tenantId} 
 			<if test="payOrIncome == null">

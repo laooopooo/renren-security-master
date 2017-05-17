@@ -9,7 +9,9 @@
 	<select id="queryList" resultType="io.renren.entity.SysUserEntity">
 		select * from sys_user 
 		<where>
-			and `tenant_id` = #{tenantId} 
+			<if test="tenantId != null">
+				and `tenant_id` = #{tenantId} 
+			</if>
 			<if test="createUserId != null">
 				and `create_user_id` = #{createUserId} 
 			</if>

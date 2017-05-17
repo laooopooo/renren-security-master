@@ -40,7 +40,8 @@
 			`hire_date`, 
 			`pay_money`, 
 			`tenant_password`,
-			`expiration_date`
+			`expiration_date`,
+			`email`
 		)
 		values
 		(
@@ -55,7 +56,8 @@
 			#{hireDate}, 
 			#{payMoney}, 
 			#{tenantPassword},
-			#{expirationDate}
+			#{expirationDate},
+			#{email}
 		)
 	</insert>
 	 
@@ -74,6 +76,7 @@
 			<if test="payMoney != null">`pay_money` = #{payMoney}, </if>
 			<if test="tenantPassword != null">`tenant_password` = #{tenantPassword}</if>
 			<if test="expirationDate != null">`expiration_date` = #{expirationDate}</if>
+			<if test="email != null">`email` = #{email}</if>
 		</set>
 		where tenant_id = #{tenantId}
 	</update>
