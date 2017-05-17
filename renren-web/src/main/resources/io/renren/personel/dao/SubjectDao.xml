@@ -31,7 +31,7 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from pl_subject 
+		select count(*) from pl_subject where `tenant_id` = #{tenantId} 
 	</select>
 	 
 	<insert id="save" parameterType="io.renren.personel.entity.SubjectEntity" useGeneratedKeys="true" keyProperty="subjectId">

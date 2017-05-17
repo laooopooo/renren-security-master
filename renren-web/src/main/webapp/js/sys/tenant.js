@@ -68,6 +68,8 @@ var vm = new Vue({
             vm.getInfo(tenantId)
 		},
 		saveOrUpdate: function (event) {
+			debugger;
+			
 			var url = vm.tenant.tenantId == null ? "../tenant/save" : "../tenant/update";
 			$.ajax({
 				type: "POST",
@@ -121,3 +123,17 @@ var vm = new Vue({
 		}
 	}
 });
+
+$(function(){
+    //jquery.validate
+	$("#jsForm").validate({
+		submitHandler: function() {
+			//验证通过后 的js代码写在这里
+			debugger;
+			vm.saveOrUpdate();
+		}
+	});
+	$().ready(function() {
+	    $("#jsForm").validate();
+	});
+})

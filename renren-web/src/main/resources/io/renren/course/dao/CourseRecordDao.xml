@@ -23,7 +23,7 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from c_course_record 
+		select count(*) from c_course_record where `tenant_id` = #{tenantId} 
 	</select>
 	 
 	<insert id="save" parameterType="io.renren.course.entity.CourseRecordEntity" useGeneratedKeys="true" keyProperty="courseRecordId">

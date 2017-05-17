@@ -42,7 +42,7 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from fin_finance 
+		select count(*) from fin_finance where `tenant_id` = #{tenantId} 
 	</select>
 	 
 	<insert id="save" parameterType="io.renren.fin.entity.FinanceEntity" useGeneratedKeys="true" keyProperty="financeId">

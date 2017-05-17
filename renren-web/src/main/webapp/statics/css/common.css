@@ -1,3 +1,14 @@
+
+ul,li{ margin:0; padding:0; list-style:none}
+.fn-vhid{ visibility:hidden;}
+.fn-tinput{ width:240px; height:30px; line-height:30px\9; border:#ddd solid 1px; background-color:transparent; padding:0 6px;}
+textarea {border:#ddd solid 1px; background-color:transparent; width:60%}
+.bl-form label{ float:left; width:100px; text-align:right; padding-top:6px;}
+.bl-form .controls label{ width:auto;}
+.bl-form li{ margin-top:20px; overflow:hidden;}
+em{ color:#C00;}
+span.error{color:#C00; padding:0 6px;}
+
 a:hover{
 	text-decoration:none
 }
