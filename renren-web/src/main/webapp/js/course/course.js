@@ -28,6 +28,11 @@ $(function () {
         			return '<a href="#" onclick="studentList('+options.rowId+')">'+value+'人</a>'
         		}
         	},
+        	{ label: '操作', width: 80, 
+        		formatter: function(value, options, row){
+        			return '<a href="#" onclick="studentList('+options.rowId+')">排课</a>'
+        		}
+        	},
 			{ label: '备注', name: 'remarks', index: 'remarks', width: 80 }
 				
         ],
