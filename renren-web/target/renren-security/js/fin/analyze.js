@@ -42,6 +42,9 @@ var vm = new Vue({
 		showList: true,
 		title: null,
 		analyze: {},
+		totalIn:null,
+		totalOut:null,
+		profit:null,
 		payInDatas:[
 			{name:'支出',value:'0'},
 			{name:'收入',value:'1'}
@@ -54,8 +57,8 @@ var vm = new Vue({
 		],
         years:[],
         q:{
-            year:null,
-            quarter:null,
+            year:'',
+            quarter:'',
             payOrIncome:null,
             typeOrRemarks:null
         }
@@ -67,6 +70,7 @@ var vm = new Vue({
 		
 		reload: function (event) {
             startChart(vm.q.payOrIncome,vm.q.year,vm.q.quarter);
+            getProfit(vm.q.year,vm.q.quarter);
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
@@ -167,7 +171,6 @@ var startChart=function(payOrIncome,year,quarter){
     if (payOrIncome==null) {payOrIncome=""}
     if (year==null) {year=""}
     if (quarter==null) {quarter=""}
-    debugger;
 // 使用
 require(
     [
@@ -212,6 +215,22 @@ require(
     }
 );
 }
+
+var getProfit = function(year,quarter){
+	$.ajax({
+	    type : "GET",
+	    url : "../analyze/profit?limit=1&page=1&sidx=&order=asc"+"&year="+year+"&quarter="+quarter,
+	    dataType : "json",
+	    success : function (data) {
+	    	vm.totalIn = data.totalIn;
+	    	vm.totalOut = data.totalOut;
+	    	vm.profit = data.profit;
+	    	debugger;
+	    }
+	});
+}
+
+
 window.onload=function(){ 
 //设置年份的选择 
     var myDate= new Date(); 
@@ -225,4 +244,5 @@ window.onload=function(){
         vm._data.years.push(tempobj);
     }
     startChart('','','');
+    getProfit('','');
 } 

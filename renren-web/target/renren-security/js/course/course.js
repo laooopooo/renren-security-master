@@ -28,6 +28,11 @@ $(function () {
         			return '<a href="#" onclick="studentList('+options.rowId+')">'+value+'人</a>'
         		}
         	},
+        	{ label: '操作', width: 80, 
+        		formatter: function(value, options, row){
+        			return '<a href="#" onclick="studentList('+options.rowId+')">排课</a>'
+        		}
+        	},
 			{ label: '备注', name: 'remarks', index: 'remarks', width: 80 }
 				
         ],
@@ -119,7 +124,7 @@ var vm = new Vue({
 				return ;
 			}
 			
-			confirm('确定要删除选中的记录？', function(){
+			confirm('删除时将删除该课程的所有选课记录'+'<br>'+'确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
 				    url: "../course/delete",

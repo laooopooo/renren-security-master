@@ -73,6 +73,7 @@ public class TenantServiceImpl implements TenantService {
 		user.setTenantId(tenant.getTenantId());
 		user.setStatus(1);
 		user.setEmail(tenant.getEmail());
+		user.setCreateUserId(1L);
 		
 		//租户的初始密码为省份证的后四位
 		String str=tenant.getTenantIdcard();

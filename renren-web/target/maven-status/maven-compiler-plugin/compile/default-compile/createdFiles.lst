@@ -4,6 +4,7 @@ io\renren\personel\entity\StudentEntity.class
 io\renren\system\entity\SysOssEntity.class
 io\renren\personel\dao\SubjectDao.class
 io\renren\course\controller\CourseQuitController.class
+io\renren\system\dao\TenantDao.class
 io\renren\fin\service\impl\AnalyzeServiceImpl.class
 io\renren\personel\dao\StudentDao.class
 io\renren\system\controllers\SysPageController.class
@@ -11,7 +12,9 @@ io\renren\fin\entity\AnalyzeEntity.class
 io\renren\personel\service\impl\SubjectServiceImpl.class
 io\renren\fin\dao\FinanceDao.class
 io\renren\system\dao\SysOssDao.class
+io\renren\course\service\ClassroomService.class
 io\renren\system\controllers\SysConfigController.class
+io\renren\course\controller\ClassroomController.class
 io\renren\personel\entity\SubjectEntity.class
 io\renren\course\service\CourseQuitService.class
 io\renren\fin\controller\AnalyzeController.class
@@ -23,7 +26,9 @@ io\renren\system\aop\SysLogAspect.class
 io\renren\personel\controller\SubjectController.class
 io\renren\system\service\impl\SysOssServiceImpl.class
 io\renren\course\controller\CourseRecordController.class
+io\renren\course\entity\ClassroomEntity.class
 io\renren\personel\service\impl\PositionServiceImpl.class
+io\renren\system\controllers\TenantController.class
 io\renren\course\entity\CourseRecordEntity.class
 io\renren\course\service\impl\CourseServiceImpl.class
 io\renren\personel\controller\TeacherController.class
@@ -34,6 +39,7 @@ io\renren\course\entity\CourseEntity.class
 io\renren\course\entity\CourseQuitEntity.class
 io\renren\system\controllers\SysOssController.class
 io\renren\personel\controller\PositionController.class
+io\renren\system\service\TenantService.class
 io\renren\personel\dao\PositionDao.class
 io\renren\course\service\CourseService.class
 io\renren\personel\service\impl\StudentServiceImpl.class
@@ -46,9 +52,13 @@ io\renren\fin\service\impl\FinanceServiceImpl.class
 io\renren\course\dao\CourseRecordDao.class
 io\renren\course\service\CourseRecordService.class
 io\renren\fin\entity\FinanceEntity.class
+io\renren\system\service\impl\TenantServiceImpl.class
 io\renren\personel\service\TeacherService.class
 io\renren\personel\controller\StudentController.class
 io\renren\fin\controller\FinanceController.class
 io\renren\personel\service\PositionService.class
+io\renren\course\service\impl\ClassroomServiceImpl.class
 io\renren\personel\service\StudentService.class
+io\renren\system\entity\TenantEntity.class
+io\renren\course\dao\ClassroomDao.class
 io\renren\personel\service\impl\TeacherServiceImpl.class

@@ -23,7 +23,17 @@ public class ClassroomEntity implements Serializable {
 	private Integer roomCapacity;
 	//
 	private Date lastUpdate;
+	
+	private Integer tenantId;
+	
+	
 
+	public Integer getTenantId() {
+		return tenantId;
+	}
+	public void setTenantId(Integer tenantId) {
+		this.tenantId = tenantId;
+	}
 	/**
 	 * 设置：
 	 */

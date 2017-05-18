@@ -58,7 +58,7 @@ p#vtip #vtipArrow
     </div>
     
     <div v-show="!showList" class="panel panel-default">
-		<div class="panel-heading">{{title}}</div>
+		<div class="panel-heading">{{title}}(提示：新增租户登陆的用户名为租户的手机号码，初始密码为身份证后4位)</div>
 		
 		<form  class="bl-form bl-formhor" id="jsForm">
         <div class="col-sm-6">
@@ -66,19 +66,13 @@ p#vtip #vtipArrow
         	<li class="bl-form-group">
                 <label><em>* </em>机构名字：</label>
                 <div class="controls">
-                   <input class="fn-tinput" name="name" v-model="tenant.tenantName" type="text"  placeholder="机构名字" required data-msg-required="不能为空" />
+                   <input class="fn-tinput" name="name" v-model="tenant.tenantName" type="text" required data-msg-required="不能为空" />
                 </div>
             </li>
          	<li class="bl-form-group">
                 <label><em>* </em>身份证：</label>
                 <div class="controls">
-                   <input class="fn-tinput" name="Idcard" v-model="tenant.tenantIdcard" type="text" placeholder="租户身份证" required data-rule-idCard="true" data-msg-required="请输入身份证号" data-msg-idCard="请输入正确身份证号(如最后一位是X,请注意是大写的X)" />
-                </div>
-            </li>
-            <li class="bl-form-group">
-                <label>机构地址：</label>
-                <div class="controls">
-                   <input class="fn-tinput"  name="Address" v-model="tenant.tenantAddress" type="text"  placeholder="机构地址" />
+                   <input class="fn-tinput" name="Idcard" v-model="tenant.tenantIdcard" type="text" required data-rule-idCard="true" data-msg-required="请输入身份证号" data-msg-idCard="请输入正确身份证号(如最后一位是X,请注意是大写的X)" />
                 </div>
             </li>
             <li class="bl-form-group">
@@ -87,20 +81,39 @@ p#vtip #vtipArrow
                    <input class="fn-tinput" id="lay_start_date" name="payMoney" v-model="tenant.hireDate" type="text" required data-msg-required="不能为空"/>
                 </div>
             </li>
+            <li class="bl-form-group">
+                <label>地址：</label>
+                <div class="controls">
+                   <input class="fn-tinput"  name="Address" v-model="tenant.tenantAddress" type="text" />
+                </div>
+            </li>
+            <li class="bl-form-group">
+                <label>邮箱：</label>
+                <div class="controls">
+                   <input class="fn-tinput" name="email" v-model="tenant.email" type="text"  data-rule-mail="true"  data-msg-mail="正确的邮箱格式(aa@bb.cc)"/>
+                </div>
+            </li>
+            
         </ul>
         </div>
         <div class="col-sm-6">
         <ul>
         	<li class="bl-form-group">
-                <label><em>* </em>租户手机号：</label>
+                <label><em>* </em>手机号：</label>
                 <div class="controls">
-                   <input class="fn-tinput" name="phone" v-model="tenant.tenantPhone" type="text" placeholder="租户电话" required data-rule-mobile="true" data-msg-required="请输入手机号" data-msg-mobile="请输入正确手机号" />
+                   <input class="fn-tinput" name="phone" v-model="tenant.tenantPhone" type="text" required data-rule-mobile="true" data-msg-required="请输入手机号" data-msg-mobile="请输入正确手机号" />
                 </div>
             </li>
              <li class="bl-form-group">
                 <label><em>* </em>租户姓名：</label>
                 <div class="controls">
-                   <input class="fn-tinput" name="trueName" v-model="tenant.trueName" type="text"  placeholder="租户姓名" required data-msg-required="不能为空" />
+                   <input class="fn-tinput" name="trueName" v-model="tenant.trueName" type="text" required data-msg-required="不能为空" />
+                </div>
+            </li>
+             <li class="bl-form-group">
+                <label><em>* </em>到期日期：</label>
+                <div class="controls">
+                   <input class="fn-tinput" id="lay_end_date" name="expirationDate" v-model="tenant.expirationDate" type="text" required data-msg-required="不能为空" />
                 </div>
             </li>
         	<li class="bl-form-group">
@@ -109,19 +122,15 @@ p#vtip #vtipArrow
                    <input class="fn-tinput"  name="payMoney" v-model="tenant.payMoney" type="text" />
                 </div>
             </li>
-            <li class="bl-form-group">
-                <label><em>* </em>到期日期：</label>
-                <div class="controls">
-                   <input class="fn-tinput" id="lay_end_date" name="expirationDate" v-model="tenant.expirationDate" type="text" required data-msg-required="不能为空" />
-                </div>
-            </li>
+           
         </ul>
         </div>
         <div class="bl-form-group">
-			<div class="col-sm-10 control-label"></div> 
-			<input style="margin: 15px;" type="submit" class="btn btn-primary" value="确定"/>
+			<div class="col-sm-1 control-label"></div> 
+			<input style="margin: 25px;" type="submit" class="btn btn-primary" value="确定"/>
 			&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
 		</div>
+        
     </form>
 	</div>
 </div>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.system.dao.TenantDao">
+
+	<select id="queryObject" resultType="io.renren.system.entity.TenantEntity">
+		select * from tb_tenant where tenant_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.renren.system.entity.TenantEntity">
+		select * from tb_tenant
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by tenant_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tb_tenant 
+	</select>
+	 
+	<insert id="save" parameterType="io.renren.system.entity.TenantEntity" useGeneratedKeys="true" keyProperty="tenantId">
+		insert into tb_tenant
+		(
+			`tenant_phone`, 
+			`create_time`, 
+			`last_update`, 
+			`tenant_name`, 
+			`tenant_idcard`, 
+			`tenant_img`, 
+			`true_name`, 
+			`tenant_address`, 
+			`hire_date`, 
+			`pay_money`, 
+			`tenant_password`,
+			`expiration_date`,
+			`email`
+		)
+		values
+		(
+			#{tenantPhone}, 
+			#{createTime}, 
+			#{lastUpdate}, 
+			#{tenantName}, 
+			#{tenantIdcard}, 
+			#{tenantImg}, 
+			#{trueName}, 
+			#{tenantAddress}, 
+			#{hireDate}, 
+			#{payMoney}, 
+			#{tenantPassword},
+			#{expirationDate},
+			#{email}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.renren.system.entity.TenantEntity">
+		update tb_tenant 
+		<set>
+			<if test="tenantPhone != null">`tenant_phone` = #{tenantPhone}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="lastUpdate != null">`last_update` = #{lastUpdate}, </if>
+			<if test="tenantName != null">`tenant_name` = #{tenantName}, </if>
+			<if test="tenantIdcard != null">`tenant_idcard` = #{tenantIdcard}, </if>
+			<if test="tenantImg != null">`tenant_img` = #{tenantImg}, </if>
+			<if test="trueName != null">`true_name` = #{trueName}, </if>
+			<if test="tenantAddress != null">`tenant_address` = #{tenantAddress}, </if>
+			<if test="hireDate != null">`hire_date` = #{hireDate}, </if>
+			<if test="payMoney != null">`pay_money` = #{payMoney}, </if>
+			<if test="tenantPassword != null">`tenant_password` = #{tenantPassword},</if>
+			<if test="expirationDate != null">`expiration_date` = #{expirationDate},</if>
+			<if test="email != null">`email` = #{email}</if>
+		</set>
+		where tenant_id = #{tenantId}
+	</update>
+	
+	<delete id="delete">
+		delete from tb_tenant where tenant_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tb_tenant where tenant_id in 
+		<foreach item="tenantId" collection="array" open="(" separator="," close=")">
+			#{tenantId}
+		</foreach>
+	</delete>
+
+</mapper>

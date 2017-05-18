@@ -95,16 +95,13 @@ public class SysUserServiceImpl implements SysUserService {
 		if(StringUtils.isBlank(user.getPassword())){
 			user.setPassword(null);
 		}else{
-			//sha256加密
-			//user.setPassword(new Sha256Hash(user.getPassword()).toHex());
-			
 			//使用MD5盐值加密3次
 			ByteSource credentialsSalt =ByteSource.Util.bytes(user.getUsername());
 			Object result= new  SimpleHash("MD5", user.getPassword(),credentialsSalt, 3);
 			user.setPassword(result.toString());
-			
 		}
 		sysUserDao.update(user);
+		
 		
 		//检查角色是否越权
 		checkRole(user);

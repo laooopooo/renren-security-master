@@ -34,6 +34,9 @@ public class ClassroomServiceImpl implements ClassroomService {
 	
 	@Override
 	public void save(ClassroomEntity classroom){
+		if (classroom.getRoomCapacity()==null) {
+			classroom.setRoomCapacity(30);
+		}
 		classroomDao.save(classroom);
 	}
 	

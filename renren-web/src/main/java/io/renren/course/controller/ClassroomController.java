@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.renren.controllers.AbstractController;
 import io.renren.course.entity.ClassroomEntity;
 import io.renren.course.service.ClassroomService;
+import io.renren.utils.Constant;
 import io.renren.utils.PageUtils;
 import io.renren.utils.Query;
 import io.renren.utils.R;
@@ -27,7 +29,7 @@ import io.renren.utils.R;
  */
 @RestController
 @RequestMapping("classroom")
-public class ClassroomController {
+public class ClassroomController extends AbstractController{
 	@Autowired
 	private ClassroomService classroomService;
 	
@@ -37,6 +39,9 @@ public class ClassroomController {
 	@RequestMapping("/list")
 	@RequiresPermissions("classroom:list")
 	public R list(@RequestParam Map<String, Object> params){
+		if(getUserId() != Constant.SUPER_ADMIN){
+			params.put("tenantId", getTenantId());
+		}
 		//查询列表数据
         Query query = new Query(params);
 
@@ -66,6 +71,7 @@ public class ClassroomController {
 	@RequestMapping("/save")
 	@RequiresPermissions("classroom:save")
 	public R save(@RequestBody ClassroomEntity classroom){
+		classroom.setTenantId(getTenantId());
 		classroomService.save(classroom);
 		
 		return R.ok();

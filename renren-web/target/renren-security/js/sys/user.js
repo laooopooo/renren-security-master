@@ -86,8 +86,8 @@ var vm = new Vue({
 			if(userIds == null){
 				return ;
 			}
-			
 			confirm('确定要删除选中的记录？', function(){
+				
 				$.ajax({
 					type: "POST",
 				    url: "../sys/user/delete",
