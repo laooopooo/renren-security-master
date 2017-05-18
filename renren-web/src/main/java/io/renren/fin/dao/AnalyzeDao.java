@@ -15,6 +15,13 @@ import io.renren.fin.entity.AnalyzeEntity;
  * @date 2017-05-04 14:57:23
  */
 public interface AnalyzeDao<T> extends BaseDao<AnalyzeEntity> {
+	
 	List<T> analyzeList(Map<String, Object> map);
+	
 	int myQueryTotal(Map<String, Object> map);
+	
+	Float getTotalIn(Map<String, Object> map);
+	
+	Float getTotalOut(Map<String, Object> map);
+	
 }

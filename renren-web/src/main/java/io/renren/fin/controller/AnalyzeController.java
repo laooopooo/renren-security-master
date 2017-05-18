@@ -6,11 +6,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.renren.controllers.AbstractController;
 import io.renren.fin.entity.AnalyzeEntity;
 import io.renren.fin.service.AnalyzeService;
+import io.renren.utils.Constant;
 import io.renren.utils.PageUtils;
 import io.renren.utils.Query;
 import io.renren.utils.R;
@@ -44,6 +46,24 @@ public class AnalyzeController extends AbstractController{
 		
 		PageUtils pageUtil = new PageUtils(analyzeList, total, query.getLimit(), query.getPage());
 		return R.ok().put("page", pageUtil);
+	}
+	
+	/**
+	 * 列表
+	 */
+	@RequestMapping("/profit")
+	// @RequiresPermissions("analyze:list")
+	@ResponseBody
+	public AnalyzeEntity profit(@RequestParam Map<String, Object> params){
+		if(getUserId() != Constant.SUPER_ADMIN){
+			params.put("tenantId", getTenantId());
+		}
+		//查询列表数据
+        Query query = new Query(params);
+
+		AnalyzeEntity analyze = analyzeService.getProfit(query);
+		
+		return analyze;
 	}
 	
 }

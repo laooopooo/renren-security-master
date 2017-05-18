@@ -16,7 +16,9 @@
 		(SELECT COUNT(1) from c_course_record cr where cr.course_id=c.course_id ) as studentNumber
 		 from c_course c) as newc 
 		 <where>
-		 	and `tenant_id` = #{tenantId} 
+		 	<if test="tenantId != null and tenantId.trim() != ''">
+		 		and `tenant_id` = #{tenantId} 
+		 	</if>
 		 	<if test="key != null and key.trim() != ''">
 				and `course_name` like concat('%',#{key},'%') or `teacherName` like concat('%',#{key},'%')
 			</if>
@@ -35,7 +37,12 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from c_course where `tenant_id` = #{tenantId} 
+		select count(*) from c_course
+		<where>
+			<if test="tenantId != null and tenantId.trim() != ''">
+		 		and `tenant_id` = #{tenantId} 
+		 	</if>
+		</where>
 	</select>
 	 
 	<insert id="save" parameterType="io.renren.course.entity.CourseEntity" useGeneratedKeys="true" keyProperty="courseId">

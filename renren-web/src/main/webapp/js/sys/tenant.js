@@ -92,7 +92,7 @@ var vm = new Vue({
 				return ;
 			}
 			
-			confirm('确定要删除选中的记录？', function(){
+			confirm('删除时将删除该租户的所有记录'+'<br>'+'确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
 				    url: "../tenant/delete",
@@ -129,7 +129,6 @@ $(function(){
 	$("#jsForm").validate({
 		submitHandler: function() {
 			//验证通过后 的js代码写在这里
-			debugger;
 			vm.saveOrUpdate();
 		}
 	});

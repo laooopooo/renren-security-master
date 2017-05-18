@@ -17,4 +17,6 @@ public interface AnalyzeService {
 	List<AnalyzeEntity> analyzeList(Map<String, Object> map);
 	
 	int myQueryTotal(Map<String, Object> map);
+	
+	AnalyzeEntity getProfit(Map<String, Object> map);
 }

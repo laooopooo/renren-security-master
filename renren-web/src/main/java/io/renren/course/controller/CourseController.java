@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.renren.controllers.AbstractController;
 import io.renren.course.entity.CourseEntity;
 import io.renren.course.service.CourseService;
+import io.renren.utils.Constant;
 import io.renren.utils.PageUtils;
 import io.renren.utils.Query;
 import io.renren.utils.R;
@@ -38,8 +39,11 @@ public class CourseController extends AbstractController{
 	@RequestMapping("/list")
 	@RequiresPermissions("course:list")
 	public R list(@RequestParam Map<String, Object> params){
+		//只有超级管理员，才能查看所有管理员列表
+		if(getUserId() != Constant.SUPER_ADMIN){
+			params.put("tenantId", getTenantId());
+		}
 		
-		params.put("tenantId", getTenantId());
 		//查询列表数据
         Query query = new Query(params);
 

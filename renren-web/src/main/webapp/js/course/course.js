@@ -119,7 +119,7 @@ var vm = new Vue({
 				return ;
 			}
 			
-			confirm('确定要删除选中的记录？', function(){
+			confirm('删除时将删除该课程的所有选课记录'+'<br>'+'确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
 				    url: "../course/delete",

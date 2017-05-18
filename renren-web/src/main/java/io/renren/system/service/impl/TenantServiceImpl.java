@@ -19,7 +19,6 @@ import io.renren.personel.dao.PositionDao;
 import io.renren.personel.dao.SubjectDao;
 import io.renren.personel.entity.PositionEntity;
 import io.renren.personel.entity.SubjectEntity;
-import io.renren.personel.service.PositionService;
 import io.renren.system.dao.TenantDao;
 import io.renren.system.entity.TenantEntity;
 import io.renren.system.service.TenantService;
@@ -161,8 +160,6 @@ public class TenantServiceImpl implements TenantService {
 		subject.setName("政治");
 		subject.setTenantId(tenant.getTenantId());
 		subjectDao.save(subject);
-		
-		System.out.println("");
 		
 	}
 	

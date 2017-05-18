@@ -36,6 +36,29 @@ public class AnalyzeServiceImpl implements AnalyzeService {
 		
 		return analyzeDao.myQueryTotal(map);
 	}
+
+	@Override
+	public AnalyzeEntity getProfit(Map<String, Object> map) {
+		
+		Float totalIn = analyzeDao.getTotalIn(map);
+		Float totalOut = analyzeDao.getTotalOut(map);
+		
+		if (totalIn==null) {
+			totalIn=0F;
+		}
+		if (totalOut==null) {
+			totalOut=0F;
+		}
+		
+		Float profit=totalIn-totalOut;
+		
+		AnalyzeEntity analyze=new AnalyzeEntity();
+		analyze.setTotalIn(totalIn);
+		analyze.setTotalOut(totalOut);
+		analyze.setProfit(profit);
+		
+		return analyze;
+	}
 	
 	
 }
