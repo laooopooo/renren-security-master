@@ -30,7 +30,7 @@ $(function () {
         	},
         	{ label: '操作', width: 80, 
         		formatter: function(value, options, row){
-        			return '<a href="#" onclick="studentList('+options.rowId+')">排课</a>'
+        			return '<a href="#" onclick="arrangeCourse('+options.rowId+')">排课</a>'
         		}
         	},
 			{ label: '备注', name: 'remarks', index: 'remarks', width: 80 }
@@ -173,14 +173,27 @@ var vm = new Vue({
 var studentList= function(rowId){
   vm.getInfo(rowId);
   layer.open({
-  type: 2,
-  title: '学生名单',
-  maxmin: true,
-  shadeClose: true, //点击遮罩关闭层
-  area : ['600px' , '320px'],
-  content: '../course/studentList.html'
+	  type: 2,
+	  title: '学生名单',
+	  maxmin: true,
+	  shadeClose: true, //点击遮罩关闭层
+	  area : ['600px' , '320px'],
+	  content: '../course/studentList.html'
   });
 };
+
+var arrangeCourse = function(rowId){
+  vm.getInfo(rowId);
+  layer.open({
+	  type: 2,
+	  title: '开始排课',
+	  maxmin: true,
+	  shadeClose: true, //点击遮罩关闭层
+	  area: ['100%', '100%'],
+	  content: '../course/arrangeCourse.html'
+  });
+};
+
 
 window.onload=function(){ 
 //设置年份的选择 
