@@ -5,76 +5,22 @@
 #parse("sys/header.html")
 
 <style type="text/css">
-.layui-table th{
+th{
 	text-align: center;
-    background-color: #1E9FFF;
+    background-color: #F7B824;
 }
-.layui-table td{
+td{
 	height: 70px;
+	vertical-align: middle!important;
 }
 </style>
 
 </head>
 <body>
 <div id="rrapp">
- 
-   
-  <table class="layui-table" lay-even="" lay-skin="row">
-    <thead>
-      <tr>
-        <th>时间</th>
-        <th>星期一</th>
-        <th>星期二</th>
-        <th>星期三</th>
-        <th>星期四</th>
-        <th>星期五</th>
-        <th>星期六</th>
-        <th>星期日</th>
-      </tr> 
-    </thead>
-    <tbody>
-      <tr>
-        <td>第一大节</td>
-        <td>剩余教室2个</td>
-        <td>课已排满</td>
-        <td>可选</td>
-        <td>可选</td>
-        <td>课已排满</td>
-        <td>可选</td>
-        <td>可选</td>
-      </tr>
-      <tr>
-        <td>第二大节</td>
-        <td>可选</td>
-        <td>课已排满</td>
-        <td>可选</td>
-        <td>可选</td>
-        <td>课已排满</td>
-        <td>可选</td>
-        <td>可选</td>
-      </tr>
-      <tr>
-        <td>第三大节</td>
-        <td>可选</td>
-        <td>课已排满</td>
-        <td>可选</td>
-        <td>可选</td>
-        <td>课已排满</td>
-        <td>可选</td>
-        <td>可选</td>
-      </tr>
-      <tr>
-        <td>第四大节</td>
-        <td>可选</td>
-        <td>课已排满</td>
-        <td>可选</td>
-        <td>可选</td>
-        <td>课已排满</td>
-        <td>可选</td>
-        <td>可选</td>
-      </tr>
-    </tbody>
-  </table> 
-  </div>
+  
+   <table id="jqGrid"></table>
+</div>
+<script src="${rc.contextPath}/js/course/arrangeCourse.js?_${date.systemTime}"></script>
 </body>
 </html>
