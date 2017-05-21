@@ -6,11 +6,11 @@ $(function () {
 			{ label: '时间', name: 'classtimeName', width: 20 },
 			{ label: '星期一', name: 'mon', width: 20, 
 				formatter: function(value, options, row){
-					debugger;
 					if(value<=0){
 						return '剩余0间教室'
 					}
-					return '<button onclick="selectClassroom('+')" class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
+					return '<button onclick=\'vm.selectClassroom("'+row.classtimeId+'","'+options.colModel.name+'")\''
+					+'class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
 					+'<br>剩余<span style="font-size: 20px">'+value+'</span>间教室'
 				}
 			}, 	
@@ -19,7 +19,8 @@ $(function () {
 					if(value<=0){
 						return '剩余0间教室'
 					}
-					return '<button class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
+					return '<button onclick=\'vm.selectClassroom("'+row.classtimeId+'","'+options.colModel.name+'")\''
+					+'class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
 					+'<br>剩余<span style="font-size: 20px">'+value+'</span>间教室'
 				}
 			}, 	
@@ -28,7 +29,8 @@ $(function () {
 					if(value<=0){
 						return '剩余0间教室'
 					}
-					return '<button class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
+					return '<button onclick=\'vm.selectClassroom("'+row.classtimeId+'","'+options.colModel.name+'")\''
+					+'class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
 					+'<br>剩余<span style="font-size: 20px">'+value+'</span>间教室'
 				}
 			}, 	
@@ -37,7 +39,8 @@ $(function () {
 					if(value<=0){
 						return '剩余0间教室'
 					}
-					return '<button class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
+					return '<button onclick=\'vm.selectClassroom("'+row.classtimeId+'","'+options.colModel.name+'")\''
+					+'class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
 					+'<br>剩余<span style="font-size: 20px">'+value+'</span>间教室'
 				}
 			}, 	
@@ -46,7 +49,8 @@ $(function () {
 					if(value<=0){
 						return '剩余0间教室'
 					}
-					return '<button class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
+					return '<button onclick=\'vm.selectClassroom("'+row.classtimeId+'","'+options.colModel.name+'")\''
+					+'class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
 					+'<br>剩余<span style="font-size: 20px">'+value+'</span>间教室'
 				}
 			}, 	
@@ -55,7 +59,8 @@ $(function () {
 					if(value<=0){
 						return '剩余0间教室'
 					}
-					return '<button class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
+					return '<button onclick=\'vm.selectClassroom("'+row.classtimeId+'","'+options.colModel.name+'")\''
+					+'class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
 					+'<br>剩余<span style="font-size: 20px">'+value+'</span>间教室'
 				}
 			}, 	
@@ -64,7 +69,9 @@ $(function () {
 					if(value<=0){
 						return '剩余0间教室'
 					}
-					return '<a href="#" onclick="quitCourse('+options.rowId+')">剩余'+value+'间教室</a>'
+					return '<button onclick=\'vm.selectClassroom("'+row.classtimeId+'","'+options.colModel.name+'")\''
+					+'class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
+					+'<br>剩余<span style="font-size: 20px">'+value+'</span>间教室'
 				}
 			}	
 		], 
@@ -94,71 +101,13 @@ var vm = new Vue({
 	data:{
 		showList: true,
 		title: null,
-		arrClass: {}
+		arrClass: {},
+		weekId:'',
+		classtimeId:''
 	},
 	methods: {
 		query: function () {
 			vm.reload();
-		},
-		add: function(){
-			vm.showList = false;
-			vm.title = "新增";
-			vm.arrClass = {};
-		},
-		update: function (event) {
-			var arrClassId = getSelectedRow();
-			if(arrClassId == null){
-				return ;
-			}
-			vm.showList = false;
-            vm.title = "修改";
-            
-            vm.getInfo(arrClassId)
-		},
-		saveOrUpdate: function (event) {
-			var url = vm.arrClass.arrClassId == null ? "../arrclass/save" : "../arrclass/update";
-			$.ajax({
-				type: "POST",
-			    url: url,
-			    data: JSON.stringify(vm.arrClass),
-			    success: function(r){
-			    	if(r.code === 0){
-						alert('操作成功', function(index){
-							vm.reload();
-						});
-					}else{
-						alert(r.msg);
-					}
-				}
-			});
-		},
-		del: function (event) {
-			var arrClassIds = getSelectedRows();
-			if(arrClassIds == null){
-				return ;
-			}
-			
-			confirm('确定要删除选中的记录？', function(){
-				$.ajax({
-					type: "POST",
-				    url: "../arrclass/delete",
-				    data: JSON.stringify(arrClassIds),
-				    success: function(r){
-						if(r.code == 0){
-							alert('操作成功', function(index){
-								$("#jqGrid").trigger("reloadGrid");
-							});
-						}else{
-							alert(r.msg);
-						}
-					}
-				});
-			});
-		},
-		getInfo: function(arrClassId){
-			$.get("../arrclass/info/"+arrClassId, function(r){
-                vm.arrClass = r.arrClass;
-            });
 		},
 		reload: function (event) {
 			vm.showList = true;
@@ -167,11 +116,45 @@ var vm = new Vue({
                 page:page
             }).trigger("reloadGrid");
 		},
+		selectClassroom: function(classtimeId,weekday){
+			vm.toFormdata(weekday);
+			vm.classtimeId=classtimeId;
+			debugger;
+			layer.open({
+			  type: 2,
+			  title: '请选择排课教室',
+			  maxmin: true,
+			  shadeClose: true, //点击遮罩关闭层
+			  area : ['400px' , '400px'],
+			  content: '../course/arrRoom.html'
+			 });
 
+		},
+		toFormdata:function(weekday){
+			switch(weekday){
+				case 'mon':
+					vm.weekId=1
+					break;
+				case 'tues':
+					vm.weekId=2
+					break;
+				case 'wed':
+					vm.weekId=3
+					break;
+				case 'thur':
+					vm.weekId=4
+					break;
+				case 'fri':
+					vm.weekId=5
+					break;
+				case 'sat':
+					vm.weekId=6
+					break;
+				case 'sun':
+					vm.weekId=7
+					break;
+			}
+		}
 	}
 });
 
-var selectClassroom = function(classtimeName,weekday){
-	debugger;
-
-}
