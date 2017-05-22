@@ -27,4 +27,6 @@ public interface ClassroomService {
 	void delete(Integer classroomId);
 	
 	void deleteBatch(Integer[] classroomIds);
+	
+	List<ClassroomEntity> queryCanArr(Map<String, Object> map);
 }

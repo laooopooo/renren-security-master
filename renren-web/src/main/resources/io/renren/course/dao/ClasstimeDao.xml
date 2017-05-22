@@ -39,14 +39,14 @@
 	<insert id="save" parameterType="io.renren.course.entity.ClasstimeEntity" useGeneratedKeys="true" keyProperty="classtimeId">
 		insert into c_classtime
 		(
-			`class_order`, 
+			`classtime_name`, 
 			`start_time`, 
 			`end_time`, 
 			`tenant_id`
 		)
 		values
 		(
-			#{classOrder}, 
+			#{classtimeName}, 
 			#{startTime}, 
 			#{endTime}, 
 			#{tenantId}
@@ -56,7 +56,7 @@
 	<update id="update" parameterType="io.renren.course.entity.ClasstimeEntity">
 		update c_classtime 
 		<set>
-			<if test="classOrder != null">`class_order` = #{classOrder}, </if>
+			<if test="classtimeName != null">`classtime_name` = #{classtimeName}, </if>
 			<if test="startTime != null">`start_time` = #{startTime}, </if>
 			<if test="endTime != null">`end_time` = #{endTime} </if>
 		</set>

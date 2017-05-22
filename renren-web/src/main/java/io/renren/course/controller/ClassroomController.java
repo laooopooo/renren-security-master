@@ -99,4 +99,19 @@ public class ClassroomController extends AbstractController{
 		return R.ok();
 	}
 	
+	/**
+	 * 查看能够排课的教室
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping("/canarr")
+	@RequiresPermissions("classroom:list")
+	public R canarr(@RequestParam Map<String, Object> params){
+		if(getUserId() != Constant.SUPER_ADMIN){
+			params.put("tenantId", getTenantId());
+		}
+		List<ClassroomEntity> classroomList = classroomService.queryCanArr(params);
+		return R.ok().put("page", classroomList);
+	}
+	
 }

@@ -20,7 +20,7 @@ public class ClasstimeEntity implements Serializable {
 	
 	private Integer classtimeId;
 	
-	private String classOrder;
+	private String classtimeName;
 	
 	@JSONField (format="HH:mm")
 	private Date startTime;
@@ -56,22 +56,13 @@ public class ClasstimeEntity implements Serializable {
 	public Integer getClasstimeId() {
 		return classtimeId;
 	}
-	/**
-	 * 设置：
-	 */
-	public void setClassOrder(String classOrder) {
-		this.classOrder = classOrder;
-	}
-	/**
-	 * 获取：
-	 */
-	public String getClassOrder() {
-		return classOrder;
-	}
 
-	/**
-	 * 设置：
-	 */
+	public String getClasstimeName() {
+		return classtimeName;
+	}
+	public void setClasstimeName(String classtimeName) {
+		this.classtimeName = classtimeName;
+	}
 	public void setTenantId(Integer tenantId) {
 		this.tenantId = tenantId;
 	}

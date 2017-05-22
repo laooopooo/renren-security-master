@@ -54,5 +54,10 @@ public class ClassroomServiceImpl implements ClassroomService {
 	public void deleteBatch(Integer[] classroomIds){
 		classroomDao.deleteBatch(classroomIds);
 	}
+
+	@Override
+	public List<ClassroomEntity> queryCanArr(Map<String, Object> map) {
+		return classroomDao.queryCanArr(map);
+	}
 	
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.renren.controllers.AbstractController;
 import io.renren.course.entity.ArrClassEntity;
+import io.renren.course.entity.CourseTableFormatEntity;
 import io.renren.course.service.ArrClassService;
 import io.renren.utils.PageUtils;
 import io.renren.utils.Query;
@@ -107,6 +108,17 @@ public class ArrClassController extends AbstractController{
 		List<ArrClassEntity> arrClassEntitys = arrClassService.selectAllWeek(getTenantId());
 		
 		return R.ok().put("arrClass", arrClassEntitys);
+	}
+	
+	@RequestMapping("/teachercourse")
+	@RequiresPermissions("teacher:list")
+	@ResponseBody
+	public R teachercourse(@RequestParam Map<String, Object> params){
+		//查询列表数据
+		
+		List<CourseTableFormatEntity> courseTables = arrClassService.queryTeacherCourse(params);
+		
+		return R.ok().put("page", courseTables);
 	}
 	
 }

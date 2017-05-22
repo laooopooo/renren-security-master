@@ -1,81 +1,63 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '../arrclass/allweek',
+        url: '../arrclass/teachercourse?teacherId='+parent.vm.teacherId,
         datatype: "json",
         colModel: [			
-			{ label: '时间', name: 'classtimeName', width: 20 ,
-				formatter: function(value, options, row){
-					return row.classtimeName+'<br>('+row.startTime+'~'+row.endTime+')'
-				}
-			},
+			{ label: '时间', name: 'classtimeName', width: 20 },
 			{ label: '星期一', name: 'mon', width: 20, 
 				formatter: function(value, options, row){
-					if(value<=0){
-						return '剩余0间教室'
+					if(value.courseName==null){
+						return "";
 					}
-					return '<button onclick=\'vm.selectClassroom("'+row.classtimeId+'","'+options.colModel.name+'")\''
-					+'class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
-					+'<br>剩余<span style="font-size: 20px">'+value+'</span>间教室'
+					return value.courseName;
 				}
 			}, 	
 			{ label: '星期二', name: 'tues', width: 20 ,
 				formatter: function(value, options, row){
-					if(value<=0){
-						return '剩余0间教室'
+					if(value.courseName==null){
+						return "";
 					}
-					return '<button onclick=\'vm.selectClassroom("'+row.classtimeId+'","'+options.colModel.name+'")\''
-					+'class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
-					+'<br>剩余<span style="font-size: 20px">'+value+'</span>间教室'
+					return value.courseName;
 				}
 			}, 	
 			{ label: '星期三', name: 'wed', width: 20 ,
 				formatter: function(value, options, row){
-					if(value<=0){
-						return '剩余0间教室'
+					if(value.courseName==null){
+						return "";
 					}
-					return '<button onclick=\'vm.selectClassroom("'+row.classtimeId+'","'+options.colModel.name+'")\''
-					+'class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
-					+'<br>剩余<span style="font-size: 20px">'+value+'</span>间教室'
+					return value.courseName;
 				}
 			}, 	
 			{ label: '星期四', name: 'thur', width: 20 ,
 				formatter: function(value, options, row){
-					if(value<=0){
-						return '剩余0间教室'
+					if(value.courseName==null){
+						return "";
 					}
-					return '<button onclick=\'vm.selectClassroom("'+row.classtimeId+'","'+options.colModel.name+'")\''
-					+'class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
-					+'<br>剩余<span style="font-size: 20px">'+value+'</span>间教室'
+					return value.courseName;
 				}
 			}, 	
 			{ label: '星期五', name: 'fri', width: 20 ,
 				formatter: function(value, options, row){
-					if(value<=0){
-						return '剩余0间教室'
+					if(value.courseName==null){
+						return "";
 					}
-					return '<button onclick=\'vm.selectClassroom("'+row.classtimeId+'","'+options.colModel.name+'")\''
-					+'class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
-					+'<br>剩余<span style="font-size: 20px">'+value+'</span>间教室'
+					return value.courseName;
 				}
 			}, 	
 			{ label: '星期六', name: 'sat', width: 20 ,
 				formatter: function(value, options, row){
-					if(value<=0){
-						return '剩余0间教室'
+					if(value.courseName==null){
+						return "";
 					}
-					return '<button onclick=\'vm.selectClassroom("'+row.classtimeId+'","'+options.colModel.name+'")\''
-					+'class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
-					+'<br>剩余<span style="font-size: 20px">'+value+'</span>间教室'
+					return value.courseName;
 				}
 			}, 	
 			{ label: '星期日', name: 'sun', width: 20 ,
 				formatter: function(value, options, row){
-					if(value<=0){
-						return '剩余0间教室'
+					if(value.courseName==null){
+						return "";
 					}
-					return '<button onclick=\'vm.selectClassroom("'+row.classtimeId+'","'+options.colModel.name+'")\''
-					+'class="layui-btn layui-btn-radius layui-btn-small">选择教室</button>'
-					+'<br>剩余<span style="font-size: 20px">'+value+'</span>间教室'
+					return value.courseName;
 				}
 			}	
 		], 
@@ -86,7 +68,7 @@ $(function () {
         rownumbers: true, 
         rownumWidth: 25, 
         jsonReader : {
-        	root: "arrClass"
+        	root: "page"
         },
         prmNames : {
             page:"page", 

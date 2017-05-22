@@ -86,5 +86,28 @@
 		RIGHT JOIN weeks w on w.week_id=t.week_id
 		ORDER BY week_id ASC
 	</select>
+	
+	<select id="queryTeacherCourse" resultType="io.renren.course.entity.CourseTableEntity">
+		SELECT t.course_name as courseName,
+		weeks.week_id as weekId
+		from 
+		(SELECT course.course_name,arr.week_id from c_arr_class arr
+		JOIN c_course course ON course.course_id=arr.course_id
+		JOIN pl_teacher teacher on teacher.teacher_id = course.teacher_id
+		<where>
+			<if test="tenantId != null">
+				and arr.tenant_id=#{tenantId}
+			</if>
+			<if test="teacherId != null">
+				and teacher.teacher_id = #{teacherId}
+			</if>
+			<if test="classtimeId !=null">
+				and arr.classtime_id = #{classtimeId}
+			</if>
+				and course.status != 2
+		</where>
+		) t
+		RIGHT JOIN weeks ON weeks.week_id=t.week_id
+	</select>
 
 </mapper>

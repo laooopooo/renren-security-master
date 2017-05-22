@@ -10,7 +10,9 @@ public class RemainRoomEntity implements Serializable {
 	private static final long serialVersionUID = 213325728363206263L;
 	
 	private Integer weekId;
+	
 	private Integer remainNumber;
+	
 	public Integer getWeekId() {
 		return weekId;
 	}

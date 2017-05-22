@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.renren.course.entity.ArrClassEntity;
+import io.renren.course.entity.CourseTableFormatEntity;
 
 /**
  * 
@@ -29,4 +30,7 @@ public interface ArrClassService {
 	void deleteBatch(Integer[] arrClassIds);
 	
 	List<ArrClassEntity> selectAllWeek(int tenantId);
+	
+	List<CourseTableFormatEntity> queryTeacherCourse(Map<String, Object> map);
+	
 }
