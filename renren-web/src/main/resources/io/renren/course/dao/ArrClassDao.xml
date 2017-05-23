@@ -98,11 +98,17 @@
 			<if test="tenantId != null">
 				and arr.tenant_id=#{tenantId}
 			</if>
+			<if test="quarter != null">
+				and course.quarter=#{quarter}
+			</if>
+			<if test="year != null">
+				and course.year=#{year}
+			</if>
 			<if test="quarter!=null">
-				course.quarter=#{quarter}
+				and course.quarter=#{quarter}
 			</if>
 			<if test="year!=null">
-				course.year=#{year}
+				and course.year=#{year}
 			</if>
 			<if test="teacherId != null">
 				and teacher.teacher_id = #{teacherId}
