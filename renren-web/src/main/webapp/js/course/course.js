@@ -8,8 +8,25 @@ $(function () {
 			{ label: '老师', name: 'teacherName', index: 'teacher_id', width: 80 }, 			
 			{ label: '总课次', name: 'courseTime', index: 'course_time', width: 60 },
 			{ label: '已上课次', name: 'expendTime', index: 'expend_time', width: 60 },
-			{ label: '开课日期', name: 'startDate', index: 'start_date', width: 80 }, 			
-			{ label: '结课日期', name: 'endDate', index: 'end_date', width: 80 },
+			{ label: '年份', name: 'year', index: 'year', width: 80 },
+			{ label: '季度', name: 'quarter', index: 'quarter', width: 80,
+				formatter: function(value, options, row){
+					switch(value){
+						case 1:
+							return "春季"
+							break;
+						case 2:
+							return "暑假"
+							break;
+						case 3:
+							return "秋季"
+							break;
+						case 4:
+							return "寒假"
+							break;
+					}
+				}
+			},
 			{ label: '价格', name: 'originalPrice', index: 'original_price', width: 60 ,
 				formatter: function(value, options, row){
 					return '¥'+value}

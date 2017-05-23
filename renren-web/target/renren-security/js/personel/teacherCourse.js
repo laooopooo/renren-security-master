@@ -3,7 +3,11 @@ $(function () {
         url: '../arrclass/teachercourse?teacherId='+parent.vm.teacherId,
         datatype: "json",
         colModel: [			
-			{ label: '时间', name: 'classtimeName', width: 20 },
+			{ label: '时间', name: 'classtimeName', width: 20 ,
+				formatter: function(value, options, row){
+					return row.classtimeName+'<br>('+row.startTime+'~'+row.endTime+')'
+				}	
+			},
 			{ label: '星期一', name: 'mon', width: 20, 
 				formatter: function(value, options, row){
 					if(value.courseName==null){
@@ -85,20 +89,33 @@ $(function () {
 var vm = new Vue({
 	el:'#rrapp',
 	data:{
-		showList: true,
 		title: null,
 		arrClass: {},
 		weekId:'',
-		classtimeId:''
+		classtimeId:'',
+		years:[],
+		q:{
+            year:'',
+            quarter:''
+        },
+        finQuarterDatas:[
+ 			{name:'春季',value:'1'},
+ 			{name:'暑假',value:'2'},
+ 			{name:'秋季',value:'3'},
+ 			{name:'寒假',value:'4'}
+ 		]
 	},
 	methods: {
 		query: function () {
 			vm.reload();
 		},
 		reload: function (event) {
-			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
-			$("#jqGrid").jqGrid('setGridParam',{ 
+			$("#jqGrid").jqGrid('setGridParam',{
+				postData:{
+					'year':vm.q.year,
+					'quarter':vm.q.quarter
+				},
                 page:page
             }).trigger("reloadGrid");
 		},
@@ -119,28 +136,45 @@ var vm = new Vue({
 		toFormdata:function(weekday){
 			switch(weekday){
 				case 'mon':
-					vm.weekId=1
+					vm.weekId=1;
 					break;
 				case 'tues':
-					vm.weekId=2
+					vm.weekId=2;
 					break;
 				case 'wed':
-					vm.weekId=3
+					vm.weekId=3;
 					break;
 				case 'thur':
-					vm.weekId=4
+					vm.weekId=4;
 					break;
 				case 'fri':
-					vm.weekId=5
+					vm.weekId=5;
 					break;
 				case 'sat':
-					vm.weekId=6
+					vm.weekId=6;
 					break;
 				case 'sun':
-					vm.weekId=7
+					vm.weekId=7;
 					break;
 			}
 		}
 	}
 });
 
+window.onload=function(){ 
+	//设置年份的选择 
+    var myDate= new Date();
+	//初始化年和季度
+	debugger;
+	vm.q.year=myDate.getFullYear();
+	vm.q.quarter=1;
+    var startYear=myDate.getFullYear()-5;//起始年份 
+    var endYear=myDate.getFullYear()+3;//结束年份 
+    for(var i=0;i<9;i++){
+        //debugger;
+        var tempobj=new Object();
+        tempobj.name=startYear+i;
+        tempobj.value=startYear+i
+        vm._data.years.push(tempobj);
+    }
+}

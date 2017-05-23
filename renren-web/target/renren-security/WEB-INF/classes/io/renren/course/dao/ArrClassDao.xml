@@ -74,7 +74,14 @@
 		(SELECT arr.week_id,(SELECT COUNT(0) from c_classroom)-COUNT(arr.classroom_id) as `remainNumber`
 		from c_arr_class arr
 		right JOIN c_classtime time on arr.classtime_id = time.classtime_id
+		right JOIN c_course course on course.course_id= arr.course_id
 		<where>
+			<if test="quarter != null and quarter.trim() != ''">
+				and course.quarter =#{quarter}
+			</if>
+			<if test="year != null and year.trim() != ''">
+				and course.year =#{year}
+			</if>
 			<if test="classtimeId!=null">
 				and arr.classtime_id=#{classtimeId}
 			</if>
@@ -98,6 +105,18 @@
 			<if test="tenantId != null">
 				and arr.tenant_id=#{tenantId}
 			</if>
+			<if test="quarter != null">
+				and course.quarter=#{quarter}
+			</if>
+			<if test="year != null">
+				and course.year=#{year}
+			</if>
+			<if test="quarter!=null">
+				and course.quarter=#{quarter}
+			</if>
+			<if test="year!=null">
+				and course.year=#{year}
+			</if>
 			<if test="teacherId != null">
 				and teacher.teacher_id = #{teacherId}
 			</if>
@@ -108,6 +127,7 @@
 		</where>
 		) t
 		RIGHT JOIN weeks ON weeks.week_id=t.week_id
+		ORDER BY weeks.week_id ASC
 	</select>
 
 </mapper>

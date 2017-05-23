@@ -56,7 +56,6 @@
 			`start_date`, 
 			`end_date`,
 			`original_price`,
-			`expend_time`,
 			`year`,
 			`quarter`,
 			`tenant_id`
@@ -71,7 +70,6 @@
 			#{startDate}, 
 			#{endDate},
 			#{originalPrice},
-			#{expendTime},
 			#{year},
 			#{quarter},
 			#{tenantId}
@@ -89,6 +87,8 @@
 			<if test="expendTime != null">`expend_time` = #{expendTime}, </if>
 			<if test="startDate != null">`start_date` = #{startDate}, </if>
 			<if test="endDate != null">`end_date` = #{endDate},</if>
+			<if test="year != null">`year` = #{year},</if>
+			<if test="quarter != null">`quarter` = #{quarter},</if>
 			<if test="originalPrice != null">`original_price` = #{originalPrice}</if>
 		</set>
 		where course_id = #{courseId}

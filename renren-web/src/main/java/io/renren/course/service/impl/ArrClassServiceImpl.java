@@ -61,17 +61,14 @@ public class ArrClassServiceImpl implements ArrClassService {
 	}
 
 	@Override
-	public List<ArrClassEntity> selectAllWeek(int tenantId) {
-		Map<String, Object> map;
+	public List<ArrClassEntity> selectAllWeek(Map<String, Object> map) {
 
 		// 查找出所有的classtime，遍历classtimeId]
 		List<ClasstimeEntity> classtimes = classtimeDao.queryList();
 		List<ArrClassEntity> arrClassEntities = new ArrayList<ArrClassEntity>();
 		ArrClassEntity arrClassEntity;
 		for (int i = 0; i < classtimes.size(); i++) {
-			map = new HashMap<String, Object>();
 			map.put("classtimeId", classtimes.get(i).getClasstimeId());
-			map.put("tenantId", tenantId);
 			List<RemainRoomEntity> remainRoomEntities = arrClassDao.selectbyWeek(map);
 			// 封装
 			arrClassEntity = new ArrClassEntity();
@@ -103,7 +100,6 @@ public class ArrClassServiceImpl implements ArrClassService {
 		List<CourseTableFormatEntity> courseTableFormats = new ArrayList<CourseTableFormatEntity>();
 		
 		for (int i = 0; i < classtimes.size(); i++) {
-			
 			map.put("classtimeId", classtimes.get(i).getClasstimeId());
 			List<CourseTableEntity> courseTables = arrClassDao.queryTeacherCourse(map);
 			courseTableFormat = new CourseTableFormatEntity();

@@ -80,9 +80,16 @@
 		(SELECT room.classroom_id
 		from c_arr_class arr
 		JOIN c_classroom room on arr.classroom_id = room.classroom_id
+		right JOIN c_course course on course.course_id= arr.course_id
 		<where>
+			<if test="quarter != null">
+				and course.quarter =#{quarter}
+			</if>
+			<if test="year != null ">
+				and course.year =#{year}
+			</if>
 			<if test="tenantId != null">
-		 		and `tenant_id` = #{tenantId} 
+		 		and arr.tenant_id = #{tenantId}
 		 	</if>
 			<if test="weekId != null">
 				and arr.week_id=#{weekId}

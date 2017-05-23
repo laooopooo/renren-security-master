@@ -29,7 +29,7 @@ public interface ArrClassService {
 	
 	void deleteBatch(Integer[] arrClassIds);
 	
-	List<ArrClassEntity> selectAllWeek(int tenantId);
+	List<ArrClassEntity> selectAllWeek(Map<String, Object> map);
 	
 	List<CourseTableFormatEntity> queryTeacherCourse(Map<String, Object> map);
 	

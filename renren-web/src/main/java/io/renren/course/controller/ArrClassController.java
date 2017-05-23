@@ -1,8 +1,10 @@
 package io.renren.course.controller;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import io.renren.utils.Constant;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,6 +71,7 @@ public class ArrClassController extends AbstractController{
 	@RequestMapping("/save")
 	@RequiresPermissions("arrclass:save")
 	public R save(@RequestBody ArrClassEntity arrClass){
+		arrClass.setTenantId(getTenantId());
 		arrClassService.save(arrClass);
 		
 		return R.ok();
@@ -104,8 +107,10 @@ public class ArrClassController extends AbstractController{
 	@ResponseBody
 	public R allweek(@RequestParam Map<String, Object> params){
 		//查询列表数据
-		
-		List<ArrClassEntity> arrClassEntitys = arrClassService.selectAllWeek(getTenantId());
+		if(getUserId() != Constant.SUPER_ADMIN){
+			params.put("tenantId", getTenantId());
+		}
+		List<ArrClassEntity> arrClassEntitys = arrClassService.selectAllWeek(params);
 		
 		return R.ok().put("arrClass", arrClassEntitys);
 	}
@@ -115,7 +120,16 @@ public class ArrClassController extends AbstractController{
 	@ResponseBody
 	public R teachercourse(@RequestParam Map<String, Object> params){
 		//查询列表数据
-		
+		if(getUserId() != Constant.SUPER_ADMIN){
+			params.put("tenantId", getTenantId());
+		}
+		if (params.get("year")==null || params.get("year").equals("")){
+			Calendar now = Calendar.getInstance();
+			params.put("year", now.get(Calendar.YEAR));
+		}
+		if (params.get("quarter")==null || params.get("quarter").equals("")){
+			params.put("quarter","1");
+		}
 		List<CourseTableFormatEntity> courseTables = arrClassService.queryTeacherCourse(params);
 		
 		return R.ok().put("page", courseTables);

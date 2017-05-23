@@ -1,5 +1,6 @@
 package io.renren.course.controller;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -109,6 +110,13 @@ public class ClassroomController extends AbstractController{
 	public R canarr(@RequestParam Map<String, Object> params){
 		if(getUserId() != Constant.SUPER_ADMIN){
 			params.put("tenantId", getTenantId());
+		}
+		if (params.get("year")==null || params.get("year").equals("")){
+			Calendar now = Calendar.getInstance();
+			params.put("year", now.get(Calendar.YEAR));
+		}
+		if (params.get("quarter")==null || params.get("quarter").equals("")){
+			params.put("quarter","1");
 		}
 		List<ClassroomEntity> classroomList = classroomService.queryCanArr(params);
 		return R.ok().put("page", classroomList);

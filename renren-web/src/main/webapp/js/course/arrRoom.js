@@ -1,6 +1,7 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '../classroom/canarr?weekId='+parent.vm.weekId+"&classtimeId="+parent.vm.classtimeId,
+        url: '../classroom/canarr?weekId='+parent.vm.arrclass.weekId+"&classtimeId="+parent.vm.arrclass.classtimeId
+		+'&quarter='+parent.parent.vm.course.quarter+'&year='+parent.parent.vm.course.year,
         datatype: "json",
         colModel: [			
 			{ label: 'classroomId', name: 'classroomId', index: 'classroom_id', width: 50, key: true, hidden:true },
@@ -8,7 +9,7 @@ $(function () {
 			{ label: '教室容量', name: 'roomCapacity', index: 'room_capacity', width: 80 },
 			{ label: '操作',width:80,
 				formatter: function(value, options, row){
-					return '<a >选择</a>'
+					return '<a href="#" onclick="selectRoom('+options.rowId+')">选择</a>'
 				}
 			}	
         ],
@@ -110,3 +111,9 @@ var vm = new Vue({
 		}
 	}
 });
+
+var selectRoom = function(rowId){
+	parent.vm.arrclass.classroomId=rowId;
+	var index = parent.layer.getFrameIndex(window.name);
+	parent.layer.close(index);
+}
