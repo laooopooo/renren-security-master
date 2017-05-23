@@ -109,6 +109,8 @@ public class ArrClassServiceImpl implements ArrClassService {
 			courseTableFormat = new CourseTableFormatEntity();
 			courseTableFormat.setClasstimeId(classtimes.get(i).getClasstimeId());
 			courseTableFormat.setClasstimeName(classtimes.get(i).getClasstimeName());
+			courseTableFormat.setStartTime(classtimes.get(i).getStartTime());
+			courseTableFormat.setEndTime(classtimes.get(i).getEndTime());
 			courseTableFormat.setMon(courseTables.get(0));
 			courseTableFormat.setTues(courseTables.get(1));
 			courseTableFormat.setWed(courseTables.get(2));

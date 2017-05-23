@@ -73,5 +73,25 @@
 			#{classroomId}
 		</foreach>
 	</delete>
+	
+	<select id="queryCanArr" resultType="io.renren.course.entity.ClassroomEntity">
+		SELECT * from c_classroom room1
+		WHERE room1.classroom_id not in
+		(SELECT room.classroom_id
+		from c_arr_class arr
+		JOIN c_classroom room on arr.classroom_id = room.classroom_id
+		<where>
+			<if test="tenantId != null">
+		 		and `tenant_id` = #{tenantId} 
+		 	</if>
+			<if test="weekId != null">
+				and arr.week_id=#{weekId}
+			</if>
+			<if test="classtimeId != null">
+				and arr.classtime_id=#{classtimeId}
+			</if>
+		</where>
+		)
+	</select>
 
 </mapper>

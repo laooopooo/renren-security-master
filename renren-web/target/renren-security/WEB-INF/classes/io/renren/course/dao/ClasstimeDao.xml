@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.course.dao.ClasstimeDao">
+
+	<select id="queryObject" resultType="io.renren.course.entity.ClasstimeEntity">
+		select * from c_classtime where classtime_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.renren.course.entity.ClasstimeEntity">
+		select * from c_classtime
+		<where>
+			<if test="tenantId != null">
+		 		and `tenant_id` = #{tenantId} 
+		 	</if>
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                ORDER BY start_time ASC
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from c_classtime 
+		<where>
+			<if test="tenantId != null">
+		 		and `tenant_id` = #{tenantId} 
+		 	</if>
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="io.renren.course.entity.ClasstimeEntity" useGeneratedKeys="true" keyProperty="classtimeId">
+		insert into c_classtime
+		(
+			`classtime_name`, 
+			`start_time`, 
+			`end_time`, 
+			`tenant_id`
+		)
+		values
+		(
+			#{classtimeName}, 
+			#{startTime}, 
+			#{endTime}, 
+			#{tenantId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.renren.course.entity.ClasstimeEntity">
+		update c_classtime 
+		<set>
+			<if test="classtimeName != null">`classtime_name` = #{classtimeName}, </if>
+			<if test="startTime != null">`start_time` = #{startTime}, </if>
+			<if test="endTime != null">`end_time` = #{endTime} </if>
+		</set>
+		where classtime_id = #{classtimeId}
+	</update>
+	
+	<delete id="delete">
+		delete from c_classtime where classtime_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from c_classtime where classtime_id in 
+		<foreach item="classtimeId" collection="array" open="(" separator="," close=")">
+			#{classtimeId}
+		</foreach>
+	</delete>
+
+</mapper>

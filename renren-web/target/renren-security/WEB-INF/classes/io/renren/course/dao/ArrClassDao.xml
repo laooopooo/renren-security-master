@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.course.dao.ArrClassDao">
+
+	<select id="queryObject" resultType="io.renren.course.entity.ArrClassEntity">
+		select * from c_arr_class where arr_class_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.renren.course.entity.ArrClassEntity">
+		select * from c_arr_class
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by arr_class_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from c_arr_class 
+	</select>
+	 
+	<insert id="save" parameterType="io.renren.course.entity.ArrClassEntity" useGeneratedKeys="true" keyProperty="arrClassId">
+		insert into c_arr_class
+		(
+			`course_id`, 
+			`classtime_id`, 
+			`classroom_id`, 
+			`tenant_id`, 
+			`week_id`
+		)
+		values
+		(
+			#{courseId}, 
+			#{classtimeId}, 
+			#{classroomId}, 
+			#{tenantId}, 
+			#{weekId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.renren.course.entity.ArrClassEntity">
+		update c_arr_class 
+		<set>
+			<if test="courseId != null">`course_id` = #{courseId}, </if>
+			<if test="classtimeId != null">`classtime_id` = #{classtimeId}, </if>
+			<if test="classroomId != null">`classroom_id` = #{classroomId}, </if>
+			<if test="tenantId != null">`tenant_id` = #{tenantId}, </if>
+			<if test="weekId != null">`week_id` = #{weekId}</if>
+		</set>
+		where arr_class_id = #{arrClassId}
+	</update>
+	
+	<delete id="delete">
+		delete from c_arr_class where arr_class_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from c_arr_class where arr_class_id in 
+		<foreach item="arrClassId" collection="array" open="(" separator="," close=")">
+			#{arrClassId}
+		</foreach>
+	</delete>
+	
+	<select id="selectbyWeek" resultType="io.renren.course.entity.RemainRoomEntity">
+		SELECT w.week_id,IF(t.remainNumber IS NULL,(SELECT COUNT(0) from c_classtime),t.remainNumber ) as remainNumber 
+		from 
+		(SELECT arr.week_id,(SELECT COUNT(0) from c_classroom)-COUNT(arr.classroom_id) as `remainNumber`
+		from c_arr_class arr
+		right JOIN c_classtime time on arr.classtime_id = time.classtime_id
+		<where>
+			<if test="classtimeId!=null">
+				and arr.classtime_id=#{classtimeId}
+			</if>
+			<if test="tenantId!=null">
+				and arr.tenant_id=#{tenantId}
+			</if>
+		</where>
+		GROUP BY arr.week_id) t
+		RIGHT JOIN weeks w on w.week_id=t.week_id
+		ORDER BY week_id ASC
+	</select>
+	
+	<select id="queryTeacherCourse" resultType="io.renren.course.entity.CourseTableEntity">
+		SELECT t.course_name as courseName,
+		weeks.week_id as weekId
+		from 
+		(SELECT course.course_name,arr.week_id from c_arr_class arr
+		JOIN c_course course ON course.course_id=arr.course_id
+		JOIN pl_teacher teacher on teacher.teacher_id = course.teacher_id
+		<where>
+			<if test="tenantId != null">
+				and arr.tenant_id=#{tenantId}
+			</if>
+			<if test="teacherId != null">
+				and teacher.teacher_id = #{teacherId}
+			</if>
+			<if test="classtimeId !=null">
+				and arr.classtime_id = #{classtimeId}
+			</if>
+				and course.status != 2
+		</where>
+		) t
+		RIGHT JOIN weeks ON weeks.week_id=t.week_id
+	</select>
+
+</mapper>

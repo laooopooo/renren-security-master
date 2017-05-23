@@ -3,7 +3,11 @@ $(function () {
         url: '../arrclass/teachercourse?teacherId='+parent.vm.teacherId,
         datatype: "json",
         colModel: [			
-			{ label: '时间', name: 'classtimeName', width: 20 },
+			{ label: '时间', name: 'classtimeName', width: 20 ,
+				formatter: function(value, options, row){
+					return row.classtimeName+'<br>('+row.startTime+'~'+row.endTime+')'
+				}	
+			},
 			{ label: '星期一', name: 'mon', width: 20, 
 				formatter: function(value, options, row){
 					if(value.courseName==null){
@@ -89,7 +93,18 @@ var vm = new Vue({
 		title: null,
 		arrClass: {},
 		weekId:'',
-		classtimeId:''
+		classtimeId:'',
+		years:[],
+		q:{
+            year:'',
+            quarter:'',
+        },
+        finQuarterDatas:[
+ 			{name:'春季',value:'1'},
+ 			{name:'暑假',value:'2'},
+ 			{name:'秋季',value:'3'},
+ 			{name:'寒假',value:'4'}
+ 		]
 	},
 	methods: {
 		query: function () {
@@ -144,3 +159,16 @@ var vm = new Vue({
 	}
 });
 
+window.onload=function(){ 
+	//设置年份的选择 
+    var myDate= new Date(); 
+    var startYear=myDate.getFullYear()-5;//起始年份 
+    var endYear=myDate.getFullYear()+3;//结束年份 
+    for(var i=0;i<9;i++){
+        //debugger;
+        var tempobj=new Object();
+        tempobj.name=startYear+i;
+        tempobj.value=startYear+i
+        vm._data.years.push(tempobj);
+    }
+}

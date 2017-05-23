@@ -1,6 +1,9 @@
 package io.renren.course.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 public class CourseTableFormatEntity  implements Serializable {
 
@@ -12,6 +15,12 @@ public class CourseTableFormatEntity  implements Serializable {
 	private Integer classtimeId;
 	
 	private String classtimeName;
+	
+	@JSONField (format="HH:mm")
+	private Date startTime;
+	
+	@JSONField (format="HH:mm")
+	private Date endTime;
 	
 	private CourseTableEntity mon;
 	
@@ -26,6 +35,24 @@ public class CourseTableFormatEntity  implements Serializable {
 	private CourseTableEntity sat;
 	
 	private CourseTableEntity sun;
+	
+	
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
 
 	public Integer getClasstimeId() {
 		return classtimeId;

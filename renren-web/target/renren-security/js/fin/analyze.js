@@ -59,7 +59,7 @@ var vm = new Vue({
         q:{
             year:'',
             quarter:'',
-            payOrIncome:null,
+            payOrIncome:'0',
             typeOrRemarks:null
         }
 	},
